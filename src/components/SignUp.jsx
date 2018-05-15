@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { firebaseApp } from '../firebase';
-import '../css/SignUp.css';
+import { db } from '../firebase';
+import '../css/SignUp.css'
 
 class SignUp extends Component {
     constructor(props) {
@@ -13,84 +14,78 @@ class SignUp extends Component {
                 message: ''
             }
         }
-
+        this.user = firebaseApp.auth().currentUser;
+        this.infor = {
+            FName: '',
+            LName: '',
+            Address: '',
+            PhoneNumber: '',
+            error: {
+                message: ''
+            }
+        }
     }
 
     signUp() {
         console.log('this.state', this.state);
         const { email, password } = this.state;
+        
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => {
                 this.setState({ error })
             })
+            
 
+    }
+
+    addInfor(){
+        console.log('this.infor', this.infor);
+        const { FName, LName, Address, PhoneNumber } = this.infor;
+        var uid = firebaseApp.auth.user.uid
+            var docRef = db.collection('user');
+            var add = docRef.doc(uid).add({ FName, LName, Address, PhoneNumber });
     }
 
     render() {
         return (
             <div class="container">
-                <div class="card bg-light">
-                <div style={{ maxWidth: 250 }}>
-                        <h4 class="card-title mt-3 text-center">Create Account</h4>
-                        <p class="text-center">Get started with your free account</p>
-                        <p>
-                            <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
-                            <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-                        </p>
-                        <p class="divider-text">
-                            <span class="bg-light">OR</span>
-                        </p>
-                        <form>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                </div>
-                                <input name="" class="form-control" placeholder="Full name" type="text" />
+                <div class="col-md-6">
+                    <div class="row myborder">
+                        <h4>Sign Up Now</h4>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="email"
+                                onChange={event => this.setState({ email: event.target.value })} type="text" />                                                        </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="password"
+                                onChange={event => this.setState({ password: event.target.value })} type="password" />                                    </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="FName"
+                                onChange={event => this.setState({ FName: event.target.value })} type="text" />                                    </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="LName"
+                                onChange={event => this.setState({ LName: event.target.value })} type="text" />                                    </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="Address"
+                                onChange={event => this.setState({ Address: event.target.value })} type="text" />                                    </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone mycolor"></i></span>
+                            <input size="60" maxlength="255" class="form-control" placeholder="PhoneNumber"
+                                onChange={event => this.setState({ PhoneNumber: event.target.value })} type="text" />                                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn-u pull-left" type="submit" onClick={() => this.signUp()}>Sign Up</button>
                             </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                                </div>
-                                <input name="" class="form-control" placeholder="Email address" type="email" onChange={event => this.setState({ email: event.target.value })} />
-                            </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                                </div>
-                                <input name="" class="form-control" placeholder="Phone number" type="text" />
-                            </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-                                </div>
-                                <select class="form-control">
-                                    <option selected=""> Select membership type</option>
-                                    <option>個人 Personal</option>
-                                    <option>學校 School</option>
-                                    <option>團體 Organization</option>
-                                </select>
-                            </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                </div>
-                                <input class="form-control" placeholder="Create password" type="password" />
-                            </div>
-                            <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                </div>
-                                <input class="form-control" placeholder="Repeat password" type="password" onChange={event => this.setState({ password: event.target.value })} />
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block" onClick={() => this.signUp()}> Create Account  </button>
-                            </div>
-                            <p class="text-center">Have an account? <Link to={'/signin'}>Log In</Link> </p>
-                        </form>
-
-                </div>
+                            <div>{this.state.error.message}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         )
     }
 }
