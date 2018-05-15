@@ -68,30 +68,18 @@ class SignIn extends Component {
                                     <button type="button" class="btn btn-login float-right" ><Link to={'/signup'}>Sign Up</Link></button>
                                 </div>
                             </form>
-                            <div class="copy-text">Created for <i class="fa fa-heart"></i> HKRSF</div>
+                            <div class="copy-text">Created for <i class="fa fa-heart"></i>HKRSF</div>
                         </div>
                         <div class="col-md-8 banner-sec">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                </ol>
-                                <div class="carousel-inner" role="listbox">
-                                    <div class="carousel-item active">
-                                        <div class="carousel-caption d-none d-md-block">
-                                            <div class="banner-text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                    </div>
-</section>
-                )
-            }
-        }
-       
-       
- export default SignIn;
+                </div>
+            </section>
+        )
+    }
+}
+
+
+export default SignIn;
