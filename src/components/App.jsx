@@ -1,28 +1,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseApp } from '../firebase';
-import AddGoal from './AddGoal';
+import { Link } from 'react-router';
+import { db } from '../firebase';
+
 
 
 class App extends Component {
-    signOut(){
+    constructor(props) {
+        super(props);
+        this.user = firebaseApp.auth().currentUser;
+
+        if (this.user != null) {
+            this.uid = this.user.uid;
+           
+            this.userRef = db.collection('user').doc(toString(this.uid));
+
+            this.getDoc = this.userRef.get()
+                .then(doc => {
+                    if (!doc.exists) {
+                        var setDoc = db.collection('user').doc(toString(this.uid)).set({ userType: 'admin' });
+                    } else {
+                        console.log('Document data:', doc.data());
+                    }
+                })
+                .catch(err => {
+                    console.log('Error getting document', err);
+                });
+        }
+
+
+
+    }
+
+    signOut() {
         firebaseApp.auth().signOut();
     }
 
-    render(){
+
+
+    render() {
         return (
             <div>
                 <h3> Goals</h3>
-                <AddGoal />
+                <div>{this.uid}</div>
                 <div>Add Goals </div>
                 <div>Goal List</div>
                 <button
-                 className="btn btn-danger"
-                 onClick={() => this.signOut()}
+                    className="btn btn-danger"
+                    onClick={() => this.signOut()}
                 >
 
-                Sign Out
+                    Sign Out
                 </button>
+                <button type="button" class="btn btn-login float-right" ><Link to={'/addinfor'}>HIHI</Link></button>
             </div>
         )
     }
@@ -30,7 +61,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     console.log('state', state);
-    return{}
+    return {}
 }
 
 

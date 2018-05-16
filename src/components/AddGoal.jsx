@@ -15,7 +15,7 @@ class AddGoal extends Component {
         const { title } = this.state;
         const { email } = this.props;
         var docRef = db.collection('users');
-        var add = docRef.add({email, title});
+        docRef.add({email, title});
         
     }
 
@@ -37,6 +37,7 @@ class AddGoal extends Component {
                     >
                         Submit
                     </button>
+                    
                 </div>
             </div>
         )
