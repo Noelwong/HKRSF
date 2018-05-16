@@ -19,11 +19,12 @@ class SignUp extends Component {
     signUp() {
         console.log('this.state', this.state);
         const { email, password } = this.state;
-
+        
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => {
                 this.setState({ error })
             })
+
     }
 
 
@@ -36,13 +37,11 @@ class SignUp extends Component {
                         <div class="input-group margin-bottom-20">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
                             <input size="60" maxlength="255" class="form-control" placeholder="email"
-                                onChange={event => this.setState({ email: event.target.value })} type="text" />
-                        </div>
+                                onChange={event => this.setState({ email: event.target.value })} type="text" />                                                        </div>
                         <div class="input-group margin-bottom-20">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock mycolor"></i></span>
                             <input size="60" maxlength="255" class="form-control" placeholder="password"
-                                onChange={event => this.setState({ password: event.target.value })} type="password" />
-                        </div>
+                                onChange={event => this.setState({ password: event.target.value })} type="password" />                                    </div>                   
                         <div class="row">
                             <div class="col-md-12">
                                 <button class="btn-u pull-left" type="submit" onClick={() => this.signUp()}>Sign Up</button>
