@@ -10,6 +10,7 @@ import reducer from './reducers';
 import App from './components/App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import AddInfor from './components/AddInfor';
 
 const store = createStore(reducer);
 
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Route path="/app" component={App} />
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
+        <Route path="/addinfor" component={AddInfor} />
     </Router>
     </Provider>, document.getElementById('root')
 )
