@@ -13,13 +13,13 @@ class App extends Component {
 
         if (this.user != null) {
             this.uid = this.user.uid;
-           
-            this.userRef = db.collection('user').doc(toString(this.uid));
+            var uidInString = this.uid;
+            this.userRef = db.collection('user').doc(uidInString);
 
             this.getDoc = this.userRef.get()
                 .then(doc => {
                     if (!doc.exists) {
-                        var setDoc = db.collection('user').doc(toString(this.uid)).set({ userType: 'admin' });
+                        var setDoc = db.collection('user').doc(uidInString).set({ userType: 'admin' });
                     } else {
                         console.log('Document data:', doc.data());
                     }
