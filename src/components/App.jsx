@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { firebaseApp } from '../firebase';
+import { firebaseApp, db } from '../firebase';
 import { Link } from 'react-router';
-import { db } from '../firebase';
-
 
 
 class App extends Component {
@@ -19,12 +17,14 @@ class App extends Component {
                 // check and do something with the data here.
                 if (documentSnapshot.exists) {
                     // do something with the data
-                    var userAcc = documentSnapshot.data().userType;
-                    if (userAcc = 'admin') {
-                        var setDoc = db.collection('user').doc("ok").set({ userType: 'admin' });
+                    
+                    if (documentSnapshot.data().userType = 'Admin') {
+                        db.collection('user').doc("ok").set({ userType: 'admin' });
+                    }else if(documentSnapshot.data().userType = 'Organization'){
+
                     }
                 } else {
-                    var setDoc = userRef.set({ userType: 'admin' });
+                    userRef.set({ userType: 'admin' });
                 }
             });
 
