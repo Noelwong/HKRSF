@@ -11,6 +11,11 @@ import App from './components/App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AddInfor from './components/AddInfor';
+import AdminHome from './components/Admin/AdminHome';
+//import JudgeHome from './components/Judge/JudgeHome';
+//import OrganizationHome from './components/Organization/OrganizationHome';
+//import PersonalHome from './components/Personal/PersonalHome';
+//import SchoolHome from './components/School/SchoolHome';
 
 const store = createStore(reducer);
 
@@ -33,6 +38,8 @@ ReactDOM.render(
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         <Route path="/addinfor" component={AddInfor} />
+        <Route path="/AdminHome" component={AdminHome} />
+        
     </Router>
     </Provider>, document.getElementById('root')
 )

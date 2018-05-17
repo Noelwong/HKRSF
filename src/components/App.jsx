@@ -14,19 +14,22 @@ class App extends Component {
         if (this.user != null) {
             this.uid = this.user.uid;
             var uidInString = this.uid;
-            this.userRef = db.collection('user').doc(uidInString);
+            var userRef = db.collection('user').doc(uidInString);
 
-            this.getDoc = this.userRef.get()
-                .then(doc => {
-                    if (!doc.exists) {
-                        var setDoc = db.collection('user').doc(uidInString).set({ userType: 'admin' });
-                    } else {
-                        console.log('Document data:', doc.data());
+            userRef.get().then(function(documentSnapshot) {
+                // check and do something with the data here.
+                if (documentSnapshot.exists) {
+                    // do something with the data
+                    var userAcc = userRef.doc.data().userType;
+                    if(userAcc = 'admin'){
+                        var setDoc = db.collection('user').doc("ok").set({ userType: 'admin' });
                     }
-                })
-                .catch(err => {
-                    console.log('Error getting document', err);
-                });
+                  } else {
+                    var setDoc = userRef.set({ userType: 'admin' });
+                  }
+              });
+
+
         }
 
 
@@ -36,8 +39,6 @@ class App extends Component {
     signOut() {
         firebaseApp.auth().signOut();
     }
-
-
 
     render() {
         return (
@@ -57,6 +58,8 @@ class App extends Component {
             </div>
         )
     }
+
+    
 }
 
 function mapStateToProps(state) {
