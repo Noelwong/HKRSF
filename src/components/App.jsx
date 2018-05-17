@@ -10,30 +10,26 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.user = firebaseApp.auth().currentUser;
-
         if (this.user != null) {
             this.uid = this.user.uid;
             var uidInString = this.uid;
             var userRef = db.collection('user').doc(uidInString);
 
-            userRef.get().then(function(documentSnapshot) {
+            userRef.get().then(function (documentSnapshot) {
                 // check and do something with the data here.
                 if (documentSnapshot.exists) {
                     // do something with the data
-                    var userAcc = userRef.doc.data().userType;
-                    if(userAcc = 'admin'){
+                    var userAcc = documentSnapshot.data().userType;
+                    if (userAcc = 'admin') {
                         var setDoc = db.collection('user').doc("ok").set({ userType: 'admin' });
                     }
-                  } else {
+                } else {
                     var setDoc = userRef.set({ userType: 'admin' });
-                  }
-              });
+                }
+            });
 
 
         }
-
-
-
     }
 
     signOut() {
@@ -41,6 +37,7 @@ class App extends Component {
     }
 
     render() {
+        
         return (
             <div>
                 <h3> Goals</h3>
@@ -59,7 +56,7 @@ class App extends Component {
         )
     }
 
-    
+
 }
 
 function mapStateToProps(state) {
