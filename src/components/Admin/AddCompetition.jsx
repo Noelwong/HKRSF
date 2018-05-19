@@ -6,8 +6,21 @@ import { Link } from 'react-router';
 class AddCompetition extends Component {
     constructor(props){
         super(props);
-        
+        this.competitionInfor= {
+            competitionName: '',
+            date: '',
+            time: '',
+            location: '',
+            error: {
+                message: ''
+            }
+        }
     }
+
+    addCompetition(){
+
+    }
+
     render(){
         return (
             <div>
