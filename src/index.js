@@ -12,6 +12,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AddInfor from './components/AddInfor';
 import AdminHome from './components/Admin/AdminHome';
+import AddCompetition from './components/Admin/AddCompetition';
 //import JudgeHome from './components/Judge/JudgeHome';
 //import OrganizationHome from './components/Organization/OrganizationHome';
 //import PersonalHome from './components/Personal/PersonalHome';
@@ -39,7 +40,8 @@ ReactDOM.render(
         <Route path="/signin" component={SignIn} />
         <Route path="/addinfor" component={AddInfor} />
         <Route path="/AdminHome" component={AdminHome} />
-        
+
+        <Route path="/AddCompetition" component={AddCompetition} />
     </Router>
     </Provider>, document.getElementById('root')
 )

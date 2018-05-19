@@ -10,10 +10,12 @@ class App extends Component {
         this.user = firebaseApp.auth().currentUser;
         if (this.user != null) {
             this.uid = this.user.uid;
+
             var uidInString = this.uid;
             var userRef = db.collection('user').doc(uidInString);
 
             userRef.get().then(function (documentSnapshot) {
+                
                 // check and do something with the data here.
                 if (documentSnapshot.exists) {
                     // do something with the data
@@ -27,8 +29,6 @@ class App extends Component {
                     userRef.set({ userType: 'admin' });
                 }
             });
-
-
         }
     }
 
@@ -42,6 +42,7 @@ class App extends Component {
             <div>
                 <h3> Goals</h3>
                 <div>{this.uid}</div>
+                <div>{this.userState}</div>
                 <div>Add Goals </div>
                 <div>Goal List</div>
                 <button
@@ -51,13 +52,15 @@ class App extends Component {
 
                     Sign Out
                 </button>
-                <button type="button" class="btn btn-login float-right" ><Link to={'/addinfor'}>HIHI</Link></button>
+                <button type="button" class="btn btn-login float-right" ><Link to={'/AddCompetition'}>HIHI</Link></button>
             </div>
         )
     }
 
 
 }
+
+
 
 function mapStateToProps(state) {
     console.log('state', state);
