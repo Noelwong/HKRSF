@@ -22,6 +22,7 @@ class App extends Component {
         if (user != null) {
 
             const uid = this.user.uid;
+
             const uidInString = uid;
             const userRef = db.collection('user').doc(uidInString);
            
@@ -32,17 +33,12 @@ class App extends Component {
                     // do something with the data
 
                     if (documentSnapshot.data().userType === 'admin') {
-                        this.setState({userType: 'admin', jumppath: '/AdminHome'});
+                        this.setState({userType: 'admin', jumppath: '/AdminHome', uid: uidInString });
 
-                        //utype = 'admin';
-                         //console.log(utype);
-                        //jumppath = '/AdminHome';
                     }
                     else if(documentSnapshot.data().userType === 'Organization'){
                         console.log(uid);
-                        this.setState({userType: 'Organization', jumppath: '/AddCompetition'});
-                        //utype ='Organization';
-                        //jumppath = '/AddCompetition';
+                        this.setState({userType: 'Organization', jumppath: '/AddCompetition', uid: uidInString });
 
                     }
                 }
@@ -64,7 +60,7 @@ class App extends Component {
         return (
             <div>
                 <h3> Goals</h3>
-                <div>Uid : {this.user.uid}</div>
+                <div>Uid : { this.state.uid }</div>
                 <div>User type :{this.state.userType}</div>
                 <div>Add Goals </div>
                 <div>Goal List</div>
