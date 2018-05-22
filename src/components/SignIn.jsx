@@ -62,7 +62,7 @@ class SignIn extends Component {
 
 
                                 <div class="form-check">
-                                    <button type="button" class="btn btn-login float-right" onClick={() => this.signIn()}>Submit</button>
+                                    <button type="button" class="btn btn-login float-right" onClick={() => this.signIn()}>Log-In</button>
                                     <p></p>
                                     <div>{this.state.error.message}</div>
                                     <Link to={'/signup'}><button type="button" class="btn btn-login float-right" >Sign Up</button></Link>
