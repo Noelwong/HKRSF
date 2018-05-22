@@ -15,6 +15,7 @@ class AddInfor extends Component {
         return (
             <div>
                 <select id = "typeselect" onChange= {this.changepage} >
+                    <option value ="">please select</option>
                     <option value ="Personal">個人Personal</option>
                     <option value="School">學校School</option>
                     <option value="Organization">組織Organization</option>
