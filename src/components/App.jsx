@@ -32,14 +32,17 @@ class App extends Component {
                 if (documentSnapshot.exists) {
                     // do something with the data
 
-                    if (documentSnapshot.data().userType === 'admin') {
-                        this.setState({userType: 'admin', jumppath: '/AdminHome', uid: uidInString });
-
+                    if (documentSnapshot.data().userType === 'Admin') {
+                        this.setState({userType: 'Admin', jumppath: '/AdminHome', uid: uidInString });
                     }
                     else if(documentSnapshot.data().userType === 'Organization'){
-                        console.log(uid);
                         this.setState({userType: 'Organization', jumppath: '/AddCompetition', uid: uidInString });
-
+                    }else if(documentSnapshot.data().userType === 'Judge'){
+                        this.setState({userType: 'Judge', jumppath: '/AddCompetition', uid: uidInString });
+                    }else if(documentSnapshot.data().userType === 'Personal'){
+                        this.setState({userType: 'Personal', jumppath: '/AddCompetition', uid: uidInString });
+                    }else if(documentSnapshot.data().userType === 'Organization'){
+                        this.setState({userType: 'School', jumppath: '/AddCompetition', uid: uidInString });
                     }
                 }
                 else
