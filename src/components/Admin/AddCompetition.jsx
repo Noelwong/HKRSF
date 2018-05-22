@@ -15,10 +15,16 @@ class AddCompetition extends Component {
                 message: ''
             }
         }
+        
     }
 
-    addCompetition(){
-
+    addCompetition(competitionInfor){
+        db.collection("competition").doc().set({
+            name: this.competitionInfor.competitionName,
+            date: this.competitionInfor.date,
+            time: this.competitionInfor.time,
+            location: this.competitionInfor.location
+        })
     }
 
     render(){
@@ -27,24 +33,30 @@ class AddCompetition extends Component {
                 <form>
             Competition name:<br></br>
             比賽名稱:<br></br>
-            <input type="text" name="competitionName" />
+            <input type="text" name="competitionName" onChange={event => this.setState({ competitionName: event.target.value })} />
             <br></br>
             Date:<br></br>
             日期:<br></br>
-            <input type="text" name="date" />
+            <input type="text" name="date" onChange={event => this.setState({ date: event.target.value })}/>
             <br></br>
             Time:<br></br>
             時間:<br></br>
-            <input type="text" name="time" />
+            <input type="text" name="time" onChange={event => this.setState({ time: event.target.value })}/>
             <br></br>
             Location:<br></br>
             地點:<br></br>
-            <input type="text" name="location" />
-
-            
+            <input type="text" name="location" onChange={event => this.setState({ location: event.target.value })}/>
           </form>
+          <button
+                        className="btn btn-success"
+                        type="button"
+                        onClick={() => this.addCompetition(this.competitionInfor)}
+                    >
+                        Submit
+                    </button>
           </div>
         )
+                
     }
     
 }

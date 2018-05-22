@@ -15,10 +15,10 @@ class App extends Component {
         };
         
         this.user = firebaseApp.auth().currentUser;
-        this.rowIdentifier(this.user);
+        this.roleIdentifier(this.user);
     }
 
-    rowIdentifier = (user) => {
+    roleIdentifier = (user) => {
         if (user != null) {
 
             const uid = this.user.uid;
