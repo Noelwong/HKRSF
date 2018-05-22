@@ -74,9 +74,11 @@ class App extends Component {
                     Sign Out
                 </button>
 
-                <button type="button" class="btn btn-login float-right" >
-                    <Link to={this.state.jumppath}>HIHI</Link>
-                </button>
+                <Link to={this.state.jumppath}>
+                    <button type="button" class="btn btn-login float-right" >
+                        HIHI
+                    </button>
+                </Link>
             </div>
         )
     }

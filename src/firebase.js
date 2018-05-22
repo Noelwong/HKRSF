@@ -13,4 +13,3 @@ import '@firebase/firestore'
 
 export const firebaseApp = firebase.initializeApp(config);
 export const db = firebase.firestore();
-//export const goalRef = firebase.database().ref('goals');
