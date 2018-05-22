@@ -34,20 +34,19 @@ class App extends Component {
 
                     if (documentSnapshot.data().userType === 'Admin') {
                         this.setState({userType: 'Admin', jumppath: '/AdminHome', uid: uidInString });
-                    }
-                    else if(documentSnapshot.data().userType === 'Organization'){
-                        this.setState({userType: 'Organization', jumppath: '/AddCompetition', uid: uidInString });
-                    }else if(documentSnapshot.data().userType === 'Judge'){
-                        this.setState({userType: 'Judge', jumppath: '/AddCompetition', uid: uidInString });
-                    }else if(documentSnapshot.data().userType === 'Personal'){
-                        this.setState({userType: 'Personal', jumppath: '/AddCompetition', uid: uidInString });
                     }else if(documentSnapshot.data().userType === 'Organization'){
-                        this.setState({userType: 'School', jumppath: '/AddCompetition', uid: uidInString });
+                        this.setState({userType: 'Organization', jumppath: '/OrganizationHome', uid: uidInString });
+                    }else if(documentSnapshot.data().userType === 'Judge'){
+                        this.setState({userType: 'Judge', jumppath: '/JudgeHome', uid: uidInString });
+                    }else if(documentSnapshot.data().userType === 'Personal'){
+                        this.setState({userType: 'Personal', jumppath: '/PersonalHome', uid: uidInString });
+                    }else if(documentSnapshot.data().userType === 'School'){
+                        this.setState({userType: 'School', jumppath: '/SchoolHome', uid: uidInString });
                     }
                 }
                 else
                     {
-                    console.log('wrong');
+                    this.setState({jumppath: '/addinfor', uid: uidInString })
                 }
             });
         }
