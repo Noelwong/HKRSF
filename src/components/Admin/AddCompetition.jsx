@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { firebaseApp, db } from '/Users/user/HKRSF/src/firebase.js';
+import { firebaseApp, db } from '../../firebase';
 import { Link } from 'react-router';
 
 class AddCompetition extends Component {
