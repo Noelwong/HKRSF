@@ -14,11 +14,12 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AddInfor from './components/AddInfor';
 import AdminHome from './components/Admin/AdminHome';
+import JudgeHome from './components/Judge/JudgeHome';
+import OrganizationHome from './components/Organization/OrganizationHome';
+import PersonalHome from './components/Personal/PersonalHome';
+import SchoolHome from './components/School/SchoolHome';
+
 import AddCompetition from './components/Admin/AddCompetition';
-//import JudgeHome from './components/Judge/JudgeHome';
-//import OrganizationHome from './components/Organization/OrganizationHome';
-//import PersonalHome from './components/Personal/PersonalHome';
-//import SchoolHome from './components/School/SchoolHome';
 
 const store = createStore(reducer);
 
@@ -41,7 +42,12 @@ ReactDOM.render(
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         <Route path="/addinfor" component={AddInfor} />
+
         <Route path="/AdminHome" component={AdminHome} />
+        <Route path="/OrganizationHome" component={OrganizationHome} />
+        <Route path="/JudgeHome" component={JudgeHome} />
+        <Route path="/PersonalHome" component={PersonalHome} />
+        <Route path="/SchoolHome" component={SchoolHome} />
 
         <Route path="/AddCompetition" component={AddCompetition} />
     </Router>
