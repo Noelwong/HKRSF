@@ -36,6 +36,7 @@ class AddCompetition extends Component {
             Time:<br></br>
             時間:<br></br>
             <input type="text" name="time" />
+            <br></br>
             Location:<br></br>
             地點:<br></br>
             <input type="text" name="location" />

@@ -3,56 +3,82 @@ import { connect } from 'react-redux';
 import { firebaseApp, db } from '../firebase';
 import { Link } from 'react-router';
 
-
 class App extends Component {
+
     constructor(props) {
+
         super(props);
+        this.state={
+            userType: '',
+            jumppath: '',
+            uid:''
+        };
+        
         this.user = firebaseApp.auth().currentUser;
-        if (this.user != null) {
-            this.uid = this.user.uid;
+        this.rowIdentifier(this.user);
+    }
 
-            var uidInString = this.uid;
-            var userRef = db.collection('user').doc(uidInString);
+    rowIdentifier = (user) => {
+        if (user != null) {
 
-            userRef.get().then(function (documentSnapshot) {
-                
+            const uid = this.user.uid;
+            const uidInString = uid;
+            const userRef = db.collection('user').doc(uidInString);
+           
+            userRef.get().then((documentSnapshot) => {
+
                 // check and do something with the data here.
                 if (documentSnapshot.exists) {
                     // do something with the data
-                    
-                    if (documentSnapshot.data().userType = 'Admin') {
-                        db.collection('user').doc("ok").set({ userType: 'admin' });
-                    }else if(documentSnapshot.data().userType = 'Organization'){
+
+                    if (documentSnapshot.data().userType === 'admin') {
+                        this.setState({userType: 'admin', jumppath: '/AdminHome'});
+
+                        //utype = 'admin';
+                         //console.log(utype);
+                        //jumppath = '/AdminHome';
+                    }
+                    else if(documentSnapshot.data().userType === 'Organization'){
+                        console.log(uid);
+                        this.setState({userType: 'Organization', jumppath: '/AddCompetition'});
+                        //utype ='Organization';
+                        //jumppath = '/AddCompetition';
 
                     }
-                } else {
-                    userRef.set({ userType: 'admin' });
+                }
+                else
+                    {
+                    console.log('wrong');
                 }
             });
         }
-    }
+    };
 
     signOut() {
         firebaseApp.auth().signOut();
     }
 
     render() {
-        
+
+
         return (
             <div>
                 <h3> Goals</h3>
-                <div>{this.uid}</div>
-                <div>{this.userState}</div>
+                <div>Uid : {this.user.uid}</div>
+                <div>User type :{this.state.userType}</div>
                 <div>Add Goals </div>
                 <div>Goal List</div>
+
                 <button
                     className="btn btn-danger"
                     onClick={() => this.signOut()}
                 >
-
                     Sign Out
                 </button>
-                <button type="button" class="btn btn-login float-right" ><Link to={'/AddCompetition'}>HIHI</Link></button>
+
+                <button type="button" class="btn btn-login float-right" >
+                    <Link to={this.state.jumppath}>HIHI</Link>
+                </button>
             </div>
         )
     }
