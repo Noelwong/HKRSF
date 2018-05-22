@@ -7,6 +7,8 @@ import { firebaseApp } from './firebase';
 import { logUser } from './actions';
 import reducer from './reducers';
 
+import '@firebase/firestore'
+
 import App from './components/App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
