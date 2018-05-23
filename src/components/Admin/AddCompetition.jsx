@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
 import { firebaseApp, db } from '../../firebase';
 
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 class AddCompetition extends Component {
     constructor(props) {
         super(props);
         this.competitionInfor = {
             competitionName: '',
-            date: '',
-            time: '',
+            startDate: moment(),
+            time: moment(),
             location: '',
             error: {
                 message: ''
             }
         }
+        this.handleChange = this.handleChange.bind(this);
 
     }
+    
+    handleChange(date) {
+        this.setState({
+          startDate: date,
+          time: date
+        });
+      }
 
     addCompetition(competitionInfor) {
         db.collection("competition").doc().set({
             name: this.competitionInfor.competitionName,
-            date: this.competitionInfor.date,
+            date: this.competitionInfor.startDate,
             time: this.competitionInfor.time,
             location: this.competitionInfor.location
         })
@@ -35,11 +48,22 @@ class AddCompetition extends Component {
                     <br></br>
                     Date:<br></br>
                     日期:<br></br>
-                    <input type="text" id="date" placeholder="date"  />
+                    <DatePicker
+                        selected={this.competitionInfor.startDate}
+                        onChange={this.handleChange}
+                    />
                     <br></br>
                     Time:<br></br>
                     時間:<br></br>
-                    <input type="text" id="time" placeholder="time"  />
+                    <DatePicker
+    selected={this.competitionInfor.time}
+    onChange={this.handleChange}
+    showTimeSelect
+    showTimeSelectOnly
+    timeIntervals={15}
+    dateFormat="LT"
+    timeCaption="Time"
+/>
                     <br></br>
                     Location:<br></br>
                     地點:<br></br>

@@ -76,7 +76,7 @@ class App extends Component {
 
                 <Link to={this.state.jumppath}>
                     <button type="button" class="btn btn-login float-right" >
-                        HIHI
+                        Try
                     </button>
                 </Link>
             </div>

@@ -23,9 +23,9 @@ class AddInfor extends Component {
 
                     //form for user input
                 <form id="form1" name="form1" /*style="display:none;"*/ /* ERROR will disable all the element */ >
-                    <p>  First name :<input name="name" type="text" id="name" /></p>
+                    <p>First name :<input name="name" type="text" id="name" /></p>
                     <p>Last name :<input name="address" type="text" id="address"  /></p>
-                    <p> Age: <input name="age" type="text" id="age" /></p>
+                    <p>Age: <input name="age" type="text" id="age" /></p>
                 </form>
                 <br></br>
                 <button
