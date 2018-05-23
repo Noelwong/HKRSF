@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { firebaseApp, db } from '../../firebase';
-import { Link } from 'react-router';
 
 class AddCompetition extends Component {
     constructor(props) {
@@ -54,9 +52,18 @@ class AddCompetition extends Component {
                 >
                     Submit
                     </button>
+                    <button
+                    className="btn btn-danger"
+                    onClick={() => this.signOut()}
+                >
+                    Sign Out
+                </button>
             </div>
         )
 
+    }
+    signOut() {
+        firebaseApp.auth().signOut();
     }
 
 }
