@@ -30,6 +30,7 @@ class AddCompetition extends Component {
       }
 
     addCompetition(competitionInfor) {
+        
         db.collection("competition").doc().set({
             name: this.competitionInfor.competitionName,
             startDate: new Date(this.competitionInfor.startDate),
@@ -44,7 +45,11 @@ class AddCompetition extends Component {
                 <form>
                     Competition name:<br></br>
                     比賽名稱:<br></br>
-                    <input type="text" id="competitionName" placeholder="Competition Name"   />
+                    <input type="text"
+                     id="CompetitionName" 
+                     placeholder="Competition Name"  
+                     onChange={event => this.setState({ competitionName: event.target.value })}
+                     />
                     <br></br>
                     Start Date:<br></br>
                     開始日期:<br></br>
@@ -73,7 +78,8 @@ class AddCompetition extends Component {
                     <br></br>
                     Location:<br></br>
                     地點:<br></br>
-                    <input type="text" id="location"placeholder="location"  />
+                    <input type="text" id="Location"placeholder="location"  
+                    onChange={event => this.setState({ location: event.target.value })}/>
                 </form>
                 <button
                     className="btn btn-success"
