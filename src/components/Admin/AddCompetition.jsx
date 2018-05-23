@@ -12,7 +12,7 @@ class AddCompetition extends Component {
         this.competitionInfor = {
             competitionName: '',
             startDate: moment(),
-            time: moment(),
+            endDate: moment(),
             location: '',
             error: {
                 message: ''
@@ -25,15 +25,15 @@ class AddCompetition extends Component {
     handleChange(date) {
         this.setState({
           startDate: date,
-          time: date
+          endDate: date,
         });
       }
 
     addCompetition(competitionInfor) {
         db.collection("competition").doc().set({
             name: this.competitionInfor.competitionName,
-            date: this.competitionInfor.startDate,
-            time: this.competitionInfor.time,
+            startDate: new Date(this.competitionInfor.startDate),
+            endDate: new Date(this.competitionInfor.endDate),
             location: this.competitionInfor.location
         })
     }
@@ -44,26 +44,32 @@ class AddCompetition extends Component {
                 <form>
                     Competition name:<br></br>
                     比賽名稱:<br></br>
-                    <input type="text" id="competitionName" placeholder="Competition Name"  />
+                    <input type="text" id="competitionName" placeholder="Competition Name"   />
                     <br></br>
-                    Date:<br></br>
-                    日期:<br></br>
+                    Start Date:<br></br>
+                    開始日期:<br></br>
                     <DatePicker
                         selected={this.competitionInfor.startDate}
                         onChange={this.handleChange}
-                    />
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="LLL"
+                        timeCaption="time"
+                        />
                     <br></br>
-                    Time:<br></br>
-                    時間:<br></br>
+                    <br></br>
+                    End Date:<br></br>
+                    結束日期:<br></br>
                     <DatePicker
-    selected={this.competitionInfor.time}
-    onChange={this.handleChange}
-    showTimeSelect
-    showTimeSelectOnly
-    timeIntervals={15}
-    dateFormat="LT"
-    timeCaption="Time"
-/>
+                        selected={this.competitionInfor.endDate}
+                        onChange={this.handleChange}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="LLL"
+                        timeCaption="time"
+                        />
                     <br></br>
                     Location:<br></br>
                     地點:<br></br>
