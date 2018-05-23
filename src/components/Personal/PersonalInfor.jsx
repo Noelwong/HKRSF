@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-class PersonalHome extends Component {
+class PersonalInfor extends Component {
     constructor(props) {
         super(props);
         this.PersonalInfor = {
@@ -15,6 +15,7 @@ class PersonalHome extends Component {
             BDate: moment(),
             ID: '',
             email:'',
+            home:'',
             schoolType:'',
             schoolName:'',
             sGroup:'',
@@ -142,4 +143,4 @@ class PersonalHome extends Component {
     }
     
 }
-export default PersonalHome;
+export default PersonalInfor;
