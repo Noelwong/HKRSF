@@ -10,7 +10,7 @@ class AdminHome extends Component {
                 <br/>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Competition</a></li>
+                        <li class="active"><Link to={'/AddCompetition'}><a href="/AddCompetition">Competition</a></Link></li>
                         <li><a href="#about">User Management</a></li>
                         <li><a href="#contact">Rule Setting</a></li>
                         <li class="dropdown">

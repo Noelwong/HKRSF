@@ -11,7 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 class OrganizationInfor extends Component {
     constructor(props) {
         super(props);
-        this.OrganizationInfor = {
+        this.state = {
             userType:'Organization',
             CName: '',
             EName: '',
@@ -31,13 +31,13 @@ class OrganizationInfor extends Component {
                 message: ''
             }
         }
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
     handleChange(date) {
         this.setState({
-          startDate: date,
-          endDate: date,
+            DOR: date,
         });
       }
 
@@ -93,7 +93,7 @@ class OrganizationInfor extends Component {
                 有效日期<br/>
                 Date of Registration
                 <DatePicker
-                    selected={this.OrganizationInfor.DOR}
+                    selected={this.state.DOR}
                     onChange={this.handleChange}
                     />
                 <br/>

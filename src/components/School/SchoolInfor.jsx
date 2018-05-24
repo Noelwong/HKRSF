@@ -5,7 +5,7 @@ import { firebaseApp, db } from '../../firebase';
 class SchoolInfor extends Component {
     constructor(props) {
         super(props);
-        this.SchoolInfor = {
+        this.state = {
             userType:'School',
             CName: '',
             EName: '',
@@ -50,7 +50,7 @@ class SchoolInfor extends Component {
                     /><br/>
                 學校所屬地區<br/>
                 The district of school
-                <select value={this.SchoolInfor.DOSchool} onChange={this.handleChange} >
+                <select value={this.state.DOSchool} onChange={this.handleChange} >
                     <option value ="">請選擇 Please Select</option>
                     <option value ="CAndW">中西區Central and Western</option>
                     <option value="WanChai">灣仔區Wan Chai</option>
@@ -148,7 +148,7 @@ class SchoolInfor extends Component {
     addSchoolInfor(SchoolInfor) {
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
-            userType: this.SchoolInfor.userType
+            userType: this.state.userType
         });
     }
     

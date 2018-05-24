@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 class PersonalInfor extends Component {
     constructor(props) {
         super(props);
-        this.PersonalInfor = {
+        this.state = {
             userType:'Personal',
             CName: '',
             EName: '',
@@ -34,8 +34,7 @@ class PersonalInfor extends Component {
 
     handleChange(date) {
         this.setState({
-          startDate: date,
-          endDate: date,
+            BDate: date,
         });
       }
 
@@ -59,13 +58,8 @@ class PersonalInfor extends Component {
                 出生日期<br/>
                 Date of Birth
                 <DatePicker
-                        selected={this.PersonalInfor.BDate}
+                        selected={this.state.BDate}
                         onChange={this.handleChange}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={15}
-                        dateFormat="LLL"
-                        timeCaption="time"
                         /><br/>
                 身份證號碼<br/>
                 Identification number

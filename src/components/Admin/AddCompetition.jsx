@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 class AddCompetition extends Component {
     constructor(props) {
         super(props);
-        this.competitionInfor = {
+        this.state = {
             competitionName: '',
             startDate: moment(),
             endDate: moment(),
@@ -18,24 +18,30 @@ class AddCompetition extends Component {
                 message: ''
             }
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
+        this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
 
     }
     
-    handleChange(date) {
+    handleChangeStartDate(date) {
         this.setState({
           startDate: date,
+        });
+      }
+
+      handleChangeEndDate(date) {
+        this.setState({
           endDate: date,
         });
       }
 
-    addCompetition(competitionInfor) {
+    addCompetition(state) {
         
         db.collection("competition").doc().set({
-            name: this.competitionInfor.competitionName,
-            startDate: new Date(this.competitionInfor.startDate),
-            endDate: new Date(this.competitionInfor.endDate),
-            location: this.competitionInfor.location
+            name: this.state.competitionName,
+            startDate: new Date(this.state.startDate),
+            endDate: new Date(this.state.endDate),
+            location: this.state.location
         })
     }
 
@@ -54,8 +60,8 @@ class AddCompetition extends Component {
                     Start Date:<br></br>
                     開始日期:<br></br>
                     <DatePicker
-                        selected={this.competitionInfor.startDate}
-                        onChange={this.handleChange}
+                        selected={this.state.startDate}
+                        onChange={this.handleChangeStartDate}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -67,8 +73,8 @@ class AddCompetition extends Component {
                     End Date:<br></br>
                     結束日期:<br></br>
                     <DatePicker
-                        selected={this.competitionInfor.endDate}
-                        onChange={this.handleChange}
+                        selected={this.state.endDate}
+                        onChange={this.handleChangeEndDate}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -84,7 +90,7 @@ class AddCompetition extends Component {
                 <button
                     className="btn btn-success"
                     type="button"
-                    onClick={() => this.addCompetition(this.competitionInfor)}
+                    onClick={() => this.addCompetition(this.state)}
                 >
                     Submit
                     </button>
