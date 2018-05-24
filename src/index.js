@@ -19,7 +19,6 @@ import OrganizationHome from './components/Organization/OrganizationHome';
 import PersonalHome from './components/Personal/PersonalHome';
 import SchoolHome from './components/School/SchoolHome';
 
-import AddCompetition from './components/Admin/AddCompetition';
 
 const store = createStore(reducer);
 
@@ -50,7 +49,6 @@ ReactDOM.render(
         <Route path="/PersonalHome" component={PersonalHome} />
         <Route path="/SchoolHome" component={SchoolHome} />
 
-        <Route path="/AddCompetition" component={AddCompetition} />
     </Router>
     </Provider>, document.getElementById('root')
 )

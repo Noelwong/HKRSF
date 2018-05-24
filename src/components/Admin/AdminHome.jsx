@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+
 import { firebaseApp } from '../../firebase';
 
+import AddCompetition from './AddCompetition';
+
 class AdminHome extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            showContent:''
+        }
+    }
+    handleChange() {
+        this.setState({showContent:'AddCompetition'})
+      }
+    selectShowContent = (showContent) =>{
+        if(showContent != null){
+            if(showContent === 'AddCompetition'){
+                return(<AddCompetition/>)
+            }
+        }
+    }
+
     render() {
         return (
             <div>
@@ -10,8 +29,8 @@ class AdminHome extends Component {
                 <br/>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><Link to={'/AddCompetition'}><a href="/AddCompetition">Competition</a></Link></li>
-                        <li><a href="#contact">Rule Setting</a></li>
+                        <li class="active" onClick={() => this.handleChange()}><a>Competition</a></li>
+                        <li><a href="">Rule Setting</a></li>
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -36,7 +55,8 @@ class AdminHome extends Component {
                         </button></li>
                     </ul>
                 </div>
-
+                <br/>
+                {this.selectShowContent(this.state.showContent)}
             </div >
 
         )

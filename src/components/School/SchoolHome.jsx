@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
 class SchoolHome extends Component {
+
+
     render(){
         return (
             <div>SchoolHome
