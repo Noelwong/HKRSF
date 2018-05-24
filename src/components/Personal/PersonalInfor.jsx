@@ -10,6 +10,7 @@ class PersonalInfor extends Component {
     constructor(props) {
         super(props);
         this.PersonalInfor = {
+            userType:'Personal',
             CName: '',
             EName: '',
             BDate: moment(),

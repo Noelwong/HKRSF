@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../../firebase';
+import { firebaseApp, db } from '../../firebase';
 
 
 class SchoolInfor extends Component {
     constructor(props) {
         super(props);
         this.SchoolInfor = {
+            userType:'School',
             CName: '',
             EName: '',
             DOSchool: '',
@@ -20,8 +21,12 @@ class SchoolInfor extends Component {
                 message: ''
             }
         }
+        this.user = firebaseApp.auth().currentUser;
 
     }
+    handleChange(event) {
+        this.setState({DOSchool: event.target.value});
+      }
 
     render(){
 
@@ -35,16 +40,18 @@ class SchoolInfor extends Component {
                 <input type="text"
                      id="CName" 
                      placeholder="學校名稱"  
+                     onChange={event => this.setState({ CName: event.target.value })}
                      /><br/>
                 School	Name(English)
                 <input type="text"
                     id="EName" 
                     placeholder="School	Name"  
+                    onChange={event => this.setState({ EName: event.target.value })}
                     /><br/>
                 學校所屬地區<br/>
                 The district of school
-                <select id = "DOSchool"  >
-                    <option value ="dfv">請選擇 Please Select</option>
+                <select value={this.SchoolInfor.DOSchool} onChange={this.handleChange} >
+                    <option value ="">請選擇 Please Select</option>
                     <option value ="CAndW">中西區Central and Western</option>
                     <option value="WanChai">灣仔區Wan Chai</option>
                     <option value="Eastern">東區Eastern</option>
@@ -69,52 +76,66 @@ class SchoolInfor extends Component {
                 <input type="text"
                      id="PName" 
                      placeholder="校長姓名"  
+                     onChange={event => this.setState({ PName: event.target.value })}
                      /><br/>
                 <b>聯絡資料 Contact Details</b><br/>
                 聯絡人姓名：(中文)
                 <input type="text"
                      id="contactCname" 
                      placeholder="聯絡人姓名"  
+                     onChange={event => this.setState({ contactCname: event.target.value })}
                      /><br/>
                 Name of contact Person(English)
                 <input type="text"
                      id="contactEname" 
                      placeholder="Name of contact Person"  
+                     onChange={event => this.setState({ contactEname: event.target.value })}
                      /><br/>
                 地址:<br/>
                 Address
                 <input type="text"
                      id="contactAddress" 
-                     placeholder="地址"  
+                     placeholder="地址" 
+                     onChange={event => this.setState({ contactAddress: event.target.value })} 
                      /><br/>
                 電話：(辦公室)<br/>
                 Telephone(Office)
                 <input type="text"
                      id="officeTel" 
                      placeholder="辦公室電話"  
+                     onChange={event => this.setState({ officeTel: event.target.value })} 
                      /><br/>
                 電話：(流動)<br/>
                 Telephone(Mobile)
                 <input type="text"
                      id="mobileTel" 
                      placeholder="流動電話"  
+                     onChange={event => this.setState({ mobileTel: event.target.value })} 
                      /><br/>
                 傳真號碼:<br/>
                 Fax
                 <input type="text"
                      id="fax" 
                      placeholder="Fax"  
+                     onChange={event => this.setState({ fax: event.target.value })}
                      /><br/>
                 電郵<br/>
                 Email address
                 <input type="text"
                      id="contactEmail" 
                      placeholder="Email address"  
+                     onChange={event => this.setState({ contactEmail: event.target.value })}
                      /><br/>
                 </form>
                 <button
                     className="btn btn-danger"
                     onClick={() => this.signOut()}
+                >
+                    Submit
+                </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => this.addSchoolInfor(this.SchoolInfor)}
                 >
                     Sign Out
                 </button>
@@ -123,6 +144,12 @@ class SchoolInfor extends Component {
     }
     signOut() {
         firebaseApp.auth().signOut();
+    }
+    addSchoolInfor(SchoolInfor) {
+        const uid = this.user.uid;
+        db.collection("user").doc(uid).set({
+            userType: this.SchoolInfor.userType
+        });
     }
     
 }

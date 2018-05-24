@@ -12,6 +12,7 @@ class OrganizationInfor extends Component {
     constructor(props) {
         super(props);
         this.OrganizationInfor = {
+            userType:'Organization',
             CName: '',
             EName: '',
             CAddress: '',

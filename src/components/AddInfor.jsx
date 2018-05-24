@@ -9,45 +9,40 @@ class AddInfor extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = { value: '', test: '' };
         this.handleChange = this.handleChange.bind(this);
-        
+
     }
     roleIdentifier = (value) => {
-        if(value!= null){
-            if(value === 'Personal'){
-                return(<PersonalInfor/>)
-            }else if(value === 'School'){
-                return(<SchoolInfor/>)
-            }else if(value === 'Organization'){
-                return(<OrganizationInfor/>)
+        if (value != null) {
+            if (value === 'Personal') {
+                return (<PersonalInfor />)
+            } else if (value === 'School') {
+                return (<SchoolInfor />)
+            } else if (value === 'Organization') {
+                return (<OrganizationInfor />)
             }
         }
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
-      }
+        this.setState({ value: event.target.value });
+    }
 
     render() {
 
         return (
             <div className="pickerdiv">
-                <select id="selectedUserType" value={this.state.value} onChange={this.handleChange} >
+                <select value={this.state.value} onChange={this.handleChange} >
                     <option value="">Please Select Your User type</option>
                     <option value="Personal">個人Personal</option>
                     <option value="School">學校School</option>
                     <option value="Organization">組織Organization</option>
                 </select>
-                <br/>
+                <br />
                 {this.roleIdentifier(this.state.value)}
-                <br/>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                >
-                    Sign Out
-                </button>
+                <br />
+
             </div>
 
 
