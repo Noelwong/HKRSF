@@ -172,7 +172,6 @@ class OrganizationInfor extends Component {
             userType:'Organization',
             CName: this.state.CName,
             CAddress: this.state.CAddress,
-            email: this.state.email,
             phone:this.state.phone,
             fax: this.state.fax,
             CertificateNumber: this.state.CertificateNumber,

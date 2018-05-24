@@ -22,7 +22,7 @@ class SchoolInfor extends Component {
             }
         }
         this.user = firebaseApp.auth().currentUser;
-
+        this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
         this.setState({DOSchool: event.target.value});
@@ -129,13 +129,14 @@ class SchoolInfor extends Component {
                 </form>
                 <button
                     className="btn btn-danger"
-                    onClick={() => this.signOut()}
+                    onClick={() => this.addSchoolInfor(this.state)}
+                    
                 >
                     Submit
                 </button>
                 <button
                     className="btn btn-danger"
-                    onClick={() => this.addSchoolInfor(this.SchoolInfor)}
+                    onClick={() => this.signOut()}
                 >
                     Sign Out
                 </button>
@@ -145,10 +146,21 @@ class SchoolInfor extends Component {
     signOut() {
         firebaseApp.auth().signOut();
     }
-    addSchoolInfor(SchoolInfor) {
+
+    addSchoolInfor(state) {
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
-            userType: this.state.userType
+            userType: this.state.userType,
+            CName: this.state.CName,
+            EName: this.state.EName,
+            DOSchool: this.state.DOSchool,
+            PName: this.state.PName,
+            contactCname: this.state.contactCname,
+            contactEname: this.state.contactEname,
+            contactAddress: this.state.contactAddress,
+            officeTel: this.state.officeTel,
+            mobileTel: this.state.mobileTel,
+            contactEmail:this.state.contactEmail
         });
     }
     
