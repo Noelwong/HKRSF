@@ -13,6 +13,7 @@ class PersonalInfor extends Component {
             userType:'Personal',
             CName: '',
             EName: '',
+            gender:'',
             BDate: moment(),
             ID: '',
             home:'',
@@ -30,6 +31,7 @@ class PersonalInfor extends Component {
         this.user = firebaseApp.auth().currentUser;
 
         this.handleChange = this.handleChange.bind(this);
+        this.genderHandleChange = this.genderHandleChange.bind(this);
         this.schoolTypeHandleChange = this.schoolTypeHandleChange.bind(this);
         this.coachLevelHandleChange = this.coachLevelHandleChange.bind(this);
         this.judgeLevelHandleChange = this.judgeLevelHandleChange.bind(this);
@@ -44,6 +46,10 @@ class PersonalInfor extends Component {
         });
       }
     
+      genderHandleChange(event) {
+        this.setState({gender: event.target.value});
+      }
+
       schoolTypeHandleChange(event) {
         this.setState({schoolType: event.target.value});
       }
@@ -75,6 +81,14 @@ class PersonalInfor extends Component {
                     placeholder="Name"  
                     onChange={event => this.setState({ EName: event.target.value })}
                     /><br/>
+                性別<br/>
+                Gender 
+                <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
+                    <option value ="">Please Select Your School type</option>
+                    <option value ="male">男Male</option>
+                    <option value="female">女Female</option>
+                </select>
+                <br/>
                 出生日期<br/>
                 Date of Birth
                 <DatePicker
@@ -145,7 +159,7 @@ class PersonalInfor extends Component {
                      /><br/>
                 </form>
                 <button
-                    className="btn btn-danger"
+                    className="btn btn-success"
                     onClick={() => this.addPersonalInfor(this.state)}    
                 >
                     Submit
@@ -169,6 +183,7 @@ class PersonalInfor extends Component {
             userType:'Personal',
             CName: this.state.CName,
             EName: this.state.EName,
+            gender: this.state.gender,
             BDate: new Date(this.state.BDate),
             ID: this.state.ID,
             home: this.state.home,

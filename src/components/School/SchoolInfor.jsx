@@ -128,7 +128,7 @@ class SchoolInfor extends Component {
                      /><br/>
                 </form>
                 <button
-                    className="btn btn-danger"
+                    className="btn btn-success"
                     onClick={() => this.addSchoolInfor(this.state)}
                     
                 >

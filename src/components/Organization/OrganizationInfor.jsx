@@ -147,7 +147,7 @@ class OrganizationInfor extends Component {
                 </form>
                 <br/>
                 <button
-                    className="btn btn-danger"
+                    className="btn btn-success"
                     onClick={() => this.addOrganizationInfor(this.state)}
                 >
                     Submit
