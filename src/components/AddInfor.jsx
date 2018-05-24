@@ -7,54 +7,41 @@ import PersonalInfor from './Personal/PersonalInfor';
 
 class AddInfor extends Component {
 
-        constructor(props) {
-          super(props);
-          this.state={
-            changepage:''
-          };
-          this.handleChange = this.handleChange.bind(this);
-        }
-
-        handleChange(event) {
-            this.setState({ changepage: event.target.value });
-            console.log(this.state.changepage);
-          }
-          
-    roleIdentifier = () => {
-        var x = this.state.changepage ; 
-        console.log(x);
-        if (x !== 'dfv'){
-            if (x === 'Personal'){
-                return(
-                    < PersonalInfor/>
-                )
-            }else if(x === 'School'){
-                return(
-                    < SchoolInfor/>
-                )
-            }else if(x === 'Organization'){
-                return(
-                    < OrganizationInfor/>
-                )
+    constructor(props) {
+        super(props);
+        this.state = {value: ''};
+        this.handleChange = this.handleChange.bind(this);
+        
+    }
+    roleIdentifier = (value) => {
+        if(value!= null){
+            if(value === 'Personal'){
+                return(<PersonalInfor/>)
+            }else if(value === 'School'){
+                return(<SchoolInfor/>)
+            }else if(value === 'Organization'){
+                return(<OrganizationInfor/>)
+            }
         }
     }
-}
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
 
     render() {
 
         return (
-            <div class = "pickerdiv">
-                <select id = "typeselect" onChange= {(event) => this.handleChange()} >
-                    <option value ="dfv">Please Select Your User type</option>
-                    <option value ="Personal">個人Personal</option>
+            <div className="pickerdiv">
+                <select id="selectedUserType" value={this.state.value} onChange={this.handleChange} >
+                    <option value="">Please Select Your User type</option>
+                    <option value="Personal">個人Personal</option>
                     <option value="School">學校School</option>
                     <option value="Organization">組織Organization</option>
                 </select>
-                </div>
-                )
-                this.roleIdentifier();
-        return(
-                <div>
+                <br/>
+                {this.roleIdentifier(this.state.value)}
+                <br/>
                 <button
                     className="btn btn-danger"
                     onClick={() => this.signOut()}
