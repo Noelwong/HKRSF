@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseApp, db } from '../firebase';
 import { Link } from 'react-router';
+import { QRCode } from 'react-qr-svg';
 
 class App extends Component {
 
@@ -58,15 +59,20 @@ class App extends Component {
 
     render() {
 
-
         return (
             <div>
-                <h3> Goals</h3>
-                <div>Uid : { this.state.uid }</div>
+                <h3>Home</h3>
+                <div>Uid : <br/>
+                    <QRCode
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    level="Q"
+                    style={{ width: 128 }}
+                    value={ this.state.uid }
+                />
+                </div>
                 <div>User type :{this.state.userType}</div>
-                <div>Add Goals </div>
-                <div>Goal List</div>
-
+                
                 <button
                     className="btn btn-danger"
                     onClick={() => this.signOut()}
