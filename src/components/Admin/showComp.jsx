@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 
-class showComp extends Component {
+class ShowComp extends Component {
     constructor(props) {
         super(props);
         this.getCompInfor();
     }
-    getCompInfor(){
-        const compRef = db.collection('competition');
-        compRef.getCollections().then(collections => {
-            collections.forEach(collection => {
-              console.log('Found subcollection with id:', collection.id);
+    getCompInfor() {
+
+        var citiesRef = db.collection('competition');
+        var allCities = citiesRef.get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    console.log(doc.id, '=>', doc.data());
+                });
+            })
+            .catch(err => {
+                console.log('Error getting documents', err);
             });
-          });
     }
 
     render() {
@@ -23,4 +28,4 @@ class showComp extends Component {
     }
 
 }
-export default showComp;
+export default ShowComp;
