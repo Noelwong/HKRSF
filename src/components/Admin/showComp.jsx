@@ -12,7 +12,7 @@ class ShowComp extends Component {
         var allCities = citiesRef.get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
-                    console.log(doc.id, '=>', doc.data());
+                    console.log(doc.id, '=>', doc.data().name);
                 });
             })
             .catch(err => {
