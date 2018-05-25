@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseApp, db } from '../firebase';
-import { Link } from 'react-router';
 import { QRCode } from 'react-qr-svg';
 
 
@@ -11,6 +10,7 @@ import AdminHome from './Admin/AdminHome';
 import SchoolHome from './School/SchoolHome';
 import PersonalHome from './Personal/PersonalHome';
 import AddInfor from './AddInfor';
+
 class App extends Component {
 
     constructor(props) {
@@ -18,7 +18,6 @@ class App extends Component {
         super(props);
         this.state={
             userType: '',
-            jumppath: '',
             uid:''
         };
         
@@ -41,26 +40,18 @@ class App extends Component {
                     // do something with the data
 
                     if (documentSnapshot.data().userType === 'Admin') {
-                        this.setState({userType: 'Admin', jumppath: '/AdminHome', uid: uidInString });
-                        
+                        this.setState({userType: 'Admin', uid: uidInString });   
                     }else if(documentSnapshot.data().userType === 'Organization'){
-                        this.setState({userType: 'Organization', jumppath: '/OrganizationHome', uid: uidInString });
-                        
+                        this.setState({userType: 'Organization', uid: uidInString });                      
                     }else if(documentSnapshot.data().userType === 'Judge'){
-                        this.setState({userType: 'Judge', jumppath: '/JudgeHome', uid: uidInString });
-                       
+                        this.setState({userType: 'Judge',uid: uidInString });
                     }else if(documentSnapshot.data().userType === 'Personal'){
-                        this.setState({userType: 'Personal', jumppath: '/PersonalHome', uid: uidInString });
-                        
+                        this.setState({userType: 'Personal', uid: uidInString });   
                     }else if(documentSnapshot.data().userType === 'School'){
-                        this.setState({userType: 'School', jumppath: '/SchoolHome', uid: uidInString });
-                        
+                        this.setState({userType: 'School', uid: uidInString });
                     }
-                }
-                else
-                    {
+                }else{
                     this.setState({jumppath: '/addinfor', uid: uidInString })
-                    return(<AddInfor/>)
                 }
             });
         }
@@ -78,15 +69,12 @@ class App extends Component {
                 return(<AdminHome/>)
             }else if (userType === 'Judge') {
                 return(<JudgeHome/>)
-            }
-        }else{
+            }else{
             return(<AddInfor/>)
+        }
         }
     }
 
-    signOut() {
-        firebaseApp.auth().signOut();
-    }
 
     render() {
 
@@ -106,18 +94,7 @@ class App extends Component {
                 <br/>
                  {this.roleBasePage(this.state.userType)}
                 <br/>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                >
-                    Sign Out
-                </button>
 
-                <Link to={this.state.jumppath}>
-                    <button type="button" class="btn btn-login float-right" >
-                        Try
-                    </button>
-                </Link>
             </div>
         )
     }
