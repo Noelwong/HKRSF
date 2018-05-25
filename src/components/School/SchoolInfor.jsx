@@ -71,6 +71,7 @@ class SchoolInfor extends Component {
                     <option value="SaiKung">西貢區Sai Kung</option>
                     <option value="Islands">離島區Islands</option>
                 </select>
+                <br/>
                 校長姓名<br/>
                 Name of Principal:
                 <input type="text"

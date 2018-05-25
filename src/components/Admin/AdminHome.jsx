@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import { firebaseApp } from '../../firebase';
 
 import AddCompetition from './AddCompetition';
+import showComp from './showComp';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -14,10 +14,16 @@ class AdminHome extends Component {
     handleChange() {
         this.setState({showContent:'AddCompetition'})
       }
+
+    handleChangeShow() {
+        this.setState({showContent:'ShowCompetition'})
+    }
     selectShowContent = (showContent) =>{
         if(showContent != null){
             if(showContent === 'AddCompetition'){
                 return(<AddCompetition/>)
+            }else if (showContent ==='ShowCompetition'){
+                return(<showComp/>)
             }
         }
     }
@@ -29,7 +35,8 @@ class AdminHome extends Component {
                 <br/>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active" onClick={() => this.handleChange()}><a>Competition</a></li>
+                        <li class="active" onClick={() => this.handleChange()}><a>Add Competition</a></li>
+                        <li class="active" onClick={() => this.handleChangeShow()}><a>Show Competition</a></li>
                         <li><a href="">Rule Setting</a></li>
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

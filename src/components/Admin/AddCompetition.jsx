@@ -109,18 +109,10 @@ class AddCompetition extends Component {
                 >
                     Submit
                     </button>
-                    <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                >
-                    Sign Out
-                </button>
+
             </div>
         )
 
-    }
-    signOut() {
-        firebaseApp.auth().signOut();
     }
 
 }
