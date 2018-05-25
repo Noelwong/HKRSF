@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
 import AddCompetition from './AddCompetition';
-import showComp from './showComp';
+import ShowComp from './ShowComp';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class AdminHome extends Component {
             if(showContent === 'AddCompetition'){
                 return(<AddCompetition/>)
             }else if (showContent ==='ShowCompetition'){
-                return(<showComp/>)
+                return(<ShowComp/>)
             }
         }
     }
