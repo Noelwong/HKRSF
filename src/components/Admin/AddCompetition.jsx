@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebaseApp, db } from '../../firebase';
+import { db } from '../../firebase';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';

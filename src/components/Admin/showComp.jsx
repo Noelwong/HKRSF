@@ -5,11 +5,14 @@ class ShowComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            load:'false'
         }
+
         this.getCompInfor();
     }
+
 getCompInfor(){
-    this.com = new Array();
+    this.com = [];
     db.collection('competition').get().then(snapshot => 
         {snapshot.forEach(doc => {
                 console.log(doc.id, '=>', doc.data().name);
@@ -23,6 +26,7 @@ getCompInfor(){
 }
 
     render() {
+
         return (
            <div>{this.com}</div>
            
