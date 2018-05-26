@@ -75,6 +75,9 @@ class App extends Component {
         }
     }
 
+    signOut() {
+        firebaseApp.auth().signOut();
+    }
 
     render() {
 
@@ -94,7 +97,12 @@ class App extends Component {
                 <br/>
                  {this.roleBasePage(this.state.userType)}
                 <br/>
-
+                <button
+                    className="btn btn-danger"
+                    onClick={() => this.signOut()}
+                >
+                    Sign Out
+                </button>
             </div>
         )
     }
