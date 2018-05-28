@@ -17,6 +17,7 @@ class SchoolInfor extends Component {
             officeTel:'',
             mobileTel:'',
             contactEmail:'',
+            fax:'',
             error: {
                 message: ''
             }
@@ -24,6 +25,135 @@ class SchoolInfor extends Component {
         this.user = firebaseApp.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
     }
+
+    CName(event){
+        this.setState({CName:event.target.value})
+        var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
+        var val_CName = event.target.value
+
+        if(chineseName.test(val_CName)){
+            setTimeout(function(){
+                this.setState({info_CName:""});
+            }.bind(this), 1000);
+        }else{ 
+            //val_CName = _val;
+            this.setState({info_CName:"請輸入正確的中文名字"});
+        }
+        this.setState({"val_CName":val_CName})
+    }
+
+    EName(event){
+        this.setState({EName:event.target.value})
+        var englishName = /^[A-Za-z]+$/;
+        var val_EName = event.target.value
+
+        if(englishName.test(val_EName)){
+            setTimeout(function(){
+                this.setState({info_EName:""});
+            }.bind(this), 1000);
+        }else{
+            //val_EName = _val;
+            this.setState({info_EName:"Please Input Correct English Name"})
+        }
+        this.setState({"val_EName":val_EName})
+    }
+
+    contactCname(event){
+        this.setState({contactCname:event.target.value})
+        var contactChineseName = /^[\u4e00-\u9fa5]{0,}$/;
+        var val_contactCname = event.target.value
+
+        if(contactChineseName.test(val_contactCname)){
+            setTimeout(function(){
+                this.setState({info_contactCname:""});
+            }.bind(this), 1000);
+        }else{ 
+            //val_contactCname = _val;
+            this.setState({info_contactCname:"請輸入正確的中文名字"});
+        }
+        this.setState({"val_contactCname":val_contactCname})
+    }
+
+    contactEname(event){
+        this.setState({contactEname:event.target.value})
+        var contactEnglishName = /^[A-Za-z]+$/;
+        var val_contactEname = event.target.value
+
+        if(contactEnglishName.test(val_contactEname)){
+            setTimeout(function(){
+                this.setState({info_contactEname:""});
+            }.bind(this), 1000);
+        }else{
+            //val_contactEname = _val;
+            this.setState({info_contactEname:"Please Input Correct English Name"})
+        }
+        this.setState({"val_contactEname":val_contactEname})
+    }
+
+    officeTel(event){
+        this.setState({officeTel:event.target.value})
+        var officeTel = /^[0-9]*$/;
+        var val_officeTel = event.target.value
+
+        if(officeTel.test(val_officeTel)){
+            setTimeout(function(){
+                this.setState({info_officeTel:""});
+            }.bind(this), 1000);
+        }else{
+            //val_officeTel = _val;
+            this.setState({info_officeTel:"請輸入正確的辦公室電話號碼/Please Input Correct Office Phone Number"})
+        }
+        this.setState({"val_officeTel":val_officeTel})
+    }
+    
+    mobileTel(event){
+        this.setState({mobileTel:event.target.value})
+        var mobileTel = /^[0-9]*$/;
+        var val_mobileTel = event.target.value
+
+        if(mobileTel.test(val_mobileTel)){
+            setTimeout(function(){
+                this.setState({info_mobileTel:""});
+            }.bind(this), 1000);
+        }else{
+            //val_mobileTel = _val;
+            this.setState({info_mobileTel:"請輸入正確的手機電話號碼/Please Input Correct Telephone Number"})
+        }
+        this.setState({"val_mobileTel":val_mobileTel})
+    }
+    
+    fax(event){
+        this.setState({fax:event.target.value})
+        var fax = /^[0-9]*$/;
+        var val_fax = event.target.value
+
+        if(fax.test(val_fax)){
+            setTimeout(function(){
+                this.setState({info_fax:""});
+            }.bind(this), 1000);
+        }else{
+            //val_fax = _val;
+            this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
+        }
+        this.setState({"val_fax":val_fax})
+    }    
+
+    contactEmail(event){
+        this.setState({contactEmail:event.target.value})
+        var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        var val_contactEmail = event.target.value
+
+        if(contactEmail.test(val_contactEmail)){
+            setTimeout(function(){
+                this.setState({info_contactEmail:""});
+            }.bind(this), 1000);
+        }else{ 
+            //val_contactEmail = _val;
+            this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
+        }
+        this.setState({"val_contactEmail":val_contactEmail})
+    }
+
     handleChange(event) {
         this.setState({DOSchool: event.target.value});
       }
@@ -34,20 +164,26 @@ class SchoolInfor extends Component {
             <div>
                 <form>
                 學校會員申請表<br />
-                Membership	Application	Form<br />
+                Membership	Application	Form<br /><br/>
                 <b>基本資料 Basic	Information</b><br/>
                 學校名稱（中文）
                 <input type="text"
-                     id="CName" 
-                     placeholder="學校名稱"  
-                     onChange={event => this.setState({ CName: event.target.value })}
-                     /><br/>
-                School	Name(English)
+                     id="CName"
+                     placeholder="學校名稱" 
+                     value ={this.state.val_CName}
+                     onChange={this.CName.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_CName}</font>
+                <br/>
+                School Name(English)
                 <input type="text"
                     id="EName" 
-                    placeholder="School	Name"  
-                    onChange={event => this.setState({ EName: event.target.value })}
-                    /><br/>
+                    placeholder="School Name"  
+                    value ={this.state.val_EName}  
+                    onChange={this.EName.bind(this)}
+                    />&nbsp;
+                <font for="title" color="red">{this.state.info_EName}</font>
+                <br/><br/>
                 學校所屬地區<br/>
                 The district of school
                 <select value={this.state.DOSchool} onChange={this.handleChange} >
@@ -71,62 +207,80 @@ class SchoolInfor extends Component {
                     <option value="SaiKung">西貢區Sai Kung</option>
                     <option value="Islands">離島區Islands</option>
                 </select>
-                <br/>
+                <br/><br/>
                 校長姓名<br/>
                 Name of Principal:
                 <input type="text"
                      id="PName" 
                      placeholder="校長姓名"  
                      onChange={event => this.setState({ PName: event.target.value })}
-                     /><br/>
+                     /><br/><br/>
                 <b>聯絡資料 Contact Details</b><br/>
                 聯絡人姓名：(中文)
                 <input type="text"
                      id="contactCname" 
                      placeholder="聯絡人姓名"  
-                     onChange={event => this.setState({ contactCname: event.target.value })}
-                     /><br/>
+                     value ={this.state.val_contactCname}
+                     onChange={this.contactCname.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_contactCname}</font>
+                <br/>
                 Name of contact Person(English)
                 <input type="text"
                      id="contactEname" 
                      placeholder="Name of contact Person"  
-                     onChange={event => this.setState({ contactEname: event.target.value })}
-                     /><br/>
+                     value ={this.state.val_contactEname}
+                     onChange={this.contactEname.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_contactEname}</font>
+                <br/><br/>
                 地址:<br/>
                 Address
                 <input type="text"
                      id="contactAddress" 
                      placeholder="地址" 
                      onChange={event => this.setState({ contactAddress: event.target.value })} 
-                     /><br/>
+                     /><br/><br/>
                 電話：(辦公室)<br/>
                 Telephone(Office)
                 <input type="text"
                      id="officeTel" 
                      placeholder="辦公室電話"  
-                     onChange={event => this.setState({ officeTel: event.target.value })} 
-                     /><br/>
+                     value ={this.state.val_officeTel}
+                     onChange={this.officeTel.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_officeTel}</font>
+                <br/><br/>
                 電話：(流動)<br/>
                 Telephone(Mobile)
                 <input type="text"
                      id="mobileTel" 
                      placeholder="流動電話"  
-                     onChange={event => this.setState({ mobileTel: event.target.value })} 
-                     /><br/>
+                     value ={this.state.val_mobileTel}
+                     onChange={this.mobileTel.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_mobileTel}</font>
+                <br/><br/>
                 傳真號碼:<br/>
                 Fax
                 <input type="text"
                      id="fax" 
                      placeholder="Fax"  
-                     onChange={event => this.setState({ fax: event.target.value })}
-                     /><br/>
+                     value ={this.state.val_fax}
+                     onChange={this.fax.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_fax}</font>
+                <br/><br/>
                 電郵<br/>
                 Email address
                 <input type="text"
                      id="contactEmail" 
                      placeholder="Email address"  
-                     onChange={event => this.setState({ contactEmail: event.target.value })}
-                     /><br/>
+                     value ={this.state.val_contactEmail}
+                     onChange={this.contactEmail.bind(this)}
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_contactEmail}</font>
+                <br/>
                 </form>
                 <button
                     className="btn btn-success"
@@ -161,6 +315,7 @@ class SchoolInfor extends Component {
             contactAddress: this.state.contactAddress,
             officeTel: this.state.officeTel,
             mobileTel: this.state.mobileTel,
+            fax: this.state.fax,
             contactEmail:this.state.contactEmail
         });
     }

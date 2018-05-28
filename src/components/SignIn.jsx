@@ -15,6 +15,9 @@ class SignIn extends Component {
         }
     }
 
+
+
+
     signIn() {
         console.log('this.state', this.state);
         const { email, password } = this.state;
@@ -24,9 +27,6 @@ class SignIn extends Component {
             })
 
     }
-
-
-
 
 
     render() {

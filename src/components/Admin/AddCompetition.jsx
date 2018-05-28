@@ -15,6 +15,7 @@ class AddCompetition extends Component {
             endDate: moment(),
             deadDate: moment(),
             location: '',
+            com: [],
             error: {
                 message: ''
             }
@@ -24,26 +25,26 @@ class AddCompetition extends Component {
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
 
     }
-    
+
     handleChangeStartDate(date) {
         this.setState({
-          startDate: date,
+            startDate: date,
         });
-      }
+    }
 
-      handleChangeEndDate(date) {
+    handleChangeEndDate(date) {
         this.setState({
-          endDate: date,
+            endDate: date,
         });
-      }
-      handleChangeDeadDate(date) {
+    }
+    handleChangeDeadDate(date) {
         this.setState({
-          deadDate: date,
+            deadDate: date,
         });
-      }
+    }
 
     addCompetition(state) {
-        
+
         db.collection("competition").doc().set({
             name: this.state.competitionName,
             startDate: new Date(this.state.startDate),
@@ -55,18 +56,19 @@ class AddCompetition extends Component {
 
     render() {
         return (
+            
             <div>
                 <form>
-                    比賽名稱:<br/>
-                    Competition name:<br/>
+                    比賽名稱:<br />
+                    Competition name:<br />
                     <input type="text"
-                     id="CompetitionName" 
-                     placeholder="Competition Name"  
-                     onChange={event => this.setState({ competitionName: event.target.value })}
-                     />
-                    <br/>
-                    開始日期:<br/>
-                    Start Date:<br/>
+                        id="CompetitionName"
+                        placeholder="competitionName"
+                        onChange={event => this.setState({ competitionName: event.target.value })}
+                    />
+                    <br />
+                    開始日期:<br />
+                    Start Date:<br />
                     <DatePicker
                         selected={this.state.startDate}
                         onChange={this.handleChangeStartDate}
@@ -75,10 +77,10 @@ class AddCompetition extends Component {
                         timeIntervals={15}
                         dateFormat="LLL"
                         timeCaption="time"
-                        />
-                    <br/>
-                    結束日期:<br/>
-                    End Date:<br/>
+                    />
+                    <br />
+                    結束日期:<br />
+                    End Date:<br />
                     <DatePicker
                         selected={this.state.endDate}
                         onChange={this.handleChangeEndDate}
@@ -87,20 +89,20 @@ class AddCompetition extends Component {
                         timeIntervals={15}
                         dateFormat="LLL"
                         timeCaption="time"
-                        />
-                    <br/>
-                    地點:<br/>
-                    Location:<br/>
-                    <input type="text" id="Location"placeholder="location"  
-                    onChange={event => this.setState({ location: event.target.value })}/>
-                    <br/>
-                    截止報名日期<br/>
-                    Deadline for registration<br/>
+                    />
+                    <br />
+                    地點:<br />
+                    Location:<br />
+                    <input type="text" id="Location" placeholder="location"
+                        onChange={event => this.setState({ location: event.target.value })} />
+                    <br />
+                    截止報名日期<br />
+                    Deadline for registration<br />
                     <DatePicker
                         selected={this.state.deadDate}
                         onChange={this.handleChangeDeadDate}
-                        />
-                        <br/>
+                    />
+                    <br />
                 </form>
                 <button
                     className="btn btn-success"

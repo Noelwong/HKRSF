@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-import { firebaseApp, db } from '../../firebase';
-
-import { Textbox } from 'react-inputs-validation';
+import { firebaseApp,db } from '../../firebase';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 class PersonalInfor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userType: 'Personal',
+            userType:'Personal',
             CName: '',
             EName: '',
-            gender: '',
+            gender:'',
             BDate: moment(),
             ID: '',
-            home: '',
-            schoolType: '',
-            schoolName: '',
-            sGroup: '',
-            coachLevel: '',
-            coachYear: '',
-            judgeLevel: '',
-            judgeYear: '',
+            home:'',
+            schoolType:'',
+            schoolName:'',
+            sGroup:'',
+            coachLevel:'',
+            coachYear:'',
+            judgeLevel:'',
+            judgeYear:'',
             error: {
                 message: ''
-            }
+            },
+            
         }
         this.user = firebaseApp.auth().currentUser;
 
@@ -39,142 +39,191 @@ class PersonalInfor extends Component {
         this.judgeLevelHandleChange = this.judgeLevelHandleChange.bind(this);
 
     }
-
-
-
+    
     handleChange(date) {
         this.setState({
             BDate: date,
         });
+      }
+      
+     
+    CName(event){
+        this.setState({CName:event.target.value})
+        var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
+
+        var val_CName = event.target.value
+        if(chineseName.test(val_CName)){
+            setTimeout(function(){
+                this.setState({info_CName:""});
+            }.bind(this), 1000);
+        }else{ 
+            //val_CName = _val;
+            this.setState({info_CName:"請輸入正確的中文名字"});
+        }
+        this.setState({"val_CName":val_CName})
     }
 
+    EName(event){
+        this.setState({EName:event.target.value})
+        var englishName = /^[A-Za-z]+$/;
+        var val_EName = event.target.value
+
+        if(englishName.test(val_EName)){
+            setTimeout(function(){
+                this.setState({info_EName:""});
+            }.bind(this), 1000);
+        }else{
+            //val_EName = _val;
+            this.setState({info_EName:"Please Input Correct English Name"})
+        }
+        this.setState({"val_EName":val_EName})
+    }
+
+    ID(event){
+        this.setState({ID:event.target.value})
+        var IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
+        var val_ID = event.target.value
+
+        if(IDName.test(val_ID)){
+            setTimeout(function(){
+                this.setState({info_ID:""});
+            }.bind(this), 1000);
+            
+        }else{
+            //val_ID = _val;
+            this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
+            
+        }
+        this.setState({"val_ID":val_ID})
+
+    }
+    
+
     genderHandleChange(event) {
-        this.setState({ gender: event.target.value });
+        this.setState({gender: event.target.value});
     }
 
     schoolTypeHandleChange(event) {
-        this.setState({ schoolType: event.target.value });
+        this.setState({schoolType: event.target.value});
     }
 
     coachLevelHandleChange(event) {
-        this.setState({ coachLevel: event.target.value });
+        this.setState({coachLevel: event.target.value});
     }
 
     judgeLevelHandleChange(event) {
-        this.setState({ judgeLevel: event.target.value });
+        this.setState({judgeLevel: event.target.value});
     }
 
-    render() {
+    render(){
 
         return (
             <div>
                 <form>
-                    個人會員申請表<br />
-                    Personal Membership Application Form<br />
-                    姓名（中文）
-                <Textbox type="text"
-                        id="CName"
-                        placeholder="姓名"
-                        onChange={event => this.setState({ CName: event.target.value })}
-                        onBlur={() => { }} 
-                        validationOption={{
-                            name: 'Name', 
-                            check: true, 
-                            required: true 
-                        }}
-                    /><br />
-                    Name (English)
-                <Textbox type="text"
-                        id="EName"
-                        placeholder="Name"
-                        onChange={event => this.setState({ EName: event.target.value })}
-                        onBlur={() => { }} 
-                        validationOption={{
-                            name: 'Name', 
-                            check: true, 
-                            required: true 
-                        }}
-                    /><br />
-                    性別<br />
-                    Gender
-                <select id="gender" value={this.state.gender} onChange={this.genderHandleChange} >
-                        <option value="">Please Select Your School type</option>
-                        <option value="male">男Male</option>
-                        <option value="female">女Female</option>
-                    </select>
-                    <br />
-                    出生日期<br />
-                    Date of Birth
+                個人會員申請表<br />
+                Personal Membership Application Form<br />
+                姓名（中文）
+              
+                <input type="text"
+                    id="CName" 
+                    placeholder="姓名"  
+                    value ={this.state.val_CName}
+                    onChange={this.CName.bind(this)}
+                    />&nbsp;
+                <font for="title" color="red">{this.state.info_CName}</font>
+                <br/><br/>
+                Name (English)
+                <input type="text"
+                    id="EName" 
+                    placeholder="Name"
+                    value ={this.state.val_EName}  
+                    onChange={this.EName.bind(this)}
+                    />&nbsp;
+                <font for="title" color="red">{this.state.info_EName}</font>
+                <br/><br/>
+                性別<br/>
+                Gender 
+                <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
+                    <option value ="">Please Select Your School type</option>
+                    <option value ="male">男Male</option>
+                    <option value="female">女Female</option>
+                </select>
+                <br/>
+                出生日期<br/>
+                Date of Birth
                 <DatePicker
                         selected={this.state.BDate}
                         onChange={this.handleChange}
-                    /><br />
-                    身份證號碼<br />
-                    Identification number
+                        /><br/>
+                身份證號碼<br/>
+                Identification number
                 <input type="text"
-                        id="ID"
-                        placeholder="ID Number"
-                        onChange={event => this.setState({ ID: event.target.value })}
-                    /><br />
-                    住宅地址<br />
-                    Home Address
+                     id="ID" 
+                     placeholder="ID Number"  
+                     value ={this.state.val_ID}  
+                     onChange={this.ID.bind(this) }
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_ID}</font>
+                <br/>
+                住宅地址<br/>
+                Home Address
                 <input type="text"
-                        id="home"
-                        placeholder="Home Addressr"
-                        onChange={event => this.setState({ home: event.target.value })}
-                    /><br />
-                    就讀學校<br />
-                    Current school
-                <select id="schoolType" value={this.state.schoolType} onChange={this.schoolTypeHandleChange} >
-                        <option value="">Please Select Your School type</option>
-                        <option value="PSchool">小學Primary School</option>
-                        <option value="SSchool">中學Secondary Schooll</option>
-                        <option value="College">大專College</option>
-                    </select>
-                    <input type="text"
-                        id="schoolName"
-                        placeholder="School Name"
-                        onChange={event => this.setState({ schoolName: event.target.value })}
-                    /><br />
-                    所屬體育團體名稱<br />
-                    The name of the sports group
+                     id="home" 
+                     placeholder="Home Addressr"  
+                     onChange={event => this.setState({ home: event.target.value })}
+                     /><br/>
+                就讀學校<br/>
+                Current school
+                <select id = "schoolType" value={this.state.schoolType} onChange={this.schoolTypeHandleChange} >
+                    <option value ="">Please Select Your School type</option>
+                    <option value ="PSchool">小學Primary School</option>
+                    <option value="SSchool">中學Secondary Schooll</option>
+                    <option value="College">大專College</option>
+                </select>
                 <input type="text"
-                        id="sGroup"
-                        placeholder="Name"
-                        onChange={event => this.setState({ sGroup: event.target.value })}
-                    /><br />
-                    教練資歷及考獲年份<br />
-                    Coaching qualifications and years of study
-                <select id="coachLevel" value={this.state.coachLevel} onChange={this.coachLevelHandleChange}>
-                        <option value="">沒有 NULL</option>
-                        <option value="Junior">初級Junior</option>
-                        <option value="Intermediate">中級Intermediate</option>
-                        <option value="Advanced">高級Advanced</option>
-                        <option value="Senior">資深Senior</option>
-                    </select>
-                    <input type="text"
-                        id="coachYear"
-                        placeholder="Years of study"
-                        onChange={event => this.setState({ coachYear: event.target.value })}
-                    /><br />
-                    裁判資歷及考獲年份<br />
-                    Judge qualifications and years of study
-                <select id="judgeLevel" value={this.state.judgeLevel} onChange={this.judgeLevelHandleChange}>
-                        <option value="">沒有 NULL</option>
-                        <option value="Junior">初級Junior</option>
-                        <option value="Intermediate">中級Intermediate</option>
-                        <option value="Advanced">高級Advanced</option>
-                        <option value="Senior">資深Senior</option>
-                    </select>
-                    <input type="text"
-                        id="judgeYear"
-                        placeholder="Years of study"
-                        onChange={event => this.setState({ judgeYear: event.target.value })}
-                    /><br />
+                     id="schoolName" 
+                     placeholder="School Name" 
+                     onChange={event => this.setState({ schoolName: event.target.value })} 
+                     /><br/>
+                所屬體育團體名稱<br/>
+                The name of the sports group
+                <input type="text"
+                     id="sGroup" 
+                     placeholder="Name"  
+                     onChange={event => this.setState({ sGroup: event.target.value })} 
+                     /><br/>
+                教練資歷及考獲年份<br/>
+                Coaching qualifications and years of study
+                <select id = "coachLevel" value={this.state.coachLevel} onChange={this.coachLevelHandleChange}>
+                    <option value ="">沒有 NULL</option>
+                    <option value ="Junior">初級Junior</option>
+                    <option value="Intermediate">中級Intermediate</option>
+                    <option value="Advanced">高級Advanced</option>
+                    <option value="Senior">資深Senior</option>
+                </select>
+                <input type="text"
+                     id="coachYear" 
+                     placeholder="Years of study"  
+                     onChange={event => this.setState({ coachYear: event.target.value })} 
+                     /><br/>
+                裁判資歷及考獲年份<br/>
+                Judge qualifications and years of study
+                <select id = "judgeLevel" value={this.state.judgeLevel} onChange={this.judgeLevelHandleChange}>
+                    <option value ="">沒有 NULL</option>
+                    <option value ="Junior">初級Junior</option>
+                    <option value="Intermediate">中級Intermediate</option>
+                    <option value="Advanced">高級Advanced</option>
+                    <option value="Senior">資深Senior</option>
+                </select>
+                <input type="text"
+                     id="judgeYear" 
+                     placeholder="Years of study" 
+                     onChange={event => this.setState({ judgeYear: event.target.value })}  
+                     /><br/>
                 </form>
                 <button
-                    className="btn btn-danger"
-                    onClick={() => this.addPersonalInfor(this.state)}
+                    className="btn btn-success"
+                    onClick={() => this.addPersonalInfor(this.state)}    
                 >
                     Submit
                 </button>
@@ -194,7 +243,7 @@ class PersonalInfor extends Component {
     addPersonalInfor(state) {
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
-            userType: 'Personal',
+            userType:'Personal',
             CName: this.state.CName,
             EName: this.state.EName,
             gender: this.state.gender,
@@ -210,6 +259,6 @@ class PersonalInfor extends Component {
             judgeYear: this.state.judgeYear
         });
     }
-
+    
 }
 export default PersonalInfor;
