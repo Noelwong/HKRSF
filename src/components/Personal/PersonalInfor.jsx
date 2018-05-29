@@ -6,6 +6,8 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
+import {ValidateField, ValidateForm} from 'validate-field-react';
+
 class PersonalInfor extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,8 @@ class PersonalInfor extends Component {
             judgeYear:'',
             error: {
                 message: ''
-            }
+            },
+            
         }
         this.user = firebaseApp.auth().currentUser;
 
@@ -38,29 +41,86 @@ class PersonalInfor extends Component {
 
     }
     
-
-
     handleChange(date) {
         this.setState({
             BDate: date,
         });
       }
+      
+     
+    CName(event){
+        this.setState({CName:event.target.value})
+        var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
+        var _val = ""
+        var val_CName = event.target.value
+
+        if(chineseName.test(val_CName)){
+            _val = val_CName;
+            setTimeout(function(){
+                this.setState({info_CName:""});
+            }.bind(this), 1000);
+        }else{ 
+            //val_CName = _val;
+            this.setState({info_CName:"請輸入正確的中文名字"});
+        }
+        this.setState({"val_CName":val_CName})
+    }
+
+    EName(event){
+        this.setState({EName:event.target.value})
+        var englishName = /^[A-Za-z]+$/;
+        var _val = ""
+        var val_EName = event.target.value
+
+        if(englishName.test(val_EName)){
+            _val = val_EName;
+            setTimeout(function(){
+                this.setState({info_EName:""});
+            }.bind(this), 1000);
+        }else{
+            //val_EName = _val;
+            this.setState({info_EName:"Please Input Correct English Name"})
+        }
+        this.setState({"val_EName":val_EName})
+    }
+
+    ID(event){
+        this.setState({ID:event.target.value})
+        var IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
+        var _val = ""
+        var val_ID = event.target.value
+
+        if(IDName.test(val_ID)){
+            _val = val_ID; 
+            setTimeout(function(){
+                this.setState({info_ID:""});
+            }.bind(this), 1000);
+            
+        }else{
+            //val_ID = _val;
+            this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
+            
+        }
+        this.setState({"val_ID":val_ID})
+
+    }
     
-      genderHandleChange(event) {
+
+    genderHandleChange(event) {
         this.setState({gender: event.target.value});
-      }
+    }
 
-      schoolTypeHandleChange(event) {
+    schoolTypeHandleChange(event) {
         this.setState({schoolType: event.target.value});
-      }
+    }
 
-      coachLevelHandleChange(event) {
+    coachLevelHandleChange(event) {
         this.setState({coachLevel: event.target.value});
-      }
+    }
 
-      judgeLevelHandleChange(event) {
+    judgeLevelHandleChange(event) {
         this.setState({judgeLevel: event.target.value});
-      }
+    }
 
     render(){
 
@@ -70,17 +130,24 @@ class PersonalInfor extends Component {
                 個人會員申請表<br />
                 Personal Membership Application Form<br />
                 姓名（中文）
+              
                 <input type="text"
-                     id="CName" 
-                     placeholder="姓名"  
-                     onChange={event => this.setState({ CName: event.target.value })}
-                     /><br/>
+                    id="CName" 
+                    placeholder="姓名"  
+                    value ={this.state.val_CName}
+                    onChange={this.CName.bind(this)}
+                    />&nbsp;
+                <font for="title" color="red">{this.state.info_CName}</font>
+                <br/><br/>
                 Name (English)
                 <input type="text"
                     id="EName" 
-                    placeholder="Name"  
-                    onChange={event => this.setState({ EName: event.target.value })}
-                    /><br/>
+                    placeholder="Name"
+                    value ={this.state.val_EName}  
+                    onChange={this.EName.bind(this)}
+                    />&nbsp;
+                <font for="title" color="red">{this.state.info_EName}</font>
+                <br/><br/>
                 性別<br/>
                 Gender 
                 <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
@@ -100,8 +167,11 @@ class PersonalInfor extends Component {
                 <input type="text"
                      id="ID" 
                      placeholder="ID Number"  
-                     onChange={event => this.setState({ ID: event.target.value })}
-                     /><br/>
+                     value ={this.state.val_ID}  
+                     onChange={this.ID.bind(this) }
+                     />&nbsp;
+                <font for="title" color="red">{this.state.info_ID}</font>
+                <br/>
                 住宅地址<br/>
                 Home Address
                 <input type="text"
