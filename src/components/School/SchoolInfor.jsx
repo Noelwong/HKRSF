@@ -20,7 +20,15 @@ class SchoolInfor extends Component {
             fax:'',
             error: {
                 message: ''
-            }
+            },
+            checkCName:'',
+            checkEName:'',
+            checkCCname:'',
+            checkCEname:'',
+            checkOfficeTel:'',
+            checkMobileTel:'',
+            checkFax:'',
+            checkCEmail:'',
         }
         this.user = firebaseApp.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
@@ -31,13 +39,16 @@ class SchoolInfor extends Component {
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var _val = ""
         var val_CName = event.target.value
+        var checkCName = new Boolean
 
         if(chineseName.test(val_CName)){
+            this.setState({"checkCName":true})
             _val = val_CName;
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
-        }else{ 
+        }else{
+            this.setState({"checkCName":false}) 
             //val_CName = _val;
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
@@ -49,13 +60,16 @@ class SchoolInfor extends Component {
         var englishName = /^[A-Za-z]+$/;
         var _val = ""
         var val_EName = event.target.value
+        var checkEName = new Boolean
 
         if(englishName.test(val_EName)){
+            this.setState({"checkEName":true})
             _val = val_EName;
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkEName":false})
             //val_EName = _val;
             this.setState({info_EName:"Please Input Correct English Name"})
         }
@@ -67,13 +81,16 @@ class SchoolInfor extends Component {
         var contactChineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var _val =""
         var val_contactCname = event.target.value
+        var checkCCname = new Boolean
 
         if(contactChineseName.test(val_contactCname)){
+            this.setState({"checkCCname":true})
             _val = val_contactCname;
             setTimeout(function(){
                 this.setState({info_contactCname:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkCCname":false})
             //val_contactCname = _val;
             this.setState({info_contactCname:"請輸入正確的中文名字"});
         }
@@ -85,13 +102,16 @@ class SchoolInfor extends Component {
         var contactEnglishName = /^[A-Za-z]+$/;
         var _val = ""
         var val_contactEname = event.target.value
+        var checkCEname = new Boolean
 
         if(contactEnglishName.test(val_contactEname)){
+            this.setState({"checkCEname":true})
             _val = val_contactEname;
             setTimeout(function(){
                 this.setState({info_contactEname:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkCEname":false})
             //val_contactEname = _val;
             this.setState({info_contactEname:"Please Input Correct English Name"})
         }
@@ -103,13 +123,16 @@ class SchoolInfor extends Component {
         var officeTel = /^[0-9]*$/;
         var _val = ""
         var val_officeTel = event.target.value
+        var checkOfficeTel = new Boolean
 
         if(officeTel.test(val_officeTel)){
+            this.setState({"checkOfficeTel":true})
             _val = val_officeTel;
             setTimeout(function(){
                 this.setState({info_officeTel:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkOfficeTel":false})
             //val_officeTel = _val;
             this.setState({info_officeTel:"請輸入正確的辦公室電話號碼/Please Input Correct Office Phone Number"})
         }
@@ -121,13 +144,16 @@ class SchoolInfor extends Component {
         var mobileTel = /^[0-9]*$/;
         var _val = ""
         var val_mobileTel = event.target.value
+        var checkMobileTel = new Boolean
 
         if(mobileTel.test(val_mobileTel)){
+            this.setState({"checkMobileTel":true})
             _val = val_mobileTel;
             setTimeout(function(){
                 this.setState({info_mobileTel:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkMobileTel":false})
             //val_mobileTel = _val;
             this.setState({info_mobileTel:"請輸入正確的手機電話號碼/Please Input Correct Telephone Number"})
         }
@@ -139,13 +165,16 @@ class SchoolInfor extends Component {
         var fax = /^[0-9]*$/;
         var _val = ""
         var val_fax = event.target.value
+        var checkFax = new Boolean
 
         if(fax.test(val_fax)){
+            this.setState({"checkFax":true})
             _val = val_fax;
             setTimeout(function(){
                 this.setState({info_fax:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkFax":false})
             //val_fax = _val;
             this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
         }
@@ -157,13 +186,16 @@ class SchoolInfor extends Component {
         var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         var _val = ""
         var val_contactEmail = event.target.value
+        var checkCEmail = new Boolean
 
         if(contactEmail.test(val_contactEmail)){
+            this.setState({"checkCEmail":true})
             _val = val_contactEmail;
             setTimeout(function(){
                 this.setState({info_contactEmail:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkCEmail":false})
             //val_contactEmail = _val;
             this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
         }
@@ -311,6 +343,8 @@ class SchoolInfor extends Component {
                 >
                     Sign Out
                 </button>
+                <br/>
+                <font for="title" color="red">{this.state.info}</font>
             </div>
         )
     }
@@ -319,6 +353,8 @@ class SchoolInfor extends Component {
     }
 
     addSchoolInfor(state) {
+        if(this.state.checkCEname == true && this.state.checkEName == true && this.state.checkCCname == true && this.state.checkCEname == true && this.state.checkOfficeTel == true 
+            && this.state.checkMobileTel == true && this.state.checkFax == true && this.state.checkCEmail == true ){
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
             userType: this.state.userType,
@@ -333,7 +369,12 @@ class SchoolInfor extends Component {
             mobileTel: this.state.mobileTel,
             fax: this.state.fax,
             contactEmail:this.state.contactEmail
-        });
+        });}else{
+            this.setState({info:"ERROR"})
+            setTimeout(function(){
+                this.setState({info:""})
+            }.bind(this),3000);
+        }
     }
     
 }

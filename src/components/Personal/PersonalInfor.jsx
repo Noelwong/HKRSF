@@ -29,6 +29,9 @@ class PersonalInfor extends Component {
             error: {
                 message: ''
             },
+            checkCName:'',
+            checkEName:'',
+            checkID:'',
             
         }
         this.user = firebaseApp.auth().currentUser;
@@ -53,16 +56,21 @@ class PersonalInfor extends Component {
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var _val = ""
         var val_CName = event.target.value
+        var checkCName = new Boolean
+        
 
         if(chineseName.test(val_CName)){
+            this.setState({"checkCName":true})
             _val = val_CName;
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkCName":false})
             //val_CName = _val;
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
+        
         this.setState({"val_CName":val_CName})
     }
 
@@ -71,13 +79,16 @@ class PersonalInfor extends Component {
         var englishName = /^[A-Za-z]+$/;
         var _val = ""
         var val_EName = event.target.value
-
+        var checkEName = new Boolean
+        
         if(englishName.test(val_EName)){
+            this.setState({"checkEName":true})
             _val = val_EName;
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkEName":false})
             //val_EName = _val;
             this.setState({info_EName:"Please Input Correct English Name"})
         }
@@ -89,14 +100,18 @@ class PersonalInfor extends Component {
         var IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
         var _val = ""
         var val_ID = event.target.value
+        var checkID = new Boolean
+        
 
         if(IDName.test(val_ID)){
+            this.setState({"checkID":true})
             _val = val_ID; 
             setTimeout(function(){
                 this.setState({info_ID:""});
             }.bind(this), 1000);
             
         }else{
+            this.setState({"checkID":false})
             //val_ID = _val;
             this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
             
@@ -237,9 +252,11 @@ class PersonalInfor extends Component {
                 <button
                     className="btn btn-danger"
                     onClick={() => this.signOut()}
-                >
+                > 
                     Sign Out
                 </button>
+                <br/>
+                <font for="title" color="red">{this.state.info}</font>
             </div>
         )
     }
@@ -248,6 +265,8 @@ class PersonalInfor extends Component {
     }
 
     addPersonalInfor(state) {
+        
+        if(this.state.checkCName == true && this.state.checkEName == true && this.state.checkID == true ){
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
             userType:'Personal',
@@ -264,7 +283,13 @@ class PersonalInfor extends Component {
             coachYear: this.state.coachYear,
             judgeLevel: this.state.judgeLevel,
             judgeYear: this.state.judgeYear
-        });
+        });}else{
+            this.setState({info:"ERROR"})
+            setTimeout(function(){
+                this.setState({info:""})
+            }.bind(this),3000);
+        }
+
     }
     
 }

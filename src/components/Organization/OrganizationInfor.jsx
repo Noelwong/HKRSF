@@ -28,7 +28,17 @@ class OrganizationInfor extends Component {
             contactAddress:'',
             error: {
                 message: ''
-            }
+            },
+            checkCName:'',
+            checkEName:'',
+            checkPhone:'',
+            checkFax:'',
+            checkPCName:'',
+            checkPEName:'',
+            checkIDnum:'',
+            checkCNum:'',
+            checkCEmail:'',
+
         }
         this.user = firebaseApp.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
@@ -40,13 +50,16 @@ class OrganizationInfor extends Component {
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var _val = ""
         var val_CName = event.target.value
+        var checkCName = new Boolean
 
         if(chineseName.test(val_CName)){
+            this.setState({"checkCName":true})
             _val = val_CName;
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkCName":false})
             //val_CName = _val;
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
@@ -60,11 +73,13 @@ class OrganizationInfor extends Component {
         var val_EName = event.target.value
 
         if(englishName.test(val_EName)){
+            this.setState({"checkEName":true})
             _val = val_EName;
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkEName":false})
             //val_EName = _val;
             this.setState({info_EName:"Please Input Correct English Name"})
         }
@@ -76,13 +91,16 @@ class OrganizationInfor extends Component {
         var phone = /^[0-9]*$/;
         var _val = ""
         var val_phone = event.target.value
+        var checkPhone = new Boolean
 
         if(phone.test(val_phone)){
+            this.setState({"checkPhone":true})
             _val = val_phone;
             setTimeout(function(){
                 this.setState({info_phone:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkPhone":false})
             //val_phone = _val;
             this.setState({info_phone:"請輸入正確的電話號碼/Please Input Correct Phone Number"})
         }
@@ -94,13 +112,16 @@ class OrganizationInfor extends Component {
         var fax = /^[0-9]*$/;
         var _val = ""
         var val_fax = event.target.value
+        var checkFax = new Boolean
 
         if(fax.test(val_fax)){
+            this.setState({"checkFax":true})
             _val = val_fax;
             setTimeout(function(){
                 this.setState({info_fax:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkFax":false})
             //val_fax = _val;
             this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
         }
@@ -112,13 +133,16 @@ class OrganizationInfor extends Component {
         var personCName = /^[\u4e00-\u9fa5]{0,}$/;
         var _val = ""
         var val_personCName = event.target.value
+        var checkPCName = new Boolean
 
         if(personCName.test(val_personCName)){
+            this.setState({"checkPCName":true})
             _val = val_personCName;
             setTimeout(function(){
                 this.setState({info_personCName:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkPCName":false})
             //val_personCName = _val;
             this.setState({info_personCName:"請輸入正確的中文名字"});
         }
@@ -130,13 +154,16 @@ class OrganizationInfor extends Component {
         var personEName = /^[A-Za-z]+$/;
         var _val = ""
         var val_personEName = event.target.value
+        var checkEName = new Boolean
 
         if(personEName.test(val_personEName)){
+            this.setState({"checkPEName":true})
             _val = val_personEName;
             setTimeout(function(){
                 this.setState({info_personEName:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkPEName":false})
             //val_personEName = _val;
             this.setState({info_personEName:"Please Input Correct English Name"})
         }
@@ -148,14 +175,17 @@ class OrganizationInfor extends Component {
         var IDnum = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
         var _val = ""
         var val_IDnum = event.target.value
+        var checkIDnum = new Boolean
 
         if(IDnum.test(val_IDnum)){
+            this.setState({"checkIDnum":true})
             _val = val_IDnum; 
             setTimeout(function(){
                 this.setState({info_IDnum:""});
             }.bind(this), 1000);
             
         }else{
+            this.setState({"checkIDnum":false})
             //val_ID = _val;
             this.setState({info_IDnum:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
             
@@ -169,13 +199,16 @@ class OrganizationInfor extends Component {
         var contactNumber = /^[0-9]*$/;
         var _val = ""
         var val_contactNumber = event.target.value
+        var checkCNum = new Boolean
 
         if(contactNumber.test(val_contactNumber)){
+            this.setState({"checkCNum":true})
             _val = val_contactNumber;
             setTimeout(function(){
                 this.setState({info_contactNumber:""});
             }.bind(this), 1000);
         }else{
+            this.setState({"checkCNum":false})
             //val_contactNumber = _val;
             this.setState({info_contactNumber:"請輸入正確的聯繫號碼/Please Input Correct Contact Number"})
         }
@@ -187,13 +220,16 @@ class OrganizationInfor extends Component {
         var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         var _val = ""
         var val_contactEmail = event.target.value
+        var checkCEmail = new Boolean
 
         if(contactEmail.test(val_contactEmail)){
+            this.setState({"checkCEmail":true})
             _val = val_contactEmail;
             setTimeout(function(){
                 this.setState({info_contactEmail:""});
             }.bind(this), 1000);
         }else{ 
+            this.setState({"checkCEmail":true})
             //val_contactEmail = _val;
             this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
         }
@@ -350,6 +386,8 @@ class OrganizationInfor extends Component {
                 >
                     Sign Out
                 </button>
+                <br/>
+                <font for="title" color="red">{this.state.info}</font>
             </div>
         )
     }
@@ -359,6 +397,8 @@ class OrganizationInfor extends Component {
     }
 
     addOrganizationInfor(state) {
+        if(this.state.checkCName == true && this.state.checkEName == true && this.state.checkPhone == true && this.state.checkFax == true && this.state.checkPCName == true 
+            && this.state.checkPEName == true && this.state.checkIDnum == true && this.state.checkCNum == true && this.state.checkCEmail == true){
         const uid = this.user.uid;
         db.collection("user").doc(uid).set({
             userType:'Organization',
@@ -375,7 +415,12 @@ class OrganizationInfor extends Component {
             contactNumber: this.state.contactNumber,
             contactEmail: this.state.contactEmail,
             contactAddress: this.state.contactAddress
-        })
+        });}else{
+            this.setState({info:"ERROR"})
+            setTimeout(function(){
+                this.setState({info:""})
+            }.bind(this),3000);
+        }
     }
 }
 export default OrganizationInfor;
