@@ -48,14 +48,15 @@ class UpdateOrganizationInfor extends Component {
     CName(event){
         this.setState({CName:event.target.value})
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
-        var val_CName = event.target.value
+        var val_CName = event.target.value;
 
         if(chineseName.test(val_CName)){
+            this.setState({"checkCName":true})
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
         }else{ 
-            //val_CName = _val;
+            this.setState({"checkCName":false})
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
         this.setState({"val_CName":val_CName})
@@ -67,11 +68,12 @@ class UpdateOrganizationInfor extends Component {
         var val_EName = event.target.value
 
         if(englishName.test(val_EName)){
+            this.setState({"checkEName":true})
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
-            //val_EName = _val;
+            this.setState({"checkEName":false})
             this.setState({info_EName:"Please Input Correct English Name"})
         }
         this.setState({"val_EName":val_EName})
@@ -80,14 +82,15 @@ class UpdateOrganizationInfor extends Component {
     phone(event){
         this.setState({phone:event.target.value})
         var phone = /^[0-9]*$/;
-        var val_phone = event.target.value
+        var val_phone = event.target.value;
 
         if(phone.test(val_phone)){
+            this.setState({"checkPhone":true})
             setTimeout(function(){
                 this.setState({info_phone:""});
             }.bind(this), 1000);
         }else{
-            //val_phone = _val;
+            this.setState({"checkPhone":false})
             this.setState({info_phone:"請輸入正確的電話號碼/Please Input Correct Phone Number"})
         }
         this.setState({"val_phone":val_phone})
@@ -96,14 +99,15 @@ class UpdateOrganizationInfor extends Component {
     fax(event){
         this.setState({fax:event.target.value})
         var fax = /^[0-9]*$/;
-        var val_fax = event.target.value
+        var val_fax = event.target.value;
 
         if(fax.test(val_fax)){
+            this.setState({"checkFax":true})
             setTimeout(function(){
                 this.setState({info_fax:""});
             }.bind(this), 1000);
         }else{
-            //val_fax = _val;
+            this.setState({"checkFax":false})
             this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
         }
         this.setState({"val_fax":val_fax})
@@ -112,14 +116,15 @@ class UpdateOrganizationInfor extends Component {
     personCName(event){
         this.setState({personCName:event.target.value})
         var personCName = /^[\u4e00-\u9fa5]{0,}$/;
-        var val_personCName = event.target.value
+        var val_personCName = event.target.value;
 
         if(personCName.test(val_personCName)){
+            this.setState({"checkPCName":true})
             setTimeout(function(){
                 this.setState({info_personCName:""});
             }.bind(this), 1000);
         }else{ 
-            //val_personCName = _val;
+            this.setState({"checkPCName":false})
             this.setState({info_personCName:"請輸入正確的中文名字"});
         }
         this.setState({"val_personCName":val_personCName})
@@ -128,14 +133,15 @@ class UpdateOrganizationInfor extends Component {
     personEName(event){
         this.setState({personEName:event.target.value})
         var personEName = /^[A-Za-z]+$/;
-        var val_personEName = event.target.value
+        var val_personEName = event.target.value;
 
         if(personEName.test(val_personEName)){
+            this.setState({"checkPEName":true})
             setTimeout(function(){
                 this.setState({info_personEName:""});
             }.bind(this), 1000);
         }else{
-            //val_personEName = _val;
+            this.setState({"checkPEName":false})
             this.setState({info_personEName:"Please Input Correct English Name"})
         }
         this.setState({"val_personEName":val_personEName})
@@ -144,15 +150,16 @@ class UpdateOrganizationInfor extends Component {
     IDnum(event){
         this.setState({IDnum:event.target.value})
         var IDnum = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
-        var val_IDnum = event.target.value
+        var val_IDnum = event.target.value;
 
         if(IDnum.test(val_IDnum)){
+            this.setState({"checkIDnum":true})
             setTimeout(function(){
                 this.setState({info_IDnum:""});
             }.bind(this), 1000);
             
         }else{
-            //val_ID = _val;
+            this.setState({"checkIDnum":false})
             this.setState({info_IDnum:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
             
         }
@@ -163,14 +170,15 @@ class UpdateOrganizationInfor extends Component {
     contactNumber(event){
         this.setState({contactNumber:event.target.value})
         var contactNumber = /^[0-9]*$/;
-        var val_contactNumber = event.target.value
+        var val_contactNumber = event.target.value;
 
         if(contactNumber.test(val_contactNumber)){
+            this.setState({"checkCNum":true})
             setTimeout(function(){
                 this.setState({info_contactNumber:""});
             }.bind(this), 1000);
         }else{
-            //val_contactNumber = _val;
+            this.setState({"checkCNum":false})
             this.setState({info_contactNumber:"請輸入正確的聯繫號碼/Please Input Correct Contact Number"})
         }
         this.setState({"val_contactNumber":val_contactNumber})
@@ -179,14 +187,15 @@ class UpdateOrganizationInfor extends Component {
     contactEmail(event){
         this.setState({contactEmail:event.target.value})
         var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        var val_contactEmail = event.target.value
+        var val_contactEmail = event.target.value;
 
         if(contactEmail.test(val_contactEmail)){
+            this.setState({"checkCEmail":true})
             setTimeout(function(){
                 this.setState({info_contactEmail:""});
             }.bind(this), 1000);
         }else{ 
-            //val_contactEmail = _val;
+            this.setState({"checkCEmail":true})
             this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
         }
         this.setState({"val_contactEmail":val_contactEmail})

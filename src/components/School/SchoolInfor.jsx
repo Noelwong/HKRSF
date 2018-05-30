@@ -21,14 +21,14 @@ class SchoolInfor extends Component {
             error: {
                 message: ''
             },
-            checkCName:'',
-            checkEName:'',
-            checkCCname:'',
-            checkCEname:'',
-            checkOfficeTel:'',
-            checkMobileTel:'',
-            checkFax:'',
-            checkCEmail:'',
+            checkCName: false,
+            checkEName: false,
+            checkCCname: false,
+            checkCEname: false,
+            checkOfficeTel: false,
+            checkMobileTel: false,
+            checkFax: false,
+            checkCEmail: false,
         }
         this.user = firebaseApp.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
@@ -37,62 +37,66 @@ class SchoolInfor extends Component {
     CName(event){
         this.setState({CName:event.target.value})
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
-        var val_CName = event.target.value
+        var val_CName = event.target.value;
 
         if(chineseName.test(val_CName)){
+            this.setState({checkCName: true})
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
-        }else{ 
-            //val_CName = _val;
+        }else{
+            this.setState({checkCName: false}) 
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
-        this.setState({"val_CName":val_CName})
+        this.setState({val_CName: val_CName})
     }
 
     EName(event){
         this.setState({EName:event.target.value})
         var englishName = /^[A-Za-z]+$/;
-        var val_EName = event.target.value
+        var val_EName = event.target.value;
 
         if(englishName.test(val_EName)){
+            this.setState({checkEName: true})
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
-            //val_EName = _val;
+            this.setState({checkEName: false})
             this.setState({info_EName:"Please Input Correct English Name"})
         }
-        this.setState({"val_EName":val_EName})
+        this.setState({val_EName: val_EName})
     }
 
     contactCname(event){
         this.setState({contactCname:event.target.value})
         var contactChineseName = /^[\u4e00-\u9fa5]{0,}$/;
-        var val_contactCname = event.target.value
+        var val_contactCname = event.target.value;
 
         if(contactChineseName.test(val_contactCname)){
+            this.setState({checkCCname: true})
             setTimeout(function(){
                 this.setState({info_contactCname:""});
             }.bind(this), 1000);
         }else{ 
-            //val_contactCname = _val;
+            this.setState({checkCCname: false})
             this.setState({info_contactCname:"請輸入正確的中文名字"});
         }
-        this.setState({"val_contactCname":val_contactCname})
+        this.setState({val_contactCname: val_contactCname})
     }
 
     contactEname(event){
         this.setState({contactEname:event.target.value})
         var contactEnglishName = /^[A-Za-z]+$/;
-        var val_contactEname = event.target.value
+        var val_contactEname = event.target.value;
 
         if(contactEnglishName.test(val_contactEname)){
+            this.setState({"checkCEname":true})
             setTimeout(function(){
                 this.setState({info_contactEname:""});
             }.bind(this), 1000);
         }else{
-            //val_contactEname = _val;
+            this.setState({"checkCEname":false})
             this.setState({info_contactEname:"Please Input Correct English Name"})
         }
         this.setState({"val_contactEname":val_contactEname})
@@ -101,14 +105,15 @@ class SchoolInfor extends Component {
     officeTel(event){
         this.setState({officeTel:event.target.value})
         var officeTel = /^[0-9]*$/;
-        var val_officeTel = event.target.value
+        var val_officeTel = event.target.value;
 
         if(officeTel.test(val_officeTel)){
+            this.setState({"checkOfficeTel":true})
             setTimeout(function(){
                 this.setState({info_officeTel:""});
             }.bind(this), 1000);
         }else{
-            //val_officeTel = _val;
+            this.setState({"checkOfficeTel":false})
             this.setState({info_officeTel:"請輸入正確的辦公室電話號碼/Please Input Correct Office Phone Number"})
         }
         this.setState({"val_officeTel":val_officeTel})
@@ -117,14 +122,15 @@ class SchoolInfor extends Component {
     mobileTel(event){
         this.setState({mobileTel:event.target.value})
         var mobileTel = /^[0-9]*$/;
-        var val_mobileTel = event.target.value
+        var val_mobileTel = event.target.value;
 
         if(mobileTel.test(val_mobileTel)){
+            this.setState({"checkMobileTel":true})
             setTimeout(function(){
                 this.setState({info_mobileTel:""});
             }.bind(this), 1000);
         }else{
-            //val_mobileTel = _val;
+            this.setState({"checkMobileTel":false})
             this.setState({info_mobileTel:"請輸入正確的手機電話號碼/Please Input Correct Telephone Number"})
         }
         this.setState({"val_mobileTel":val_mobileTel})
@@ -133,14 +139,15 @@ class SchoolInfor extends Component {
     fax(event){
         this.setState({fax:event.target.value})
         var fax = /^[0-9]*$/;
-        var val_fax = event.target.value
+        var val_fax = event.target.value;
 
         if(fax.test(val_fax)){
+            this.setState({"checkFax":true})
             setTimeout(function(){
                 this.setState({info_fax:""});
             }.bind(this), 1000);
         }else{
-            //val_fax = _val;
+            this.setState({"checkFax":false})
             this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
         }
         this.setState({"val_fax":val_fax})
@@ -149,14 +156,15 @@ class SchoolInfor extends Component {
     contactEmail(event){
         this.setState({contactEmail:event.target.value})
         var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        var val_contactEmail = event.target.value
+        var val_contactEmail = event.target.value;
 
         if(contactEmail.test(val_contactEmail)){
+            this.setState({"checkCEmail":true})
             setTimeout(function(){
                 this.setState({info_contactEmail:""});
             }.bind(this), 1000);
         }else{ 
-            //val_contactEmail = _val;
+            this.setState({"checkCEmail":false})
             this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
         }
         this.setState({"val_contactEmail":val_contactEmail})

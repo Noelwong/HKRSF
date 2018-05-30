@@ -28,6 +28,9 @@ class PersonalInfor extends Component {
             error: {
                 message: ''
             },
+            checkCName:'',
+            checkEName:'',
+            checkID:'',
             
         }
         this.user = firebaseApp.auth().currentUser;
@@ -50,30 +53,34 @@ class PersonalInfor extends Component {
     CName(event){
         this.setState({CName:event.target.value})
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
+        var val_CName = event.target.value;
+        
 
-        var val_CName = event.target.value
         if(chineseName.test(val_CName)){
+            this.setState({"checkCName":true})
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
         }else{ 
-            //val_CName = _val;
+            this.setState({"checkCName":false})
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
+        
         this.setState({"val_CName":val_CName})
     }
 
     EName(event){
         this.setState({EName:event.target.value})
         var englishName = /^[A-Za-z]+$/;
-        var val_EName = event.target.value
-
+        var val_EName = event.target.value;
+        
         if(englishName.test(val_EName)){
+            this.setState({"checkEName":true})
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
-            //val_EName = _val;
+            this.setState({"checkEName":false})
             this.setState({info_EName:"Please Input Correct English Name"})
         }
         this.setState({"val_EName":val_EName})
@@ -82,15 +89,17 @@ class PersonalInfor extends Component {
     ID(event){
         this.setState({ID:event.target.value})
         var IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
-        var val_ID = event.target.value
+        var val_ID = event.target.value;
+        
 
         if(IDName.test(val_ID)){
+            this.setState({"checkID":true})
             setTimeout(function(){
                 this.setState({info_ID:""});
             }.bind(this), 1000);
             
         }else{
-            //val_ID = _val;
+            this.setState({"checkID":false})
             this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
             
         }
@@ -144,7 +153,7 @@ class PersonalInfor extends Component {
                 性別<br/>
                 Gender 
                 <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
-                    <option value ="">Please Select Your Gender</option>
+                    <option value ="">Please Select Your School type</option>
                     <option value ="male">男Male</option>
                     <option value="female">女Female</option>
                 </select>
