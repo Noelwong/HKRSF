@@ -14,8 +14,9 @@ class AddCompetition extends Component {
             startDate: moment(),
             endDate: moment(),
             deadDate: moment(),
+            publishDate: moment(),
             location: '',
-            com: [],
+            comType: [],
             error: {
                 message: ''
             }
@@ -23,6 +24,7 @@ class AddCompetition extends Component {
         this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
         this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
+        this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
 
     }
 
@@ -43,6 +45,12 @@ class AddCompetition extends Component {
         });
     }
 
+    handleChangePublishDate(date) {
+        this.setState({
+            publishDate: date,
+        });
+    }
+
     addCompetition(state) {
 
         db.collection("competition").doc().set({
@@ -50,6 +58,7 @@ class AddCompetition extends Component {
             startDate: new Date(this.state.startDate),
             endDate: new Date(this.state.endDate),
             deadDate: new Date(this.state.deadDate),
+            publishDate: new Date(this.state.publishDate),
             location: this.state.location
         })
     }
@@ -101,6 +110,18 @@ class AddCompetition extends Component {
                     <DatePicker
                         selected={this.state.deadDate}
                         onChange={this.handleChangeDeadDate}
+                    />
+                    <br />
+                    公佈日期:<br />
+                    Publish Date:<br />
+                    <DatePicker
+                        selected={this.state.publishDate}
+                        onChange={this.handleChangePublishDate}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="LLL"
+                        timeCaption="time"
                     />
                     <br />
                 </form>
