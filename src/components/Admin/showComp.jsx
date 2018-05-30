@@ -10,7 +10,7 @@ class ShowComp extends Component {
         this.getCompInfor();
     }
 getCompInfor(){
-    this.com = new Array();
+    this.com = [];
     // db.collection('competition').get().then(snapshot =>
     //     {snapshot.forEach(doc => {
     //             //console.log(doc.id, '=>', doc.data().name);
