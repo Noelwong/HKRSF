@@ -25,8 +25,8 @@ class AddCompetition extends Component {
         this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
-
     }
+
 
     handleChangeStartDate(date) {
         this.setState({
