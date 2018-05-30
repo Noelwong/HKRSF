@@ -144,7 +144,7 @@ class UpdatePersonalInfor extends Component {
                 性別<br/>
                 Gender 
                 <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
-                    <option value ="">Please Select Your School type</option>
+                    <option value ="">Please Select Your Gender</option>
                     <option value ="male">男Male</option>
                     <option value="female">女Female</option>
                 </select>
