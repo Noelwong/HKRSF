@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
-import UpdateOrganizationInfor from './UpdateOrganizationInfor'
+import UpdateOrganizationInfor from './UpdateOrganizationInfor';
+import AddOrgMember from './AddOrgMember';
 
 class OraganizationHome extends Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class OraganizationHome extends Component {
         if(showContent != null){
             if(showContent === 'UpdateInformation'){
                 return(<UpdateOrganizationInfor/>)
+        }else if(showContent ==='AddMember'){
+            return(<AddOrgMember/>)
         }
     }
 }
@@ -26,7 +29,7 @@ class OraganizationHome extends Component {
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active" onClick={() => this.setState({showContent:'UpdateInformation'})} ><a>Update Information</a></li>
-                        <li><a>About</a></li>
+                        <li onClick={() => this.setState({showContent:'AddMember'})}><a>Add member</a></li>
                         <li><a>Contact</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

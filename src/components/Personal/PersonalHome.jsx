@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
-import UpdatePersonalInfor from './UpdatePersonalInfor'
+import UpdatePersonalInfor from './UpdatePersonalInfor';
 
 class PersonalHome extends Component {
     constructor(props) {

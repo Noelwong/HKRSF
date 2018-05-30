@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
-import UpdateSchoolInfor from './UpdateSchoolInfor'
+import UpdateSchoolInfor from './UpdateSchoolInfor';
+import AddSchoolMember from './AddSchoolMember';
 
 class SchoolHome extends Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class SchoolHome extends Component {
         if(showContent != null){
             if(showContent === 'UpdateInformation'){
                 return(<UpdateSchoolInfor/>)
+        }else if(showContent ==='AddMember'){
+            return(<AddSchoolMember/>)
         }
     }
 }
@@ -26,7 +29,7 @@ class SchoolHome extends Component {
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active" onClick={() => this.setState({showContent:'UpdateInformation'})} ><a>Update Information</a></li>
-                        <li><a>About</a></li>
+                        <li onClick={() => this.setState({showContent:'AddMember'})}><a>Add Student</a></li>
                         <li><a>Contact</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
