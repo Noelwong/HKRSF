@@ -37,23 +37,19 @@ class AdminHome extends Component {
                     <ul className="nav navbar-nav">
                         <li className="active" onClick={() => this.handleChange()}><a>Add Competition</a></li>
                         <li className="active" onClick={() => this.handleChangeShow()}><a>Show Competition</a></li>
-                        <li><a href="">Rule Setting</a></li>
+                        <li><a>Rule Setting</a></li>
                         <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
+                            <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
                             <ul className="dropdown-menu">
-                                <li><a href="">Action</a></li>
-                                <li><a href="">Another action</a></li>
-                                <li><a href="">Something else here</a></li>
+                                <li><a >Action</a></li>
                                 <li role="separator" className="divider"></li>
                                 <li className="dropdown-header">Nav header</li>
-                                <li><a href="">Separated link</a></li>
-                                <li><a href="">One more separated link</a></li>
+                                <li><a>Separated link</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
-                        <li><a href="../navbar/">Default</a></li>
-                        <li><a href="../navbar-static-top/">Static top</a></li>
+                        <li><a>Static top</a></li>
                         <li><button
                             className="btn btn-danger"
                             onClick={() => this.signOut()}

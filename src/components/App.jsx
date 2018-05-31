@@ -10,6 +10,7 @@ import AdminHome from './Admin/AdminHome';
 import SchoolHome from './School/SchoolHome';
 import PersonalHome from './Personal/PersonalHome';
 import AddInfor from './AddInfor';
+import LoadingPage from './LoadingPage';
 
 class App extends Component {
 
@@ -51,14 +52,13 @@ class App extends Component {
                         this.setState({userType: 'School', uid: uidInString });
                     }
                 }else{
-                    this.setState({jumppath: '/addinfor', uid: uidInString })
+                    this.setState({userType: 'NULL', uid: uidInString })
                 }
             });
         }
     };
 
     roleBasePage = (userType) =>{
-        if (userType != null) {
             if (userType === 'Personal') {
                 return(<PersonalHome/>)
             } else if (userType === 'School') {
@@ -69,9 +69,16 @@ class App extends Component {
                 return(<AdminHome/>)
             }else if (userType === 'Judge') {
                 return(<JudgeHome/>)
-            }else{
+            }else if (userType === 'NULL'){
             return(<AddInfor/>)
         }
+        
+    }
+
+    showLoading(userType){
+        if( userType != null ){
+        }else{
+            return(<LoadingPage/>)
         }
     }
 
@@ -94,6 +101,8 @@ class App extends Component {
                 />
                 </div>
                 <div>User type :{this.state.userType}</div>
+                <br/>
+                {this.showLoading(this.state.userType)}
                 <br/>
                  {this.roleBasePage(this.state.userType)}
                 <br/>
