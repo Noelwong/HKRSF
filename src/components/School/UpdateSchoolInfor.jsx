@@ -21,17 +21,16 @@ class UpdateSchoolInfor extends Component {
             error: {
                 message: ''
             },
-            checkCName:'',
-            checkEName:'',
-            checkCCname:'',
-            checkCEname:'',
-            checkOfficeTel:'',
-            checkMobileTel:'',
-            checkFax:'',
-            checkCEmail:'',
+            checkCName:true,
+            checkEName:true,
+            checkCCname:true,
+            checkCEname:true,
+            checkOfficeTel:true,
+            checkMobileTel:true,
+            checkFax:true,
+            checkCEmail:true,
         }
         this.user = firebaseApp.auth().currentUser;
-        this.handleChange = this.handleChange.bind(this);
     }
 
     CName(event){
@@ -39,14 +38,16 @@ class UpdateSchoolInfor extends Component {
         var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var val_CName = event.target.value;
 
-        if(chineseName.test(val_CName)){
-            this.setState({"checkCName":true})
-            setTimeout(function(){
-                this.setState({info_CName:""});
-            }.bind(this), 1000);
-        }else{
-            this.setState({"checkCName":false}) 
-            this.setState({info_CName:"請輸入正確的中文名字"});
+        if(val_CName.length > 0){    
+            if(chineseName.test(val_CName)){
+                this.setState({"checkCName":true})
+                setTimeout(function(){
+                    this.setState({info_CName:""});
+                }.bind(this), 1000);
+            }else{
+                this.setState({"checkCName":false}) 
+                this.setState({info_CName:"請輸入正確的中文名字"});
+            }
         }
         this.setState({"val_CName":val_CName})
     }
@@ -56,16 +57,26 @@ class UpdateSchoolInfor extends Component {
         var englishName = /^[A-Za-z]+$/;
         var val_EName = event.target.value;
 
-        if(englishName.test(val_EName)){
-            this.setState({"checkEName":true})
-            setTimeout(function(){
-                this.setState({info_EName:""});
-            }.bind(this), 1000);
-        }else{
-            this.setState({"checkEName":false})
-            this.setState({info_EName:"Please Input Correct English Name"})
+        if(val_EName.length > 0){
+            if(englishName.test(val_EName)){
+                this.setState({"checkEName":true})
+                setTimeout(function(){
+                    this.setState({info_EName:""});
+                }.bind(this), 1000);
+            }else{
+                this.setState({"checkEName":false})
+                this.setState({info_EName:"Please Input Correct English Name"})
+            }
         }
         this.setState({"val_EName":val_EName})
+    }
+
+    schoolDistrict(event) {
+        this.setState({DOSchool: event.target.value});
+    }
+
+    principalName(event){
+        this.setState({PName:event.target.value});
     }
 
     contactCname(event){
@@ -73,14 +84,16 @@ class UpdateSchoolInfor extends Component {
         var contactChineseName = /^[\u4e00-\u9fa5]{0,}$/;
         var val_contactCname = event.target.value;
 
-        if(contactChineseName.test(val_contactCname)){
-            this.setState({"checkCCname":true})
-            setTimeout(function(){
-                this.setState({info_contactCname:""});
-            }.bind(this), 1000);
-        }else{ 
-            this.setState({"checkCCname":false})
-            this.setState({info_contactCname:"請輸入正確的中文名字"});
+        if(val_contactCname.length > 0){
+            if(contactChineseName.test(val_contactCname)){
+                this.setState({"checkCCname":true})
+                setTimeout(function(){
+                    this.setState({info_contactCname:""});
+                }.bind(this), 1000);
+            }else{ 
+                this.setState({"checkCCname":false})
+                this.setState({info_contactCname:"請輸入正確的中文名字"});
+            }
         }
         this.setState({"val_contactCname":val_contactCname})
     }
@@ -90,16 +103,22 @@ class UpdateSchoolInfor extends Component {
         var contactEnglishName = /^[A-Za-z]+$/;
         var val_contactEname = event.target.value;
 
-        if(contactEnglishName.test(val_contactEname)){
-            this.setState({"checkCEname":true})
-            setTimeout(function(){
-                this.setState({info_contactEname:""});
-            }.bind(this), 1000);
-        }else{
-            this.setState({"checkCEname":false})
-            this.setState({info_contactEname:"Please Input Correct English Name"})
+        if(val_contactEname > 0){
+            if(contactEnglishName.test(val_contactEname)){
+                this.setState({"checkCEname":true})
+                setTimeout(function(){
+                    this.setState({info_contactEname:""});
+                }.bind(this), 1000);
+            }else{
+                this.setState({"checkCEname":false})
+                this.setState({info_contactEname:"Please Input Correct English Name"})
+            }
         }
         this.setState({"val_contactEname":val_contactEname})
+    }
+
+    address(event){
+        this.setState({contactAddress:event.target.value});
     }
 
     officeTel(event){
@@ -107,14 +126,16 @@ class UpdateSchoolInfor extends Component {
         var officeTel = /^[0-9]*$/;
         var val_officeTel = event.target.value;
 
-        if(officeTel.test(val_officeTel)){
-            this.setState({"checkOfficeTel":true})
-            setTimeout(function(){
-                this.setState({info_officeTel:""});
-            }.bind(this), 1000);
-        }else{
-            this.setState({"checkOfficeTel":false})
-            this.setState({info_officeTel:"請輸入正確的辦公室電話號碼/Please Input Correct Office Phone Number"})
+        if(val_officeTel.length > 0){
+            if(officeTel.test(val_officeTel)){
+                this.setState({"checkOfficeTel":true})
+                setTimeout(function(){
+                    this.setState({info_officeTel:""});
+                }.bind(this), 1000);
+            }else{
+                this.setState({"checkOfficeTel":false})
+                this.setState({info_officeTel:"請輸入正確的辦公室電話號碼/Please Input Correct Office Phone Number"})
+            }
         }
         this.setState({"val_officeTel":val_officeTel})
     }
@@ -141,14 +162,16 @@ class UpdateSchoolInfor extends Component {
         var fax = /^[0-9]*$/;
         var val_fax = event.target.value;
 
-        if(fax.test(val_fax)){
-            this.setState({"checkFax":true})
-            setTimeout(function(){
-                this.setState({info_fax:""});
-            }.bind(this), 1000);
-        }else{
-            this.setState({"checkFax":false})
-            this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
+        if(val_fax.length > 0){
+            if(fax.test(val_fax)){
+                this.setState({"checkFax":true})
+                setTimeout(function(){
+                    this.setState({info_fax:""});
+                }.bind(this), 1000);
+            }else{
+                this.setState({"checkFax":false})
+                this.setState({info_fax:"請輸入正確的傳真號碼/Please Input Correct Fax Number"})
+            }
         }
         this.setState({"val_fax":val_fax})
     }    
@@ -158,24 +181,22 @@ class UpdateSchoolInfor extends Component {
         var contactEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         var val_contactEmail = event.target.value;
 
-        if(contactEmail.test(val_contactEmail)){
-            this.setState({"checkCEmail":true})
-            setTimeout(function(){
-                this.setState({info_contactEmail:""});
-            }.bind(this), 1000);
-        }else{ 
-            this.setState({"checkCEmail":false})
-            this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
+        if(val_contactEmail.length > 0){
+            if(contactEmail.test(val_contactEmail)){
+                this.setState({"checkCEmail":true})
+                setTimeout(function(){
+                    this.setState({info_contactEmail:""});
+                }.bind(this), 1000);
+            }else{ 
+                this.setState({"checkCEmail":false})
+                this.setState({info_contactEmail:"請輸入正確的郵箱地址/Please Input Correct Email Address"});
+            }
         }
         this.setState({"val_contactEmail":val_contactEmail})
     }
 
-    handleChange(event) {
-        this.setState({DOSchool: event.target.value});
-      }
 
     render(){
-
         return (
             <div>
                 <form>
@@ -202,7 +223,7 @@ class UpdateSchoolInfor extends Component {
                 <br/><br/>
                 學校所屬地區<br/>
                 The district of school
-                <select value={this.state.DOSchool} onChange={this.handleChange} >
+                <select value={this.state.DOSchool} onChange={this.schoolDistrict.bind(this)} >
                     <option value ="">請選擇 Please Select</option>
                     <option value ="CAndW">中西區Central and Western</option>
                     <option value="WanChai">灣仔區Wan Chai</option>
@@ -229,7 +250,7 @@ class UpdateSchoolInfor extends Component {
                 <input type="text"
                      id="PName" 
                      placeholder="校長姓名"  
-                     onChange={event => this.setState({ PName: event.target.value })}
+                     onChange={this.principalName.bind(this)}
                      /><br/><br/>
                 <b>聯絡資料 Contact Details</b><br/>
                 聯絡人姓名：(中文)
@@ -255,7 +276,7 @@ class UpdateSchoolInfor extends Component {
                 <input type="text"
                      id="contactAddress" 
                      placeholder="地址" 
-                     onChange={event => this.setState({ contactAddress: event.target.value })} 
+                     onChange={this.address.bind(this)} 
                      /><br/><br/>
                 電話：(辦公室)<br/>
                 Telephone(Office)
@@ -321,23 +342,75 @@ class UpdateSchoolInfor extends Component {
     }
 
     addSchoolInfor(state) {
+        const uid = this.user.uid;
         if(this.state.checkCEname === true && this.state.checkEName === true && this.state.checkCCname === true && this.state.checkCEname === true && this.state.checkOfficeTel === true 
             && this.state.checkMobileTel === true && this.state.checkFax === true && this.state.checkCEmail === true ){
-        const uid = this.user.uid;
-        db.collection("user").doc(uid).set({
-            userType: this.state.userType,
-            CName: this.state.CName,
-            EName: this.state.EName,
-            DOSchool: this.state.DOSchool,
-            PName: this.state.PName,
-            contactCname: this.state.contactCname,
-            contactEname: this.state.contactEname,
-            contactAddress: this.state.contactAddress,
-            officeTel: this.state.officeTel,
-            mobileTel: this.state.mobileTel,
-            fax: this.state.fax,
-            contactEmail:this.state.contactEmail
-        });}else{
+            if(this.state.CName.length > 0){
+                db.collection("user").doc(uid).update({
+                    CName: this.state.CName,
+                })
+            }
+        
+            if(this.state.EName.length>0){
+                db.collection("user").doc(uid).update({
+                    EName: this.state.EName,
+                })
+            }
+
+            if(this.state.DOSchool !== ''){
+                db.collection("user").doc(uid).update({
+                    DOSchool: this.state.DOSchool,
+                })
+            }
+            
+            if(this.state.PName.length>0){
+                db.collection("user").doc(uid).update({
+                    PName: this.state.PName,
+                })
+            }
+
+            if(this.state.contactCname.length>0){
+                db.collection("user").doc(uid).update({
+                    contactCname: this.state.contactCname,
+                })
+            }
+            
+            if(this.state.contactEname.length>0){
+                db.collection("user").doc(uid).update({
+                    contactEname: this.state.contactEname,
+                })
+            }
+
+            if(this.state.contactAddress.length>0){
+                db.collection("user").doc(uid).update({
+                    contactAddress: this.state.contactAddress,
+                })
+            }
+
+            if(this.state.officeTel.length>0){
+                db.collection("user").doc(uid).update({
+                    officeTel: this.state.officeTel,
+                })
+            }
+
+            if(this.state.mobileTel.length>0){
+                db.collection("user").doc(uid).update({
+                    mobileTel: this.state.mobileTel,
+                })
+            }
+
+            if(this.state.fax.length>0){
+                db.collection("user").doc(uid).update({
+                    fax: this.state.fax,
+                })
+            }
+
+            if(this.state.contactEmail.length>0){
+                db.collection("user").doc(uid).update({
+                    contactEmail: this.state.contactEmail,
+                })
+            }
+        }else{
             this.setState({info:"ERROR"})
             setTimeout(function(){
                 this.setState({info:""})
