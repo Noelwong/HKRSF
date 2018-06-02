@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { firebaseApp } from '../firebase';
 import '../css/SignIn.css';
 
+
 class SignIn extends Component {
     constructor(props) {
         super(props);
@@ -66,6 +67,8 @@ class SignIn extends Component {
                                     <p></p>
                                     <div>{this.state.error.message}</div>
                                     <Link to={'/signup'}><button type="button" class="btn btn-login float-right" >Sign Up</button></Link>
+                                    <p/>
+                                    <Link to={'/ForgetPassword'}><button type="button" class="btn btn-login float-right" >Forget Password</button></Link>
                                 </div>
                             </form>
                             <div class="copy-text">Created for <i class="fa fa-heart"></i>HKRSF</div>
