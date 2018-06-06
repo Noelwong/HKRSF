@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { firebaseApp } from '../../firebase';
 
 import UpdatePersonalInfor from './UpdatePersonalInfor';
 import ShowCompPersonal from './ShowCompPersonal';

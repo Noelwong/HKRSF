@@ -33,14 +33,14 @@ class ForgetPassword extends Component {
 
     render() {
         return (
-            <section class="login-block" >
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 login-sec">
-                            <h2 class="text-center">Reset Paasword</h2>
-                            <form class="login-form">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+            <section className="login-block" >
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-4 login-sec">
+                            <h2 className="text-center">Reset Paasword</h2>
+                            <form className="login-form">
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1" className="text-uppercase">Email</label>
                                     <input
                                         className="form-control" id="exampleInputEmail1"
                                         type="text"
@@ -51,16 +51,16 @@ class ForgetPassword extends Component {
 
                                 </div>
 
-                                <div class="form-check">
-                                    <button class="btn btn-login float-right" type="submit" onClick={() => this.resetpassword()}>Reset</button>
+                                <div className="form-check">
+                                    <button className="btn btn-login float-right" type="submit" onClick={() => this.resetpassword()}>Reset</button>
                                     <p></p>
                                     <div>{this.state.error.message}</div>
                                 </div>
                             </form>
-                            <div class="copy-text">Created for <i class="fa fa-heart"></i>HKRSF</div>
+                            <div className="copy-text">Created for <i className="fa fa-heart"></i>HKRSF</div>
                         </div>
-                        <div class="col-md-8 banner-sec">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div className="col-md-8 banner-sec">
+                            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                             </div>
                         </div>
                     </div>

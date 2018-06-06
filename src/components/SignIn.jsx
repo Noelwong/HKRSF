@@ -31,14 +31,14 @@ class SignIn extends Component {
 
     render() {
         return (
-            <section class="login-block" >
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 login-sec">
-                            <h2 class="text-center">Login Now</h2>
-                            <form class="login-form">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+            <section className="login-block" >
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-4 login-sec">
+                            <h2 className="text-center">Login Now</h2>
+                            <form className="login-form">
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1" className="text-uppercase">Email</label>
                                     <input
                                         className="form-control" id="exampleInputEmail1"
                                         type="text"
@@ -48,8 +48,8 @@ class SignIn extends Component {
                                     />
 
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputPassword1" className="text-uppercase">Password</label>
                                     <input
                                         className="form-control" id="exampleInputPassword1"
                                         type="password"
@@ -59,19 +59,19 @@ class SignIn extends Component {
 
                                     />
                                 </div>
-                                <div class="form-check">
-                                    <button type="button" class="btn btn-login float-right" onClick={() => this.signIn()}>Log-In</button>
+                                <div className="form-check">
+                                    <button type="button" className="btn btn-login float-right" onClick={() => this.signIn()}>Log-In</button>
                                     <p></p>
                                     <div>{this.state.error.message}</div>
-                                    <Link to={'/signup'}><button type="button" class="btn btn-login float-right" >Sign Up</button></Link>
+                                    <Link to={'/signup'}><button type="button" className="btn btn-login float-right" >Sign Up</button></Link>
                                     <p></p>
-                                    <Link to={'/forgetpassword'}><button type="button" class="btn btn-login float-right" >Forget Password</button></Link>
+                                    <Link to={'/forgetpassword'}><button type="button" className="btn btn-login float-right" >Forget Password</button></Link>
                                 </div>
                             </form>
-                            <div class="copy-text">Created for <i class="fa fa-heart"></i>HKRSF</div>
+                            <div className="copy-text">Created for <i className="fa fa-heart"></i>HKRSF</div>
                         </div>
-                        <div class="col-md-8 banner-sec">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div className="col-md-8 banner-sec">
+                            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                             </div>
                         </div>
                     </div>
