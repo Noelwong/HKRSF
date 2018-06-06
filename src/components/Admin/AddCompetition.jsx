@@ -112,7 +112,7 @@ class AddCompetition extends Component {
                         onChange={this.handleChangeDeadDate}
                     />
                     <br />
-                    公佈日期:<br />
+                    公佈npm start日期:<br />
                     Publish Date:<br />
                     <DatePicker
                         selected={this.state.publishDate}

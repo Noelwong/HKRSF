@@ -12,7 +12,7 @@ import '@firebase/firestore'
 import App from './components/App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import ForgetPassword from './components/ForgetPassword'
+import ForgetPassword from './components/ForgetPassword';
 import AddInfor from './components/AddInfor';
 import AdminHome from './components/Admin/AdminHome';
 import JudgeHome from './components/Judge/JudgeHome';
@@ -42,7 +42,7 @@ ReactDOM.render(
         <Route path="/app" component={App} />
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
-        <Route path="/ForgetPassword" component={ForgetPassword} />
+        <Route path="/forgetpassword" component={ForgetPassword} />
         <Route path="/addinfor" component={AddInfor} />
 
         <Route path="/AdminHome" component={AdminHome} />

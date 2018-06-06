@@ -31,6 +31,8 @@ class PersonalInfor extends Component {
             checkCName:'',
             checkEName:'',
             checkID:'',
+
+
             
         }
         this.user = firebaseApp.auth().currentUser;
@@ -186,7 +188,7 @@ class PersonalInfor extends Component {
                 <select id = "schoolType" value={this.state.schoolType} onChange={this.schoolTypeHandleChange} >
                     <option value ="">Please Select Your School type</option>
                     <option value ="PSchool">小學Primary School</option>
-                    <option value="SSchool">中學Secondary Schooll</option>
+                    <option value="SSchool">中學Secondary School</option>
                     <option value="College">大專College</option>
                 </select>
                 <input type="text"
@@ -236,19 +238,11 @@ class PersonalInfor extends Component {
                 >
                     Submit
                 </button>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                > 
-                    Sign Out
-                </button>
                 <br/>
                 <font for="title" color="red">{this.state.info}</font>
+                {alert(this.state.info)}
             </div>
         )
-    }
-    signOut() {
-        firebaseApp.auth().signOut();
     }
 
     addPersonalInfor(state) {
@@ -270,8 +264,10 @@ class PersonalInfor extends Component {
             coachYear: this.state.coachYear,
             judgeLevel: this.state.judgeLevel,
             judgeYear: this.state.judgeYear
-        });}else{
-            this.setState({info:"ERROR"})
+        });
+
+        }else{
+            this.setState({info:"ERROR"});
             setTimeout(function(){
                 this.setState({info:""})
             }.bind(this),3000);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
 import UpdatePersonalInfor from './UpdatePersonalInfor';
+import ShowCompPersonal from './ShowCompPersonal';
+
 
 class PersonalHome extends Component {
     constructor(props) {
@@ -16,6 +18,9 @@ class PersonalHome extends Component {
             if(showContent === 'UpdateInformation'){
                 return(<UpdatePersonalInfor/>)
         }
+        else if(showContent ==='ShowComp'){
+                return (<ShowCompPersonal/>)
+            }
     }
 }
 
@@ -26,6 +31,7 @@ class PersonalHome extends Component {
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"onClick={() => this.setState({showContent:'UpdateInformation'})}><a>Update Information</a></li>
+                        <li className="active" onClick={() => this.setState({showContent: 'ShowComp'})}><a>Show Competition</a></li>
                         <li><a>About</a></li>
                         <li><a>Contact</a></li>
                         <li class="dropdown">
@@ -44,12 +50,7 @@ class PersonalHome extends Component {
                     <ul class="nav navbar-nav navbar-right">
                         <li><a>Default</a></li>
                         <li><a>Static top</a></li>
-                        <li><button
-                            className="btn btn-danger"
-                            onClick={() => this.signOut()}
-                        >
-                            Sign Out
-                        </button></li>
+
                     </ul>
                 </div>
                 <br/>
@@ -57,9 +58,7 @@ class PersonalHome extends Component {
             </div>
         )
     }
-    signOut() {
-        firebaseApp.auth().signOut();
-    }
+
     
 }
 export default PersonalHome;

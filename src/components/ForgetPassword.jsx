@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../firebase';
 
+/* import '../css/SignUp.css' */
 
 class ForgetPassword extends Component {
     constructor(props) {
@@ -22,6 +23,11 @@ class ForgetPassword extends Component {
         }).catch(function(error) {
             console.log("ERROR");
         });
+
+        /*firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+            .catch(error => {
+                this.setState({ error })
+            })*/
     }
 
 
