@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 
-import AddCompetition from './AddCompetition';
-import ShowComp from './ShowComp';
+import CompetitionBar from './CompetitionBar'
 
 class AdminHome extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ class AdminHome extends Component {
         }
     }
     handleChange() {
-        this.setState({showContent:'AddCompetition'})
+        this.setState({showContent:'CompetitionBar'})
       }
 
     handleChangeShow() {
@@ -20,10 +19,8 @@ class AdminHome extends Component {
     }
     selectShowContent = (showContent) =>{
         if(showContent != null){
-            if(showContent === 'AddCompetition'){
-                return(<AddCompetition/>)
-            }else if (showContent ==='ShowCompetition'){
-                return(<ShowComp/>)
+            if(showContent === 'CompetitionBar'){
+                return(<CompetitionBar/>)
             }
         }
     }
@@ -35,8 +32,8 @@ class AdminHome extends Component {
                 <br/>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
-                        <li className="active" onClick={() => this.handleChange()}><a>Add Competition</a></li>
-                        <li className="active" onClick={() => this.handleChangeShow()}><a>Show Competition</a></li>
+                        <li className="active" onClick={() => this.handleChange()}><a>Competition</a></li>
+                        <li className="active" ><a>Show Competition</a></li>
                         <li><a>Rule Setting</a></li>
                         <li className="dropdown">
                             <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
