@@ -60,12 +60,10 @@ class SignIn extends Component {
                                     />
                                 </div>
                                 <div className="form-check">
-                                    <button type="button" className="btn btn-login float-right" onClick={() => this.signIn()}>Log-In</button>
-                                    <p></p>
+                                    <button type="button" className="btn btn-login float-right" onClick={() => this.signIn()}>登入<br/>Log-In</button>
                                     <div>{this.state.error.message}</div>
-                                    <Link to={'/signup'}><button type="button" className="btn btn-login float-right" >Sign Up</button></Link>
-                                    <p></p>
-                                    <Link to={'/forgetpassword'}><button type="button" className="btn btn-login float-right" >Forget Password</button></Link>
+                                    <Link to={'/signup'}><button type="button" className="btn btn-login float-right" >註冊<br/>Sign Up</button></Link>
+                                    <Link to={'/forgetpassword'}><button type="button" className="btn btn-login float-right" >忘記密碼<br/>Forget Password</button></Link>
                                 </div>
                             </form>
                             <div className="copy-text">Created for <i className="fa fa-heart"></i>HKRSF</div>

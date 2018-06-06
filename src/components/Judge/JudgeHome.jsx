@@ -31,7 +31,7 @@ class JudgeHome extends Component {
                             className="btn btn-danger"
                             onClick={() => this.signOut()}
                         >
-                            Sign Out
+                            登出<br/>Sign Out
                         </button></li>
                     </ul>
                 </div>

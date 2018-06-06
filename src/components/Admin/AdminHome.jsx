@@ -30,7 +30,7 @@ class AdminHome extends Component {
                 <br/>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
-                        <li className="active" onClick={() => this.handleChange()}><a>Competition</a></li>
+                        <li className="active" onClick={() => this.handleChange()}><a>比賽<br/>Competition</a></li>
                         <li className="active" ><a>Show Competition</a></li>
                         <li><a>Rule Setting</a></li>
                     </ul>
@@ -40,7 +40,7 @@ class AdminHome extends Component {
                             className="btn btn-danger"
                             onClick={() => this.signOut()}
                         >
-                            Sign Out
+                            登出<br/>Sign Out
                         </button></li>
                     </ul>
                 </div>
