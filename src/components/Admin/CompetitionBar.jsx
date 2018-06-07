@@ -3,6 +3,7 @@ import { firebaseApp } from '../../firebase';
 
 import AddCompetition from './AddCompetition';
 import ShowComp from './ShowComp';
+import AddCompItem from './AddCompItem'
 
 class AdminHome extends Component {
     constructor(props) {
@@ -18,12 +19,18 @@ class AdminHome extends Component {
     handleChangeShow() {
         this.setState({showContent:'ShowCompetition'})
     }
+
+    handleChangeAdd() {
+        this.setState({showContent:'AddCompItem'})
+    }
     selectShowContent = (showContent) =>{
         if(showContent != null){
             if(showContent === 'AddCompetition'){
                 return(<AddCompetition/>)
             }else if (showContent ==='ShowCompetition'){
                 return(<ShowComp/>)
+            }else if (showContent ==='AddCompItem'){
+                return(<AddCompItem/>)
             }
         }
     }
@@ -35,7 +42,7 @@ class AdminHome extends Component {
                     <ul className="nav navbar-nav">
                         <li className="active" onClick={() => this.handleChange()}><a>Add Competition</a></li>
                         <li className="active" onClick={() => this.handleChangeShow()}><a>Show Competition</a></li>
-                        <li><a>Rule Setting</a></li>
+                        <li className="active" onClick={() => this.handleChangeAdd()}><a>Add item</a></li>
                     </ul>
                 </div>
                 <br/>

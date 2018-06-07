@@ -37,7 +37,7 @@ class AdminHome extends Component {
                     <ul className="nav navbar-nav navbar-right">
                         <li><a>Static top</a></li>
                         <li><button
-                            className="btn btn-danger"
+                            className="btn btn-outline-warning"
                             onClick={() => this.signOut()}
                         >
                             登出<br/>Sign Out
