@@ -15,17 +15,18 @@ class AddCompItem extends Component {
 
     getitemType() {
         db.collection('competitionFormat').doc('competitionItem').collection('itemType').onSnapshot(coll => {
-            const itemType = coll.docs.map(doc => doc.data().id)
+            const itemType = coll.docs.map(doc => doc.id)
             this.setState({ itemType })
         })
         db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll => {
-            const numOfPeople = coll.docs.map(doc => doc.data().id)
+            const numOfPeople = coll.docs.map(doc => doc.id)
             this.setState({ numOfPeople })
         })
         db.collection('competitionFormat').doc('competitionItem').collection('timeLimit').onSnapshot(coll => {
-            const timeLimit = coll.docs.map(doc => doc.data().id)
+            const timeLimit = coll.docs.map(doc => doc.id)
             this.setState({ timeLimit })
         })
+
     }
 
 
@@ -49,6 +50,12 @@ class AddCompItem extends Component {
                         <button className="btn btn-info" id={index}>{topic}</button>
                     )
                 }
+
+
+                    <select value="">
+                        {this.state.itemType.map((topic, index) =>
+                        <option value ={index} >{topic} </option>)}
+                    </select>
             </div>
         )
 
