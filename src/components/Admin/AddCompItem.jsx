@@ -15,15 +15,15 @@ class AddCompItem extends Component {
 
     getitemType() {
         db.collection('competitionFormat').doc('competitionItem').collection('itemType').onSnapshot(coll => {
-            const itemType = coll.docs.map(doc => doc.data().name)
+            const itemType = coll.docs.map(doc => doc.data().id)
             this.setState({ itemType })
         })
         db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll => {
-            const numOfPeople = coll.docs.map(doc => doc.data().name)
+            const numOfPeople = coll.docs.map(doc => doc.data().id)
             this.setState({ numOfPeople })
         })
         db.collection('competitionFormat').doc('competitionItem').collection('timeLimit').onSnapshot(coll => {
-            const timeLimit = coll.docs.map(doc => doc.data().name)
+            const timeLimit = coll.docs.map(doc => doc.data().id)
             this.setState({ timeLimit })
         })
     }
