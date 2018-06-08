@@ -32,6 +32,7 @@ class AddCompItem extends Component {
     render() {
         return (
             <div>
+                
                 {
                     this.state.itemType.map((topic, index) =>
                         <button className="btn btn-success" id={index}>{topic}</button>
