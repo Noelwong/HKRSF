@@ -132,7 +132,6 @@ class AddCompetition extends Component {
                 >
                     Submit
                     </button>
-
             </div>
         )
 

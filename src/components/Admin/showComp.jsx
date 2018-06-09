@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-
+import  CompetitionIndex from  './CompetitionIndex';
 class ShowComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             competition: [],
             compIndex: [],
-            show:''
+            competitionInx:"A"
         }
         this.getCompInfor();
+        this.selectShowContent =this.selectShowContent.bind(this);
+        this.handleSelect =this.handleSelect.bind(this);
     }
 
     getCompInfor() {
@@ -25,8 +27,19 @@ class ShowComp extends Component {
 
     handleSelect(index){
         const selected = this.state.compIndex[index];
-        this.setState({show: selected});
+        this.setState({competitionInx: selected});
     }
+
+
+    selectShowContent = (competitionInx) => {
+        sessionStorage.myValue = competitionInx;
+        if(competitionInx != null && competitionInx != "A")
+        {
+                return (<CompetitionIndex />)
+        }
+    }
+
+
 
     render() {
 
@@ -38,7 +51,7 @@ class ShowComp extends Component {
                         <button className="btn btn-danger" onClick={() => this.handleSelect(index)} id={index} >{topic}</button>
                     )
                 }
-                {this.state.show}
+                {this.selectShowContent(this.state.competitionInx)}
             </div>
 
 
