@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
-import CompetitionBar from './CompetitionBar';
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
 import ShowComp from './ShowComp';
@@ -14,9 +13,6 @@ class AdminHome extends Component {
         this.state = {
             showContent: ''
         }
-    }
-    handleChange() {
-        this.setState({ showContent: 'CompetitionBar' })
     }
 
     handleChangeFormat() {
@@ -37,9 +33,7 @@ class AdminHome extends Component {
 
     selectShowContent = (showContent) => {
         if (showContent != null) {
-            if (showContent === 'CompetitionBar') {
-                return (<CompetitionBar />)
-            } else if (showContent === 'FormatSetting') {
+            if (showContent === 'FormatSetting') {
                 return (<FormatSetting />)
             } else if (showContent === 'AddCompetition') {
                 return (<AddCompetition />)
@@ -54,8 +48,6 @@ class AdminHome extends Component {
     render() {
         return (
             <div>
-                AdminHome
-                <br />
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
