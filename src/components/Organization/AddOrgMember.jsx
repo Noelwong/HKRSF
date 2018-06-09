@@ -103,6 +103,10 @@ class AddOrglMember extends Component {
                 <DatePicker
                         selected={this.state.BDate}
                         onChange={this.handleChange}
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         /><br/>
                 </form>
                 <br/>

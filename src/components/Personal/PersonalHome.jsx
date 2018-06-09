@@ -33,16 +33,19 @@ class PersonalHome extends Component {
                             <a>PersonalHome</a>
                         </Navbar.Brand>
                     </Navbar.Header>
+                    <Nav>
                     <NavItem eventKey={1} onClick={() => this.setState({showContent:'UpdateInformation'})}>
                     Update Information
                      </NavItem>
                      <NavItem eventKey={2} onClick={() => this.setState({showContent: 'ShowComp'})}>
                      Show Competition
                      </NavItem>
+                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={4} onClick={() => this.signOut()}>
                         登出<br />Sign Out
                      </NavItem>
+                    
                     </Nav>
                 </Navbar>
                 <br/>

@@ -108,6 +108,10 @@ class AddSchoolMember extends Component {
                 <DatePicker
                         selected={this.state.BDate}
                         onChange={this.handleChange}
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         /><br/>
                 年級<br/>
                 Grade
