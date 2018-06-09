@@ -21,12 +21,19 @@ class AddCompetition extends Component {
                 message: ''
             }
         }
+        this.getCompType();
         this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
         this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
     }
-
+    getCompType() {
+        db.collection('competitionFormat').doc('competitionType').getCollections().then(collections => {
+            collections.forEach(collection => {
+              console.log('Found subcollection with id:', collection.id);
+            });
+          });
+    }
 
     handleChangeStartDate(date) {
         this.setState({
@@ -112,7 +119,7 @@ class AddCompetition extends Component {
                         onChange={this.handleChangeDeadDate}
                     />
                     <br />
-                    公佈npm start日期:<br />
+                    公佈日期:<br />
                     Publish Date:<br />
                     <DatePicker
                         selected={this.state.publishDate}
@@ -124,6 +131,9 @@ class AddCompetition extends Component {
                         timeCaption="time"
                     />
                     <br />
+                    比賽類型<br/>
+                    Competition type:
+
                 </form>
                 <button
                     className="btn btn-success"
