@@ -7,9 +7,11 @@ class AddCompItem extends Component {
         this.state = {
             itemType: [],
             numOfPeople: [],
-            timeLimit: []
+            timeLimit: [],
+            selecteditemType: ''
         }
         this.getitemType();
+        this.itemTypeHandleChange = this.itemTypeHandleChange.bind(this);
 
     }
 
@@ -27,6 +29,10 @@ class AddCompItem extends Component {
             this.setState({ timeLimit })
         })
 
+    }
+
+    itemTypeHandleChange(event) {
+        this.setState({selecteditemType: event.target.value});
     }
 
 
@@ -53,7 +59,7 @@ class AddCompItem extends Component {
                 }
 
 
-                    <select value="">
+                    <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
                         {this.state.itemType.map((topic, index) =>
                         <option value ={index} >{topic} </option>)}
                     </select>
