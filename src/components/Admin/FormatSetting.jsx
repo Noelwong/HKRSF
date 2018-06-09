@@ -5,17 +5,19 @@ class FormatSetting extends Component {
     constructor(props) {
         super(props);
         this.state={
-            limitType: []
+            addType: "",
+            itemIn: "",
+            limitType: [],
+            numOfPeople: [],
+            timeLimit: [],
         }
-        this.limitType();
+
+        this.itemTypeChange = this.itemTypeChange.bind(this);
         
     }
 
-    limitType(){
-        db.collection('competitionFormat').doc('competitionItem').onSnapshot(coll => {
-            const limitType = coll.docs.map(doc => doc.id)
-            this.setState({ limitType })
-        })
+    itemTypeChange (event){
+        this.setState({ addType:event.target.value });
     }
 
 
@@ -24,15 +26,35 @@ class FormatSetting extends Component {
 
         return (
             <div>
-                {
-                    this.state.limitType.map((topic, index) =>
-                        <button className="btn btn-danger" id={index}>{topic}</button>
-                    )
-                }
+                <br>Add Item</br>
+                <p></p>
+                <select value = {this.state.addType} onChange={this.itemTypeChange}>
+                    <option value='' >Please select</option>
+                    <option value='itemType' >itemType</option>
+                    <option value='timeLimit' >timeLimit</option>
+                    <option value='numOfPeople' >numOfPeople</option>
+                </select>
+                <input type="text"
+                       id="itemAdd"
+                       placeholder="Condition"
+                       onChange={event => this.setState({ itemIn: event.target.value })}
+                >
+                </input>
+                <button
+                    className="btn btn-success"
+                    OnClick={() => this.addnewitem()}
+                >
+                    Submit
+                </button>
             </div>
             )
 
     }
-
+addnewitem (){
+        db.collection("competitionFormat").doc("competitionItem").set(
+            {
+            }
+        )
+}
 }
 export default FormatSetting;
