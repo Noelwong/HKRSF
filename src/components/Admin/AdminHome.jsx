@@ -55,19 +55,17 @@ class AdminHome extends Component {
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
-                        <NavItem eventKey={1}>
-                            Link
+                        <NavItem eventKey={1} onClick={() => this.handleChangeFormat()}>
+                        FormatSetting
                      </NavItem>
-                        <NavItem eventKey={2}>
-                            Link
-                    </NavItem>
-                        <NavDropdown eventKey={3} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={3.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
-                            <MenuItem eventKey={3.2} onClick={() => this.handleChangeShow()}>Show Competition</MenuItem>
-                            <MenuItem eventKey={3.3} onClick={() => this.handleChangeAdd()}>Add item</MenuItem>
+                       
+                        <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
+                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
+                            <MenuItem eventKey={2.2} onClick={() => this.handleChangeShow()}>Show Competition</MenuItem>
+                            <MenuItem eventKey={2.3} onClick={() => this.handleChangeAdd()}>Add item</MenuItem>
                             <MenuItem divider />
-                            <MenuItem eventKey={3.4}>Separated link</MenuItem>
-                        </NavDropdown>
+                            <MenuItem eventKey={2.4}>Separated link</MenuItem>
+                        </NavDropdown>           
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={4} onClick={() => this.signOut()}>

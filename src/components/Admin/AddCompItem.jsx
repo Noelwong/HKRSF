@@ -31,8 +31,8 @@ class AddCompItem extends Component {
         const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
         const selectedgroupType = this.state.selectedgroupType;
         db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selectednumOfPeople).collection(selectedtimeLimit).doc(selectedgroupType).collection(selecteditemType).doc(age).set({
-            itemType: this.state.selectedtimeLimit,
-            timeLimit: this.state.selecteditemType,
+            itemType: this.state.selecteditemType,
+            timeLimit: this.state.selectedtimeLimit,
             numOfPeople: this.state.selectednumOfPeople,
             groupType: this.state.selectedgroupType,
             ageLowerBound: this.state.ageLowerBound,
@@ -83,7 +83,7 @@ class AddCompItem extends Component {
                 參賽人數:<br/>
                 Number of participants:
                 <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>
-                    <option value='' >Please select</option>
+                    <option value='' >Please select 請選擇</option>
                     {this.state.numOfPeople.map((topic, index) =>
                         <option value={topic} >{topic} </option>)}
                 </select>
@@ -91,7 +91,7 @@ class AddCompItem extends Component {
                 時間限制: <br/>
                 Time limit:
                 <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
-                    <option value='' >Please select</option>
+                    <option value='' >Please select 請選擇</option>
                     {this.state.timeLimit.map((topic, index) =>
                         <option value={topic} >{topic} </option>)}
                 </select>
@@ -99,7 +99,7 @@ class AddCompItem extends Component {
                 組別選擇<br/>
                 Group:
                 <select value={this.state.selectedgroupType} onChange={this.groupTypeHandleChange}>
-                    <option value='' >Please select</option>
+                    <option value='' >Please select 請選擇</option>
                     {this.state.groupType.map((topic, index) =>
                         <option value={topic} >{topic} </option>)}
                 </select>
@@ -107,7 +107,7 @@ class AddCompItem extends Component {
                 比賽項目: <br/>
                 Competition item:
                 <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
-                    <option value='' >Please select</option>
+                    <option value='' >Please select 請選擇</option>
                     {this.state.itemType.map((topic, index) =>
                         <option value={topic} >{topic} </option>)}
                 </select>
