@@ -8,9 +8,11 @@ class AddCompItem extends Component {
             itemType: [],
             numOfPeople: [],
             timeLimit: [],
+            groupType: [],
             selecteditemType: '',
             selectedtimeLimit: '',
             selectednumOfPeople: '',
+            selectedgroupType:'',
             ageLowerBound: '',
             ageUpperBound: ''
         }
@@ -18,6 +20,7 @@ class AddCompItem extends Component {
         this.itemTypeHandleChange = this.itemTypeHandleChange.bind(this);
         this.timeLimitHandleChange = this.timeLimitHandleChange.bind(this);
         this.numOfPeopleHandleChange = this.numOfPeopleHandleChange.bind(this);
+        this.groupTypeHandleChange = this.groupTypeHandleChange.bind(this);
 
     }
 
@@ -26,10 +29,12 @@ class AddCompItem extends Component {
         const selectedtimeLimit = this.state.selectedtimeLimit;
         const selecteditemType = this.state.selecteditemType;
         const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
-        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection(selectednumOfPeople).doc(selectedtimeLimit).collection(selecteditemType).doc(age).set({
+        const selectedgroupType = this.state.selectedgroupType;
+        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selectednumOfPeople).collection(selectedtimeLimit).doc(selectedgroupType).collection(selecteditemType).doc(age).set({
             itemType: this.state.selectedtimeLimit,
             timeLimit: this.state.selecteditemType,
             numOfPeople: this.state.selectednumOfPeople,
+            groupType: this.state.selectedgroupType,
             ageLowerBound: this.state.ageLowerBound,
             ageUpperBound: this.state.ageUpperBound
         });
@@ -49,6 +54,10 @@ class AddCompItem extends Component {
             const timeLimit = coll.docs.map(doc => doc.id)
             this.setState({ timeLimit })
         })
+        db.collection('competitionFormat').doc('competitionItem').collection('groupType').onSnapshot(coll => {
+            const groupType = coll.docs.map(doc => doc.id)
+            this.setState({ groupType })
+        })
 
     }
 
@@ -64,6 +73,9 @@ class AddCompItem extends Component {
         this.setState({ selectednumOfPeople: event.target.value });
     }
 
+    groupTypeHandleChange(event) {
+        this.setState({ selectedgroupType: event.target.value });
+    }
 
     render() {
         return (
@@ -81,6 +93,14 @@ class AddCompItem extends Component {
                 <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
                     <option value='' >Please select</option>
                     {this.state.timeLimit.map((topic, index) =>
+                        <option value={topic} >{topic} </option>)}
+                </select>
+                <br />
+                組別選擇<br/>
+                Group:
+                <select value={this.state.selectedgroupType} onChange={this.groupTypeHandleChange}>
+                    <option value='' >Please select</option>
+                    {this.state.groupType.map((topic, index) =>
                         <option value={topic} >{topic} </option>)}
                 </select>
                 <br />

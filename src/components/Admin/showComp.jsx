@@ -5,7 +5,9 @@ class ShowComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            competition: []
+            competition: [],
+            compIndex: [],
+            show:''
         }
         this.getCompInfor();
     }
@@ -15,10 +17,16 @@ class ShowComp extends Component {
             const competition = coll.docs.map(doc => doc.data().name)
             this.setState({ competition })
         })
+        db.collection('competition').onSnapshot(coll => {
+            const compIndex = coll.docs.map(doc => doc.id)
+            this.setState({ compIndex })
+        })
     }
 
-
-
+    handleSelect(index){
+        const selected = this.state.compIndex[index];
+        this.setState({show: selected});
+    }
 
     render() {
 
@@ -27,10 +35,10 @@ class ShowComp extends Component {
             <div>
                 {
                     this.state.competition.map((topic, index) =>
-                        <button className="btn btn-danger" id={index}>{topic}</button>
+                        <button className="btn btn-danger" onClick={() => this.handleSelect(index)} id={index} >{topic}</button>
                     )
                 }
-
+                {this.state.show}
             </div>
 
 
