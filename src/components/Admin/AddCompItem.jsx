@@ -8,10 +8,14 @@ class AddCompItem extends Component {
             itemType: [],
             numOfPeople: [],
             timeLimit: [],
-            selecteditemType: ''
+            selecteditemType: '',
+            selectedtimeLimit: '',
+            selectednumOfPeople: ''
         }
         this.getitemType();
         this.itemTypeHandleChange = this.itemTypeHandleChange.bind(this);
+        this.timeLimitHandleChange = this.timeLimitHandleChange.bind(this);
+        this.numOfPeopleHandleChange = this.numOfPeopleHandleChange.bind(this);
 
     }
 
@@ -32,37 +36,37 @@ class AddCompItem extends Component {
     }
 
     itemTypeHandleChange(event) {
-        this.setState({selecteditemType: event.target.value});
+        this.setState({ selecteditemType: event.target.value });
+    }
+
+    timeLimitHandleChange(event) {
+        this.setState({ selectedtimeLimit: event.target.value });
+    }
+
+    numOfPeopleHandleChange(event) {
+        this.setState({ selectednumOfPeople: event.target.value });
     }
 
 
     render() {
         return (
             <div>
-                
-                {
-                    this.state.itemType.map((topic, index) =>
-                        <button className="btn btn-success" id={index}>{topic}</button>
-                    )
-                }
-                <br />
-                {
-                    this.state.numOfPeople.map((topic, index) =>
-                        <button className="btn btn-warning" id={index}>{topic}</button>
-                    )
-                }
-                <br />
-                {
-                    this.state.timeLimit.map((topic, index) =>
-                        <button className="btn btn-info" id={index}>{topic}</button>
-                    )
-                }
 
-
-                    <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
-                        {this.state.itemType.map((topic, index) =>
-                        <option value ={index} >{topic} </option>)}
-                    </select>
+                <br />
+                <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>
+                    {this.state.numOfPeople.map((topic, index) =>
+                        <option value={index} >{topic} </option>)}
+                </select>
+                <br />
+                <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
+                    {this.state.timeLimit.map((topic, index) =>
+                        <option value={index} >{topic} </option>)}
+                </select>
+                <br />
+                <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
+                    {this.state.itemType.map((topic, index) =>
+                        <option value={index} >{topic} </option>)}
+                </select>
             </div>
         )
 

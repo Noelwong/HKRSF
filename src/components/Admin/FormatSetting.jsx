@@ -8,11 +8,12 @@ class FormatSetting extends Component {
             limitType: []
         }
         this.limitType();
+        
     }
 
     limitType(){
         db.collection('competitionFormat').doc('competitionItem').onSnapshot(coll => {
-            const limitType = coll.collections.map(collection => collection.data().id)
+            const limitType = coll.docs.map(doc => doc.id)
             this.setState({ limitType })
         })
     }
