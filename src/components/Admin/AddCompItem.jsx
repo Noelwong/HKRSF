@@ -10,12 +10,29 @@ class AddCompItem extends Component {
             timeLimit: [],
             selecteditemType: '',
             selectedtimeLimit: '',
-            selectednumOfPeople: ''
+            selectednumOfPeople: '',
+            ageLowerBound: '',
+            ageUpperBound: ''
         }
         this.getitemType();
         this.itemTypeHandleChange = this.itemTypeHandleChange.bind(this);
         this.timeLimitHandleChange = this.timeLimitHandleChange.bind(this);
         this.numOfPeopleHandleChange = this.numOfPeopleHandleChange.bind(this);
+
+    }
+
+    addComptetionItem(state){
+        const selectednumOfPeople = this.state.selectednumOfPeople;
+        const selectedtimeLimit = this.state.selectedtimeLimit;
+        const selecteditemType = this.state.selecteditemType;
+        const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
+        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection(selectednumOfPeople).doc(selectedtimeLimit).collection(selecteditemType).doc(age).set({
+            itemType: this.state.selectedtimeLimit,
+            timeLimit: this.state.selecteditemType,
+            numOfPeople: this.state.selectednumOfPeople,
+            ageLowerBound: this.state.ageLowerBound,
+            ageUpperBound: this.state.ageUpperBound
+        });
 
     }
 
@@ -51,22 +68,52 @@ class AddCompItem extends Component {
     render() {
         return (
             <div>
-
-                <br />
+                參賽人數:<br/>
+                Number of participants:
                 <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>
+                    <option value='' >Please select</option>
                     {this.state.numOfPeople.map((topic, index) =>
-                        <option value={index} >{topic} </option>)}
+                        <option value={topic} >{topic} </option>)}
                 </select>
                 <br />
+                時間限制: <br/>
+                Time limit:
                 <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
+                    <option value='' >Please select</option>
                     {this.state.timeLimit.map((topic, index) =>
-                        <option value={index} >{topic} </option>)}
+                        <option value={topic} >{topic} </option>)}
                 </select>
                 <br />
+                比賽項目: <br/>
+                Competition item:
                 <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
+                    <option value='' >Please select</option>
                     {this.state.itemType.map((topic, index) =>
-                        <option value={index} >{topic} </option>)}
+                        <option value={topic} >{topic} </option>)}
                 </select>
+                <br/>
+                年齡下限<br/>
+                Age Lower Bound:
+                <input type="number"
+                     id="ageLowerBound" 
+                     min="3" max="80"
+                     onChange={event => this.setState({ ageLowerBound: event.target.value })}
+                     />
+                     <br/>
+                年齡上限<br/>
+                Age Upper Bound:
+                <input type="number"
+                     id="ageUpperBound" 
+                     min="3" max="80"
+                     onChange={event => this.setState({ ageUpperBound: event.target.value })}
+                     />
+                     <br/>
+                <button
+                    className="btn btn-success"
+                    onClick={() => this.addComptetionItem(this.state)}    
+                >
+                    Submit
+                </button>
             </div>
         )
 
