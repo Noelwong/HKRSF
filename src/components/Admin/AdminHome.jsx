@@ -5,7 +5,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
 import ShowComp from './ShowComp';
-import AddCompItem from './AddCompItem'
+import AddCompItem from './AddCompItem';
 
 class AdminHome extends Component {
     constructor(props) {
