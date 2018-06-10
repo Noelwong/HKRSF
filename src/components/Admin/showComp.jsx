@@ -32,7 +32,7 @@ class ShowComp extends Component {
 
 
     selectShowContent = (competitionInx) => {
-        sessionStorage.myValue = competitionInx;
+        sessionStorage.compID = competitionInx;
         if(competitionInx != null && competitionInx !== "NULL" )
         {
                 return (<CompetitionIndex />)

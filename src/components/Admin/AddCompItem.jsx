@@ -30,7 +30,7 @@ class AddCompItem extends Component {
         const selecteditemType = this.state.selecteditemType;
         const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
         const selectedgroupType = this.state.selectedgroupType;
-        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selectednumOfPeople).collection(selectedtimeLimit).doc(selectedgroupType).collection(selecteditemType).doc(age).set({
+        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
             itemType: this.state.selecteditemType,
             timeLimit: this.state.selectedtimeLimit,
             numOfPeople: this.state.selectednumOfPeople,

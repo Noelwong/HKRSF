@@ -13,7 +13,7 @@ class CompetitionIndex extends Component {
     }
 
     getCompetitionDetails() {
-        db.collection('competition').doc(sessionStorage.myValue).get().then(function(doc) {
+        db.collection('competition').doc(sessionStorage.compID).get().then(function(doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
                 const itemType = doc.get().map(doc => doc.data());
@@ -32,7 +32,7 @@ class CompetitionIndex extends Component {
         return (
             <div>
                 <p>
-                    {sessionStorage.myValue}
+                    {sessionStorage.compID}
                 </p>
                 {console.log(this.state.itemType)}
             </div>
