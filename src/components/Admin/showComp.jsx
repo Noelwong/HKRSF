@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-import { Link } from 'react-router';
-
+import  CompetitionIndex from  './CompetitionIndex';
 class ShowComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             competition: [],
             compIndex: [],
-            competitionInx: ''
+            competitionInx: 'NULL'
         }
         this.getCompInfor();
+        this.selectShowContent =this.selectShowContent.bind(this);
         this.handleSelect =this.handleSelect.bind(this);
     }
 
@@ -28,10 +28,16 @@ class ShowComp extends Component {
     handleSelect(index){
         const selected = this.state.compIndex[index];
         this.setState({competitionInx: selected});
-        sessionStorage.compID = this.state.competitionInx;
     }
 
 
+    selectShowContent = (competitionInx) => {
+        sessionStorage.compID = competitionInx;
+        if(competitionInx != null && competitionInx !== "NULL" )
+        {
+                return (<CompetitionIndex />)
+        }
+    }
 
 
 
@@ -42,9 +48,10 @@ class ShowComp extends Component {
             <div>
                 {
                     this.state.competition.map((topic, index) =>
-                    <Link to={'/CompetitionIndex'}><button className="btn btn-danger" onClick={() => this.handleSelect(index)} key={index} >{topic}</button></Link>
+                        <button className="btn btn-danger" onClick={() => this.handleSelect(index)} key={index} >{topic}</button>
                     )
                 }
+                {this.selectShowContent(this.state.competitionInx)}
             </div>
 
 
