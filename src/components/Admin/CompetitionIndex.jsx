@@ -6,26 +6,16 @@ import {db } from '../../firebase';
 class CompetitionIndex extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            itemType: ["A"]
-        }
         this.getCompetitionDetails();
     }
 
     getCompetitionDetails() {
-        db.collection('competition').doc(sessionStorage.compID).get().then(function(doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-                const itemType = doc.get().map(doc => doc.data());
-                 this.setState({ itemType })
-            } else {
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-
-
+        db.collection('competition').doc(sessionStorage.compID).onSnapshot(docSnapshot => {
+            console.log(`Received doc snapshot: ${docSnapshot.data}`);
+            // ...
+          }, err => {
+            console.log(`Encountered error: ${err}`);
+          });
     }
 
     render() {
@@ -34,7 +24,6 @@ class CompetitionIndex extends Component {
                 <p>
                     {sessionStorage.compID}
                 </p>
-                {console.log(this.state.itemType)}
             </div>
 
         )

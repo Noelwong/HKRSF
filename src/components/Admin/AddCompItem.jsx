@@ -9,6 +9,8 @@ class AddCompItem extends Component {
             numOfPeople: [],
             timeLimit: [],
             groupType: [],
+            district:[],
+            selecteddistrict:'',
             selecteditemType: '',
             selectedtimeLimit: '',
             selectednumOfPeople: '',
@@ -21,6 +23,7 @@ class AddCompItem extends Component {
         this.timeLimitHandleChange = this.timeLimitHandleChange.bind(this);
         this.numOfPeopleHandleChange = this.numOfPeopleHandleChange.bind(this);
         this.groupTypeHandleChange = this.groupTypeHandleChange.bind(this);
+        this.districtHandleChange = this.districtHandleChange.bind(this);
 
     }
 
@@ -28,9 +31,11 @@ class AddCompItem extends Component {
         const selectednumOfPeople = this.state.selectednumOfPeople;
         const selectedtimeLimit = this.state.selectedtimeLimit;
         const selecteditemType = this.state.selecteditemType;
+        const selecteddistrict = this.state.selecteddistrict;
         const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
         const selectedgroupType = this.state.selectedgroupType;
-        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
+        db.collection("competition").doc("RXNe9XqYKTO0P9nzmHkx").collection("competitionItem").doc(selecteddistrict+selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
+            district: this.state.selecteddistrict,
             itemType: this.state.selecteditemType,
             timeLimit: this.state.selectedtimeLimit,
             numOfPeople: this.state.selectednumOfPeople,
@@ -58,7 +63,10 @@ class AddCompItem extends Component {
             const groupType = coll.docs.map(doc => doc.id)
             this.setState({ groupType })
         })
-
+        db.collection('competitionFormat').doc('competitionItem').collection('district').onSnapshot(coll => {
+            const district = coll.docs.map(doc => doc.id)
+            this.setState({ district })
+        })
     }
 
     itemTypeHandleChange(event) {
@@ -77,9 +85,21 @@ class AddCompItem extends Component {
         this.setState({ selectedgroupType: event.target.value });
     }
 
+    districtHandleChange(event) {
+        this.setState({ selecteddistrict: event.target.value });
+    }
+
     render() {
         return (
             <div>
+                地區限制:<br/>
+                Distant:
+                <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>
+                    <option value='' >沒有指定地區</option>
+                    {this.state.district.map((topic, index) =>
+                        <option value={topic} >{topic} </option>)}
+                </select>
+                <br />
                 參賽人數:<br/>
                 Number of participants:
                 <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>

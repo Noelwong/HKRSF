@@ -48,7 +48,7 @@ class ShowComp extends Component {
             <div>
                 {
                     this.state.competition.map((topic, index) =>
-                        <button className="btn btn-danger" onClick={() => this.handleSelect(index)} id={index} >{topic}</button>
+                        <button className="btn btn-danger" onClick={() => this.handleSelect(index)} key={index} >{topic}</button>
                     )
                 }
                 {this.selectShowContent(this.state.competitionInx)}

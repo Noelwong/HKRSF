@@ -6,7 +6,8 @@ class FormatSetting extends Component {
         super(props);
         this.state = {
             addType: '',
-            itemIn: ''
+            itemIn: '',
+            district:''
         }
 
         this.itemTypeChange = this.itemTypeChange.bind(this);
@@ -48,6 +49,20 @@ class FormatSetting extends Component {
                     onChange={event => this.setState({ itemIn: event.target.value })}
                 />
                 )
+            }else if(addType === "district"){
+                return(
+                    <div>
+                    <input type="text"
+                    placeholder="地區 District"
+                    onChange={event => this.setState({ district: event.target.value })}
+                />
+                <br/>
+                <input type="text"
+                    placeholder="包括 Include"
+                    onChange={event => this.setState({ itemIn: event.target.value })}
+                />
+                </div>
+                )
             }
         }
     }
@@ -61,6 +76,7 @@ class FormatSetting extends Component {
                     <option value='timeLimit' >時間限制 Time Limit</option>
                     <option value='numOfPeople' >參賽人數 Participants</option>
                     <option value='groupType' >組別 Group</option>
+                    <option value='district' >地區 District</option>
                 </select>
                 <br/>
                 {this.selectItem()}
@@ -78,6 +94,7 @@ class FormatSetting extends Component {
     addnewitem() {
         const addType = this.state.addType;
         const itemIn = this.state.itemIn;
+        const district = this.state.district;
         if (addType != null && itemIn != null) {
             if(addType === "itemType"){
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn).set({
@@ -94,6 +111,10 @@ class FormatSetting extends Component {
             }else if(addType === "groupType"){
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn).set({
                     gender: itemIn
+                })
+            }else if(addType === "district"){
+                db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(district).set({
+                    include: itemIn
                 })
             }
         }

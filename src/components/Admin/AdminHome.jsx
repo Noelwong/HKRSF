@@ -6,6 +6,7 @@ import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
 import ShowComp from './ShowComp';
 import AddCompItem from './AddCompItem';
+import AddParticipant from './AddParticipant';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -31,6 +32,10 @@ class AdminHome extends Component {
         this.setState({ showContent: 'AddCompItem' })
     }
 
+    handleChangeParticipant() {
+        this.setState({ showContent: 'AddParticipant' })
+    }
+
     selectShowContent = (showContent) => {
         if (showContent != null) {
             if (showContent === 'FormatSetting') {
@@ -41,6 +46,9 @@ class AdminHome extends Component {
                 return (<ShowComp />)
             } else if (showContent === 'AddCompItem') {
                 return (<AddCompItem />)
+            }
+            else if (showContent === 'AddParticipant') {
+                return (<AddParticipant/>)
             }
         }
     }
@@ -64,7 +72,7 @@ class AdminHome extends Component {
                             <MenuItem eventKey={2.2} onClick={() => this.handleChangeShow()}>Show Competition</MenuItem>
                             <MenuItem eventKey={2.3} onClick={() => this.handleChangeAdd()}>Add item</MenuItem>
                             <MenuItem divider />
-                            <MenuItem eventKey={2.4}>Separated link</MenuItem>
+                            <MenuItem eventKey={2.4} onClick={() => this.handleChangeParticipant()}>Participant</MenuItem>
                         </NavDropdown>           
                     </Nav>
                     <Nav pullRight>
