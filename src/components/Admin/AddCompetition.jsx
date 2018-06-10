@@ -28,11 +28,9 @@ class AddCompetition extends Component {
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
     }
     getCompType() {
-        db.collection('competitionFormat').doc('competitionType').getCollections().then(collections => {
-            collections.forEach(collection => {
-              console.log('Found subcollection with id:', collection.id);
-            });
-          });
+        db.collection('competitionFormat').doc('competitionType').get().then((result) => {
+            console.log("Got friend");
+          })
     }
 
     handleChangeStartDate(date) {

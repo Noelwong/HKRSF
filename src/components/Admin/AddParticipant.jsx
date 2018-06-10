@@ -17,7 +17,7 @@ class AddParticipant extends Component {
             BDate:moment(),
             schoolName:''
         }
-    
+        this.Ref = db.collection('competition').doc('RXNe9XqYKTO0P9nzmHkx').collection('competitionItem');
         this.getCompItem();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
     }
@@ -31,11 +31,13 @@ class AddParticipant extends Component {
     }
 
     getCompItem(){
-        db.collection('competition').doc('RXNe9XqYKTO0P9nzmHkx').collection('competitionItem').onSnapshot(coll => {
+        this.Ref.onSnapshot(coll => {
             const compItem = coll.docs.map(doc => doc.id)
             this.setState({ compItem })
         })
     }
+
+
 
     addParticipant(){
         return(
