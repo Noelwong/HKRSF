@@ -7,7 +7,7 @@ class ShowComp extends Component {
         this.state = {
             competition: [],
             compIndex: [],
-            competitionInx:"A"
+            competitionInx: 'NULL'
         }
         this.getCompInfor();
         this.selectShowContent =this.selectShowContent.bind(this);
@@ -33,7 +33,7 @@ class ShowComp extends Component {
 
     selectShowContent = (competitionInx) => {
         sessionStorage.myValue = competitionInx;
-        if(competitionInx != null && competitionInx != "A")
+        if(competitionInx != null && competitionInx !== "NULL" )
         {
                 return (<CompetitionIndex />)
         }

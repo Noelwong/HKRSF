@@ -31,7 +31,6 @@ class SchoolInfor extends Component {
             checkCEmail: false,
         }
         this.user = firebaseApp.auth().currentUser;
-        this.handleChange = this.handleChange.bind(this);
     }
 
     CName(event){
@@ -202,7 +201,7 @@ class SchoolInfor extends Component {
                 <br/><br/>
                 學校所屬地區<br/>
                 The district of school
-                <select value={this.state.DOSchool} onChange={this.handleChange} >
+                <select value={this.state.DOSchool} onChange={this.handleChange.bind(this)} >
                     <option value ="">請選擇 Please Select</option>
                     <option value ="CAndW">中西區Central and Western</option>
                     <option value="WanChai">灣仔區Wan Chai</option>

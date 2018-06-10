@@ -31,26 +31,11 @@ class PersonalInfor extends Component {
             checkCName:'',
             checkEName:'',
             checkID:'',
-
-
             
         }
         this.user = firebaseApp.auth().currentUser;
 
-        this.handleChange = this.handleChange.bind(this);
-        this.genderHandleChange = this.genderHandleChange.bind(this);
-        this.schoolTypeHandleChange = this.schoolTypeHandleChange.bind(this);
-        this.coachLevelHandleChange = this.coachLevelHandleChange.bind(this);
-        this.judgeLevelHandleChange = this.judgeLevelHandleChange.bind(this);
-
-    }
-    
-    handleChange(date) {
-        this.setState({
-            BDate: date,
-        });
-      }
-      
+    }  
      
     CName(event){
         this.setState({CName:event.target.value})
@@ -86,6 +71,10 @@ class PersonalInfor extends Component {
             this.setState({info_EName:"Please Input Correct English Name"})
         }
         this.setState({"val_EName":val_EName})
+    }
+
+    date(date) {
+        this.setState({BDate: date});
     }
 
     ID(event){
@@ -154,7 +143,7 @@ class PersonalInfor extends Component {
                 <br/><br/>
                 性別<br/>
                 Gender 
-                <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange} >
+                <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange.bind(this)} >
                     <option value ="">Please Select Your School type</option>
                     <option value ="male">男Male</option>
                     <option value="female">女Female</option>
@@ -164,11 +153,7 @@ class PersonalInfor extends Component {
                 Date of Birth
                 <DatePicker
                         selected={this.state.BDate}
-                        onChange={this.handleChange}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
+                        onChange={this.date.bind(this)}
                         /><br/>
                 身份證號碼<br/>
                 Identification number
@@ -189,10 +174,10 @@ class PersonalInfor extends Component {
                      /><br/>
                 就讀學校<br/>
                 Current school
-                <select id = "schoolType" value={this.state.schoolType} onChange={this.schoolTypeHandleChange} >
+                <select id = "schoolType" value={this.state.schoolType} onChange={this.schoolTypeHandleChange.bind(this)} >
                     <option value ="">Please Select Your School type</option>
                     <option value ="PSchool">小學Primary School</option>
-                    <option value="SSchool">中學Secondary School</option>
+                    <option value="SSchool">中學Secondary Schooll</option>
                     <option value="College">大專College</option>
                 </select>
                 <input type="text"
@@ -209,7 +194,7 @@ class PersonalInfor extends Component {
                      /><br/>
                 教練資歷及考獲年份<br/>
                 Coaching qualifications and years of study
-                <select id = "coachLevel" value={this.state.coachLevel} onChange={this.coachLevelHandleChange}>
+                <select id = "coachLevel" value={this.state.coachLevel} onChange={this.coachLevelHandleChange.bind(this)}>
                     <option value ="">沒有 NULL</option>
                     <option value ="Junior">初級Junior</option>
                     <option value="Intermediate">中級Intermediate</option>
@@ -223,7 +208,7 @@ class PersonalInfor extends Component {
                      /><br/>
                 裁判資歷及考獲年份<br/>
                 Judge qualifications and years of study
-                <select id = "judgeLevel" value={this.state.judgeLevel} onChange={this.judgeLevelHandleChange}>
+                <select id = "judgeLevel" value={this.state.judgeLevel} onChange={this.judgeLevelHandleChange.bind(this)}>
                     <option value ="">沒有 NULL</option>
                     <option value ="Junior">初級Junior</option>
                     <option value="Intermediate">中級Intermediate</option>
@@ -242,11 +227,19 @@ class PersonalInfor extends Component {
                 >
                     Submit
                 </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => this.signOut()}
+                > 
+                    Sign Out
+                </button>
                 <br/>
                 <font for="title" color="red">{this.state.info}</font>
-                {alert(this.state.info)}
             </div>
         )
+    }
+    signOut() {
+        firebaseApp.auth().signOut();
     }
 
     addPersonalInfor(state) {
@@ -268,10 +261,8 @@ class PersonalInfor extends Component {
             coachYear: this.state.coachYear,
             judgeLevel: this.state.judgeLevel,
             judgeYear: this.state.judgeYear
-        });
-
-        }else{
-            this.setState({info:"ERROR"});
+        });}else{
+            this.setState({info:"ERROR"})
             setTimeout(function(){
                 this.setState({info:""})
             }.bind(this),3000);

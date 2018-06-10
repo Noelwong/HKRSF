@@ -41,7 +41,6 @@ class OrganizationInfor extends Component {
 
         }
         this.user = firebaseApp.auth().currentUser;
-        this.handleChange = this.handleChange.bind(this);
 
     }
 
@@ -272,7 +271,7 @@ class OrganizationInfor extends Component {
                 Date of Registration
                 <DatePicker
                     selected={this.state.DOR}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange.bind(this)}
                     />
                 <br/>
                 <b>法定負責人資料<br/>
