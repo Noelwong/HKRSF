@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 class AddParticipant extends Component {
     constructor(props) {
         super(props);
@@ -9,12 +14,16 @@ class AddParticipant extends Component {
             selectedCompItem:'',
             CName:'',
             EName:'',
-            BDate:'',
+            BDate:moment(),
             schoolName:''
         }
     
         this.getCompItem();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
+    }
+
+    date(date) {
+        this.setState({BDate: date});
     }
 
     CompItemHandleChange(event) {
@@ -28,6 +37,39 @@ class AddParticipant extends Component {
         })
     }
 
+    addParticipant(){
+        return(
+            <div>中文姓名:
+            <input type="text"
+                placeholder="中文姓名"
+                onChange={event => this.setState({ CName: event.target.value })}
+            />
+            <br/>
+            Name in English:
+            <input type="text"
+                placeholder="Name in English"
+                onChange={event => this.setState({ EName: event.target.value })}
+            />
+            <br/>
+            出生日期:<br/>
+            Date of Birth:
+            <DatePicker
+                    selected={this.state.BDate}
+                    onChange={this.date.bind(this)}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    /><br/>
+                    學校名稱: <br/>
+                    School Name:
+                    <input type="text"
+                placeholder="學校名稱 School Name"
+                onChange={event => this.setState({ EName: event.target.value })}
+            /></div>
+        )
+    }
+
     render() {
         return (
             <div>
@@ -39,10 +81,7 @@ class AddParticipant extends Component {
                 <br/>
                 {this.state.selectedCompItem}
                 <br/>
-                <input type="text"
-                    placeholder="比賽項目名稱 Competition Item Name"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
+                
             </div>
         )
 

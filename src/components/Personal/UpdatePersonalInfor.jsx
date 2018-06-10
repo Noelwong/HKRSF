@@ -179,6 +179,10 @@ class UpdatePersonalInfor extends Component {
                 <DatePicker
                         selected={this.state.BDate}
                         onChange={this.date.bind(this)}
+                        peekNextMonth
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
                         /><br/>
                 身份證號碼<br/>
                 Identification number
