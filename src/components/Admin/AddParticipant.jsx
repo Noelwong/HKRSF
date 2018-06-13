@@ -28,6 +28,7 @@ class AddParticipant extends Component {
 
     CompItemHandleChange(event) {
         this.setState({ selectedCompItem: event.target.value });
+        this.addParticipant();
     }
 
     getCompItem(){
@@ -41,7 +42,8 @@ class AddParticipant extends Component {
 
     addParticipant(){
         return(
-            <div>中文姓名:
+            <div>
+                中文姓名:
             <input type="text"
                 placeholder="中文姓名"
                 onChange={event => this.setState({ CName: event.target.value })}
@@ -83,6 +85,7 @@ class AddParticipant extends Component {
                 <br/>
                 {this.state.selectedCompItem}
                 <br/>
+                
                 
             </div>
         )
