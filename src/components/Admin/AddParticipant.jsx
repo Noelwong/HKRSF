@@ -17,7 +17,7 @@ class AddParticipant extends Component {
             BDate:moment(),
             schoolName:''
         }
-        this.Ref = db.collection('competition').doc('RXNe9XqYKTO0P9nzmHkx').collection('competitionItem');
+        this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getCompItem();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
     }

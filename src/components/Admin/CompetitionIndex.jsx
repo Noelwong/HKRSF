@@ -3,9 +3,34 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { firebaseApp } from '../../firebase';
 
 import ShowComp from './ShowComp';
-
+import AddCompItem from './AddCompItem';
+import AddParticipant from './AddParticipant'; 
 
 class CompetitionIndex extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showContent: ''
+        }
+    }
+
+    selectShowContent = (showContent) => {
+        if (showContent != null) {
+            if (showContent === 'AddCompItem') {
+                return (<AddCompItem />)
+            } else if (showContent === 'AddParticipant') {
+                return (<AddParticipant />)
+            }
+        }
+    }
+
+    handleChangeItem() {
+        this.setState({ showContent: 'AddCompItem' })
+    }
+
+    handleChangeAddParticipant() {
+        this.setState({ showContent: 'AddParticipant' })
+    }
   
     render() {
         return (
@@ -22,8 +47,8 @@ class CompetitionIndex extends Component {
                      </NavItem>
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={2.1}>Add Competition</MenuItem>
-                            <MenuItem eventKey={2.2}>比賽主頁<br/>Competition Index</MenuItem>
+                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
+                            <MenuItem eventKey={2.2} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
                         </NavDropdown>           
                     </Nav>
                     <Nav pullRight>
@@ -34,6 +59,8 @@ class CompetitionIndex extends Component {
                 </Navbar>
                 <br />
                 <ShowComp />
+                <br />
+                {this.selectShowContent(this.state.showContent)}
             </div>
 
         )
