@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-import  CompetitionIndex from  './CompetitionIndex';
+
 class ShowComp extends Component {
     constructor(props) {
         super(props);
@@ -33,10 +33,6 @@ class ShowComp extends Component {
 
     selectShowContent = (competitionInx) => {
         sessionStorage.compID = competitionInx;
-        if(competitionInx != null && competitionInx !== "NULL" )
-        {
-                return (<CompetitionIndex />)
-        }
     }
 
 

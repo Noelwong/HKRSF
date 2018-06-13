@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
-import ShowComp from './ShowComp';
-import AddCompItem from './AddCompItem';
-import AddParticipant from './AddParticipant';
+
 
 class AdminHome extends Component {
     constructor(props) {
@@ -24,31 +23,12 @@ class AdminHome extends Component {
         this.setState({ showContent: 'AddCompetition' })
     }
 
-    handleChangeShow() {
-        this.setState({ showContent: 'ShowCompetition' })
-    }
-
-    handleChangeAdd() {
-        this.setState({ showContent: 'AddCompItem' })
-    }
-
-    handleChangeParticipant() {
-        this.setState({ showContent: 'AddParticipant' })
-    }
-
     selectShowContent = (showContent) => {
         if (showContent != null) {
             if (showContent === 'FormatSetting') {
                 return (<FormatSetting />)
             } else if (showContent === 'AddCompetition') {
                 return (<AddCompetition />)
-            } else if (showContent === 'ShowCompetition') {
-                return (<ShowComp />)
-            } else if (showContent === 'AddCompItem') {
-                return (<AddCompItem />)
-            }
-            else if (showContent === 'AddParticipant') {
-                return (<AddParticipant/>)
             }
         }
     }
@@ -69,10 +49,7 @@ class AdminHome extends Component {
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
-                            <MenuItem eventKey={2.2} onClick={() => this.handleChangeShow()}>Show Competition</MenuItem>
-                            <MenuItem eventKey={2.3} onClick={() => this.handleChangeAdd()}>Add item</MenuItem>
-                            <MenuItem divider />
-                            <MenuItem eventKey={2.4} onClick={() => this.handleChangeParticipant()}>Participant</MenuItem>
+                            <Link to={'/CompetitionIndex'}><MenuItem eventKey={2.2}>比賽主頁<br/>Competition Index</MenuItem></Link>
                         </NavDropdown>           
                     </Nav>
                     <Nav pullRight>
