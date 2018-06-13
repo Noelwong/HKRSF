@@ -40,8 +40,8 @@ class AddCompItem extends Component {
             timeLimit: this.state.selectedtimeLimit,
             numOfPeople: this.state.selectednumOfPeople,
             groupType: this.state.selectedgroupType,
-            ageLowerBound: this.state.ageLowerBound,
-            ageUpperBound: this.state.ageUpperBound
+            ageLowerBound: Number(this.state.ageLowerBound),
+            ageUpperBound: Number(this.state.ageUpperBound)
         });
 
     }

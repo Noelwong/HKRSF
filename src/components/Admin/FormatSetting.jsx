@@ -102,11 +102,11 @@ class FormatSetting extends Component {
                 })
             }else if(addType === "timeLimit"){
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn+'sec').set({
-                    limit: itemIn
+                    limit: Number(itemIn)
                 })
             }else if(addType === "numOfPeople"){
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc('Group'+itemIn).set({
-                    limit: itemIn
+                    limit: Number(itemIn)
                 })
             }else if(addType === "groupType"){
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn).set({
