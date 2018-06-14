@@ -16,6 +16,7 @@ class AddCompetition extends Component {
             deadDate: moment(),
             publishDate: moment(),
             location: '',
+            selectedCompType: '',
             comType: [],
             error: {
                 message: ''
@@ -26,6 +27,7 @@ class AddCompetition extends Component {
         this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
+        this.CompTypehandleChange = this.CompTypehandleChange.bind(this);
     }
     
     getCompType() {
@@ -36,16 +38,18 @@ class AddCompetition extends Component {
                 length = doc.data().competitionType.length-1;
                 for(let i=0; i<= length; i++){
                     compType.push(doc.data().competitionType[i]);
-                    console.log(i ,":" ,compType[i]);
                 }
            
         })
         console.log(compType);
-        let compLength = compType.length;
-                for(let i=0; i<= compLength; i++){
-                    this.state.comType.push(compType[i]);
-                }
+        this.state.comType = compType; // have warning
         console.log("show state",this.state.comType);
+}
+
+CompTypehandleChange(event) {
+    this.setState({
+        selectedCompType: event.target.value,
+    });
 }
 
     handleChangeStartDate(date) {
@@ -79,7 +83,8 @@ class AddCompetition extends Component {
             endDate: new Date(this.state.endDate),
             deadDate: new Date(this.state.deadDate),
             publishDate: new Date(this.state.publishDate),
-            location: this.state.location
+            location: this.state.location,
+            competitionType: this.state.selectedCompType
         })
     }
 
@@ -146,6 +151,11 @@ class AddCompetition extends Component {
                     <br />
                     比賽類型<br/>
                     Competition type:
+                    <select value={this.state.selectedCompType} onChange={this.CompTypeHandleChange}>
+                    <option value='' >Please select 請選擇</option>
+                    {this.state.comType.map((topic, index) =>
+                        <option value={topic} >{topic} </option>)}
+                </select>
 
                 </form>
                 <button
