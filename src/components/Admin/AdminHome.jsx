@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { Link } from 'react-router';
 
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
@@ -39,7 +38,7 @@ class AdminHome extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a>AdminHome</a>
+                            AdminHome
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
@@ -49,7 +48,7 @@ class AdminHome extends Component {
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
-                            <Link to={'/CompetitionIndex'}><MenuItem eventKey={2.2}>比賽主頁<br/>Competition Index</MenuItem></Link>
+                            <MenuItem eventKey={2.2} href={'/CompetitionIndex'} >比賽主頁<br/>Competition Index</MenuItem>
                         </NavDropdown>           
                     </Nav>
                     <Nav pullRight>

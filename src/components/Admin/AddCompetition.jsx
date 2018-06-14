@@ -27,11 +27,19 @@ class AddCompetition extends Component {
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
     }
+    
     getCompType() {
-        db.collection('competitionFormat').doc('competitionType').get().then((result) => {
-            console.log("Got friend");
-          })
-    }
+        db.collection('competitionFormat').doc('competitionType').get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+}
 
     handleChangeStartDate(date) {
         this.setState({
