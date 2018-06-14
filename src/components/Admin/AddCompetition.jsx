@@ -29,16 +29,23 @@ class AddCompetition extends Component {
     }
     
     getCompType() {
+        let length = 0;
+        let compType = [];
         db.collection('competitionFormat').doc('competitionType').get().then(function(doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
+                console.log("Document data:", doc.data().competitionType);
+                length = doc.data().competitionType.length-1;
+                for(let i=0; i<= length; i++){
+                    compType.push(doc.data().competitionType[i]);
+                    console.log(i ,":" ,compType[i]);
+                }
+           
+        })
+        console.log(compType);
+        let compLength = compType.length;
+                for(let i=0; i<= compLength; i++){
+                    this.state.comType.push(compType[i]);
+                }
+        console.log("show state",this.state.comType);
 }
 
     handleChangeStartDate(date) {
