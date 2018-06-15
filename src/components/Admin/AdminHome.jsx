@@ -4,6 +4,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
+import UserMan from './UserMan';
 
 
 class AdminHome extends Component {
@@ -22,8 +23,8 @@ class AdminHome extends Component {
         this.setState({ showContent: 'AddCompetition' })
     }
 
-    handleChangeAddcomp() {
-        this.setState({ showContent: 'AddCompetition' })
+    handleChangeUser() {
+        this.setState({ showContent: 'UserMan' })
     }
 
     selectShowContent = (showContent) => {
@@ -32,6 +33,9 @@ class AdminHome extends Component {
                 return (<FormatSetting />)
             } else if (showContent === 'AddCompetition') {
                 return (<AddCompetition />)
+            }
+            else if (showContent === 'UserMan') {
+                return (<UserMan />)
             }
         }
     }

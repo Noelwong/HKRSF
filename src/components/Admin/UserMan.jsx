@@ -11,7 +11,12 @@ class UserMan extends Component {
     render() {
         return (
             <div>
-                
+                UID:
+                <input type="text"
+                     id="UID" 
+                     onChange={event => this.setState({ ageUpperBound: event.target.value })}
+                     />
+                     <br/>
             </div>
         )
 
