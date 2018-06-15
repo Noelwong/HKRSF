@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { firebaseApp } from '../../firebase';
 
 import UpdatePersonalInfor from './UpdatePersonalInfor';
 import ShowCompPersonal from './ShowCompPersonal';
@@ -42,7 +43,7 @@ class PersonalHome extends Component {
                      </NavItem>
                      </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={4} onClick={() => this.signOut()}>
+                        <NavItem eventKey={3} onClick={() => this.signOut()}>
                         登出<br />Sign Out
                      </NavItem>
                     
@@ -53,7 +54,9 @@ class PersonalHome extends Component {
             </div>
         )
     }
-
+    signOut() {
+        firebaseApp.auth().signOut();
+    }
     
 }
 export default PersonalHome;

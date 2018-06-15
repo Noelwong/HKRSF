@@ -22,6 +22,10 @@ class AdminHome extends Component {
         this.setState({ showContent: 'AddCompetition' })
     }
 
+    handleChangeAddcomp() {
+        this.setState({ showContent: 'AddCompetition' })
+    }
+
     selectShowContent = (showContent) => {
         if (showContent != null) {
             if (showContent === 'FormatSetting') {
@@ -51,6 +55,9 @@ class AdminHome extends Component {
                             <MenuItem eventKey={2.2} href={'/CompetitionIndex'} >比賽主頁<br/>Competition Index</MenuItem>
                         </NavDropdown>           
                     </Nav>
+                    <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
+                        用戶管理<br/>User Management
+                     </NavItem>
                     <Nav pullRight>
                         <NavItem eventKey={4} onClick={() => this.signOut()}>
                         登出<br />Sign Out
