@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../../firebase';
+import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import FormatSetting from './FormatSetting';
@@ -56,12 +57,13 @@ class AdminHome extends Component {
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
-                            <MenuItem eventKey={2.2} href={'/CompetitionIndex'} >比賽主頁<br/>Competition Index</MenuItem>
-                        </NavDropdown>           
-                    </Nav>
-                    <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
+                            <Link to={'/CompetitionIndex'}><MenuItem eventKey={2.2} >比賽主頁<br/>Competition Index</MenuItem></Link>
+                        </NavDropdown>  
+                        <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
                         用戶管理<br/>User Management
-                     </NavItem>
+                     </NavItem>         
+                    </Nav>
+                    
                     <Nav pullRight>
                         <NavItem eventKey={4} onClick={() => this.signOut()}>
                         登出<br />Sign Out
