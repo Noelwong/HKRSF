@@ -61,7 +61,8 @@ class AdminHome extends Component {
                         </NavDropdown>  
                         <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
                         用戶管理<br/>User Management
-                     </NavItem>         
+                     </NavItem>       
+                       
                     </Nav>
                     
                     <Nav pullRight>

@@ -49,10 +49,16 @@ class CompetitionIndex extends Component {
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
                             <MenuItem eventKey={2.2} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
-                        </NavDropdown>           
+                        </NavDropdown>   
+                        <NavItem eventKey={3} >
+                            評判
+                     </NavItem>
+                     <NavItem eventKey={4} >
+                             參賽者 
+                     </NavItem>      
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={4} onClick={() => this.signOut()}>
+                        <NavItem eventKey={5} onClick={() => this.signOut()}>
                         登出<br />Sign Out
                      </NavItem>
                     </Nav>

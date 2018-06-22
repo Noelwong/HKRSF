@@ -15,7 +15,8 @@ class AddParticipant extends Component {
             CName:'',
             EName:'',
             BDate:moment(),
-            schoolName:''
+            schoolName:'',
+            ID:''
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getCompItem();
@@ -28,7 +29,7 @@ class AddParticipant extends Component {
 
     CompItemHandleChange(event) {
         this.setState({ selectedCompItem: event.target.value });
-        this.addParticipant();
+        this.getCompLimit();
     }
 
     getCompItem(){
@@ -38,7 +39,13 @@ class AddParticipant extends Component {
         })
     }
 
-
+    getCompLimit(){
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(this.state.selectedCompItem).get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+            } 
+        })
+    }
 
     addParticipant(){
         return(
@@ -70,7 +77,15 @@ class AddParticipant extends Component {
                     <input type="text"
                 placeholder="學校名稱 School Name"
                 onChange={event => this.setState({ EName: event.target.value })}
-            /></div>
+            />
+            <br/>
+            身份證號碼:<br/>
+            ID:
+            <input type="text"
+                placeholder="ID number"
+                onChange={event => this.setState({ ID: event.target.value })}
+            />
+            </div>
         )
     }
 
