@@ -16,7 +16,8 @@ class AddParticipant extends Component {
             EName:'',
             BDate:moment(),
             schoolName:'',
-            ID:''
+            ID:'',
+            Limit:''
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getCompItem();
@@ -29,7 +30,7 @@ class AddParticipant extends Component {
 
     CompItemHandleChange(event) {
         this.setState({ selectedCompItem: event.target.value });
-        this.getCompLimit();
+        this.getCompLimit(event.target.value);
     }
 
     getCompItem(){
@@ -39,17 +40,28 @@ class AddParticipant extends Component {
         })
     }
 
-    getCompLimit(){
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(this.state.selectedCompItem).get().then(function(doc) {
+    getCompLimit(selectedcompItem){
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedcompItem).get().then(function(doc) {
             if (doc.exists) {
-                console.log("Document data:", doc.data());
+                let limit = doc.data().numOfPeople;
+                db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').doc(limit).get().then(function(doc) {
+                    if (doc.exists) {
+                       let numOflimit = doc.data().limit;
+                        console.log("1."+numOflimit);
+                    } 
+                })
             } 
         })
+        this.state.Limit = numOflimit;
+        console.log(this.state.Limit);
+        
     }
 
     addParticipant(){
         return(
             <div>
+                {this.state.Limit}
+                <br/>
                 中文姓名:
             <input type="text"
                 placeholder="中文姓名"
@@ -93,9 +105,9 @@ class AddParticipant extends Component {
         return (
             <div>
                 <select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.compItem.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br/>
                 {this.state.selectedCompItem}

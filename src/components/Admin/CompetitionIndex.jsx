@@ -4,6 +4,7 @@ import { firebaseApp } from '../../firebase';
 import { Link } from 'react-router';
 
 import ShowComp from './ShowComp';
+import FormatSetting from './FormatSetting';
 import AddCompItem from './AddCompItem';
 import AddParticipant from './AddParticipant'; 
 
@@ -21,6 +22,8 @@ class CompetitionIndex extends Component {
                 return (<AddCompItem />)
             } else if (showContent === 'AddParticipant') {
                 return (<AddParticipant />)
+            }else if (showContent === 'FormatSetting') {
+                return (<FormatSetting />)
             }
         }
     }
@@ -31,6 +34,10 @@ class CompetitionIndex extends Component {
 
     handleChangeAddParticipant() {
         this.setState({ showContent: 'AddParticipant' })
+    }
+
+    FormathandleChange() {
+        this.setState({ showContent: 'FormatSetting' })
     }
   
     render() {
@@ -43,7 +50,7 @@ class CompetitionIndex extends Component {
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
-                        <NavItem eventKey={1} >
+                        <NavItem eventKey={1} onClick={() => this.FormathandleChange()}>
                         FormatSetting
                      </NavItem>
                        

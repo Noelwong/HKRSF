@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 class ShowCompItem extends Component {
     constructor(props) {
@@ -28,11 +29,11 @@ class ShowCompItem extends Component {
 
         return (
             <div>
-                <ul>
+                <ListGroup>
                 {this.state.compItem.map((topic, index) =>
-                     <li key={topic}  >{topic}</li>
+                      <ListGroupItem key={topic}  >{topic}</ListGroupItem>
                 )}
-                </ul>
+                </ListGroup>
 
             </div>
         )
