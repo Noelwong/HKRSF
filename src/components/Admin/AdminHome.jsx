@@ -6,6 +6,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import FormatSetting from './FormatSetting';
 import AddCompetition from './AddCompetition';
 import UserMan from './UserMan';
+import SetPriority from './SetPriority';
 
 
 class AdminHome extends Component {
@@ -73,6 +74,8 @@ class AdminHome extends Component {
                 </Navbar>
                 <br />
                 {this.selectShowContent(this.state.showContent)}
+                <br/>
+                <SetPriority/>
             </div >
 
         )
