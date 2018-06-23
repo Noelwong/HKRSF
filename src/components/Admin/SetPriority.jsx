@@ -54,7 +54,6 @@ class SetPriority extends Component {
         rank.push(this.state.NumOfPeople);
         rank.push(this.state.TimeLimit);
         this.state.rank = rank;   
-        console.log(rank);
         console.log(this.state.rank);
     }
     render() {
