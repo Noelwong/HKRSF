@@ -11,10 +11,12 @@ class ShowCompPersonal extends Component {
     }
 
     getCompInfor() {
-        db.collection('competition').where("competitionType", "==", "分區錦標賽Partition").where("competitionType", "==", "錦標賽Championship").onSnapshot(coll => {
+        db.collection('competition').where("competitionType", "==", "分區錦標賽Partition")
+        db.collection('competition').where("competitionType", "==", "錦標賽Championship").onSnapshot(coll => {
             const competition = coll.docs.map(doc => doc.data().name)
             this.setState({ competition })
         })
+
     }
 
 

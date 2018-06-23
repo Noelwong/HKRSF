@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { firebaseApp } from '../../firebase';
+import { Link } from 'react-router';
 
 import ShowComp from './ShowComp';
 import AddCompItem from './AddCompItem';
@@ -38,7 +39,7 @@ class CompetitionIndex extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a>Competition Index</a>
+                        <Link to={'/App'}>Competition Index</Link>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
@@ -54,7 +55,7 @@ class CompetitionIndex extends Component {
                             評判
                      </NavItem>
                      <NavItem eventKey={4} >
-                             參賽者 
+                            scheduling
                      </NavItem>      
                     </Nav>
                     <Nav pullRight>
@@ -67,6 +68,7 @@ class CompetitionIndex extends Component {
                 <ShowComp />
                 <br />
                 {this.selectShowContent(this.state.showContent)}
+            
             </div>
 
         )

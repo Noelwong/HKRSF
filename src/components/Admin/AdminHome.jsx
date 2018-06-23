@@ -46,7 +46,7 @@ class AdminHome extends Component {
             <div>
                 <Navbar>
                     <Navbar.Header>
-                        <Navbar.Brand>
+                    <Navbar.Brand>
                             AdminHome
                         </Navbar.Brand>
                     </Navbar.Header>
