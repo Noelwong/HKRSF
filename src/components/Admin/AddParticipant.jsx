@@ -41,19 +41,23 @@ class AddParticipant extends Component {
     }
 
     getCompLimit(selectedcompItem){
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedcompItem).get().then(function(doc) {
-            if (doc.exists) {
-                let limit = doc.data().numOfPeople;
-                db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').doc(limit).get().then(function(doc) {
-                    if (doc.exists) {
-                       let numOflimit = doc.data().limit;
-                        console.log("1."+numOflimit);
-                    } 
-                })
-            } 
+        let numOfLimit = 0;
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').get().then((snapshot)=> {
+            snapshot.docs.forEach(doc => {
+                if (doc.exists) {
+                    let limit = doc.data().numOfPeople;
+                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').doc(limit).get().then(function (doc) {
+                        if (doc.exists) {
+                            numOfLimit = doc.data().limit;
+                            console.log("Number of Limit : " + numOfLimit);
+                        }
+                    })
+                }
+            })
         })
-        // this.state.Limit = numOflimit;
-        // console.log(this.state.Limit);
+            this.state.Limit = numOfLimit;
+
+        console.log(this.state.Limit);
         
     }
 
