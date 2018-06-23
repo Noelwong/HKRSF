@@ -52,8 +52,8 @@ class AddParticipant extends Component {
                 })
             } 
         })
-        this.state.Limit = numOflimit;
-        console.log(this.state.Limit);
+        // this.state.Limit = numOflimit;
+        // console.log(this.state.Limit);
         
     }
 
