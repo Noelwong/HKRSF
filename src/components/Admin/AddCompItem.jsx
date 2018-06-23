@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 
+import ShowCompItem from './ShowCompItem';
+
 class AddCompItem extends Component {
     constructor(props) {
         super(props);
@@ -92,6 +94,8 @@ class AddCompItem extends Component {
     render() {
         return (
             <div>
+                <ShowCompItem />
+                <br/>
                 地區限制:<br/>
                 Distant:
                 <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>

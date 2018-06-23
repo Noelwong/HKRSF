@@ -8,7 +8,8 @@ class ShowCompItem extends Component {
             compItem: [],
             selectedCompItem: ''
         }
-       this.getCompItem();
+        this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
+        this.getCompItem();
        this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
     }
 
@@ -16,11 +17,10 @@ class ShowCompItem extends Component {
         this.setState({ selectedCompItem: event.target.value });
     }
 
-    getCompItem() {
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
-            const compItem = coll.docs.map(doc => doc.data().name)
+    getCompItem(){
+        this.Ref.onSnapshot(coll => {
+            const compItem = coll.docs.map(doc => doc.id)
             this.setState({ compItem })
-            console.log(compItem);
         })
     }
 
@@ -28,13 +28,12 @@ class ShowCompItem extends Component {
 
         return (
             <div>
+                <ul>
+                {this.state.compItem.map((topic, index) =>
+                     <li key={topic}  >{topic}</li>
+                )}
+                </ul>
 
-                <select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                    {this.state.compItem.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
-                </select>
-                <br/>
-                {this.state.selectedCompItem}
             </div>
         )
     }
