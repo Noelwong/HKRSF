@@ -7,6 +7,7 @@ import ShowComp from './ShowComp';
 import FormatSetting from './FormatSetting';
 import AddCompItem from './AddCompItem';
 import AddParticipant from './AddParticipant'; 
+import SetPriority from './SetPriority';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -75,6 +76,8 @@ class CompetitionIndex extends Component {
                 <ShowComp />
                 <br />
                 {this.selectShowContent(this.state.showContent)}
+                <br/>
+                <SetPriority/>
             
             </div>
 

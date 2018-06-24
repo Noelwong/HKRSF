@@ -15,7 +15,8 @@ class SetPriority extends Component {
             GroupType:'',
             ItemType:'',
             NumOfPeople:'',
-            TimeLimit:''
+            TimeLimit:'',
+            url:'https://us-central1-hkrsf-csci321.cloudfunctions.net/scheduling_test?arr_1='
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getAll();
@@ -53,7 +54,8 @@ class SetPriority extends Component {
         rank.push(this.state.ItemType);
         rank.push(this.state.NumOfPeople);
         rank.push(this.state.TimeLimit);
-        this.state.rank = rank;   
+        
+        this.state.rank = JSON.stringify(rank);   
         console.log(this.state.rank);
     }
     render() {
@@ -105,6 +107,12 @@ class SetPriority extends Component {
                 >
                     Submit
                 </button>
+                <a href={this.state.url+this.state.rank}><button
+                    className="btn btn-success"
+                >
+                    gogo
+                </button></a>
+                
                 <br/>
                      {this.state.rank}
             </div>
