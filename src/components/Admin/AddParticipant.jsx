@@ -35,29 +35,37 @@ class AddParticipant extends Component {
 
     getCompItem(){
         this.Ref.onSnapshot(coll => {
-            const compItem = coll.docs.map(doc => doc.id)
+            const compItem = coll.docs.map(doc => doc.id);
             this.setState({ compItem })
         })
     }
 
     getCompLimit(selectedcompItem){
         let numOfLimit = 0;
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').get().then((snapshot)=> {
-            snapshot.docs.forEach(doc => {
-                if (doc.exists) {
-                    let limit = doc.data().numOfPeople;
-                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').doc(limit).get().then(function (doc) {
-                        if (doc.exists) {
-                            numOfLimit = doc.data().limit;
-                            console.log("Number of Limit : " + numOfLimit);
+        console.log(selectedcompItem);
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot( coll => {
+            const temp = coll.docs.map(doc => doc.id);
+            const temp2 = coll.docs.map(doc => doc.data().numOfPeople);
+            for (var i =0;i <= temp.length;i++)
+            {
+                if ( selectedcompItem === temp[i])
+                {
+                    var numberOfpeopleChecker =temp2[i];
+                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
+                        const temp3 = coll.docs.map(doc => doc.id);
+                        const temp4 = coll.docs.map(doc => doc.data().limit);
+                        for(var i= 0 ;i<= temp3.length;i++ ){
+                            console.log(temp4[i]);
+                            if ( numberOfpeopleChecker === temp3[i] ) {
+                                this.setState({Limit : temp4[i]});
+                            }
                         }
                     })
                 }
+            }
             })
-        })
-            this.state.Limit = numOfLimit;
 
-        console.log(this.state.Limit);
+
         
     }
 
@@ -116,7 +124,7 @@ class AddParticipant extends Component {
                 <br/>
                 {this.state.selectedCompItem}
                 <br/>
-                
+                {this.state.Limit}
                 
             </div>
         )
