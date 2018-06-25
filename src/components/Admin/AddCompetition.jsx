@@ -41,10 +41,8 @@ class AddCompetition extends Component {
                 }
            
         })
-        console.log(compType);
         // eslint-disable-next-line 
         this.state.comType = compType; // have warning
-        console.log("show state",this.state.comType);
 }
 
 CompTypehandleChange(event) {
