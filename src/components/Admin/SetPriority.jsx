@@ -54,10 +54,9 @@ class SetPriority extends Component {
     thisSetStatearray(district,itemType,numOfPeople,timeLimit,groupType){
             this.state.district = district;
             this.state.itemType = itemType;
-            this.state.numOfPeople =  numOfPeople;
+            this.state.numOfPeople = numOfPeople;
             this.state.timeLimit = timeLimit;
             this.state.groupType = groupType;
-
     }
 
 
@@ -74,9 +73,9 @@ class SetPriority extends Component {
                     <table border="1" width="500" align="center">
                         <tbody>
                         <tr>
-                            <td align="left" width="100" align="center"><font size="4">地區 (District)
+                            <td  width="100" align="center"><font size="4">地區 (District)
                                 <input type="number"
-                                 d="District"
+                                 id="District"
                                  min="1" max="5"
                                  onChange={event => this.setState({ District: event.target.value })}
                             /></font></td>
@@ -85,7 +84,7 @@ class SetPriority extends Component {
                         {
                             this.state.district.map((topic,index) =>
                             <tr>
-                                <td align="left" colSpan="1"><font size="3">{topic}</font></td>
+                                <td align="left" colSpan="1"><font size="3">{topic}  <input type="number"/></font></td>
                             </tr>)
                         }
 
