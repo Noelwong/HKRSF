@@ -114,7 +114,7 @@ class SetPriority extends Component {
                 </button></a>
                 
                 <br/>
-                     {this.state.rank}
+                    {this.state.rank}
             </div>
         )
 

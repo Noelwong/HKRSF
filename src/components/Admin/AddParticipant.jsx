@@ -41,7 +41,6 @@ class AddParticipant extends Component {
     }
 
     getCompLimit(selectedcompItem){
-        let numOfLimit = 0;
         console.log(selectedcompItem);
         db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot( coll => {
             const temp = coll.docs.map(doc => doc.id);
@@ -50,7 +49,7 @@ class AddParticipant extends Component {
             {
                 if ( selectedcompItem === temp[i])
                 {
-                    var numberOfpeopleChecker =temp2[i];
+                    var numberOfpeopleChecker = temp2[i];
                     db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
                         const temp3 = coll.docs.map(doc => doc.id);
                         const temp4 = coll.docs.map(doc => doc.data().limit);
