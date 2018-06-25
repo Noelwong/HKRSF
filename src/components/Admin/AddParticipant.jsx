@@ -121,10 +121,18 @@ class AddParticipant extends Component {
                         <option key={topic} >{topic} </option>)}
                 </select>
                 <br/>
+
+                <button
+                    className="btn btn-success"
+                    onClick={() => this.addRank()}
+                >
+                    Submit
+                </button>
+
+
                 {this.state.selectedCompItem}
                 <br/>
                 {this.state.Limit}
-                
             </div>
         )
 

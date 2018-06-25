@@ -5,7 +5,7 @@ class SetPriority extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rank:[],
+            rank:[''],
             district:[],
             groupType:[],
             itemType:[],
@@ -20,7 +20,6 @@ class SetPriority extends Component {
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getAll();
-        
     }
 
     getAll(){
@@ -48,16 +47,10 @@ class SetPriority extends Component {
     }
 
     setRank(){
-        let rank = [];
-        rank.push(this.state.District);
-        rank.push(this.state.GroupType);
-        rank.push(this.state.ItemType);
-        rank.push(this.state.NumOfPeople);
-        rank.push(this.state.TimeLimit);
-        
-        this.state.rank = JSON.stringify(rank);   
-        console.log(this.state.rank);
+        this.setState({rank:[ this.state.District, this.state.GroupType, this.state.ItemType, this.state.NumOfPeople, this.state.TimeLimit]});
     }
+
+
     render() {
         return (
             <div>
@@ -101,20 +94,14 @@ class SetPriority extends Component {
                      onChange={event => this.setState({ GroupType: event.target.value })}
                      />
                      <br/>
-                     <button
+                <a target="_blank" href={this.state.url+ JSON.stringify(this.state.rank)}><button
                     className="btn btn-success"
                     onClick={() => this.setRank()}
                 >
                     Submit
-                </button>
-                <a target="_blank" href={this.state.url+this.state.rank}><button
-                    className="btn btn-success"
-                >
-                    gogo
                 </button></a>
-                
                 <br/>
-                    {this.state.rank}
+                <br/>
             </div>
         )
 
