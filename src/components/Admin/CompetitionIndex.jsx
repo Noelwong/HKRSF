@@ -25,8 +25,14 @@ class CompetitionIndex extends Component {
                 return (<AddParticipant />)
             }else if (showContent === 'FormatSetting') {
                 return (<FormatSetting />)
+            }else if (showContent === 'scheduling') {
+                return (<SetPriority />)
             }
         }
+    }
+
+    handleChangeScheduling(){
+        this.setState({ showContent: 'scheduling' })
     }
 
     handleChangeItem() {
@@ -62,7 +68,7 @@ class CompetitionIndex extends Component {
                         <NavItem eventKey={3} >
                             評判
                      </NavItem>
-                     <NavItem eventKey={4} >
+                     <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
                             scheduling
                      </NavItem>      
                     </Nav>
@@ -77,7 +83,6 @@ class CompetitionIndex extends Component {
                 <br />
                 {this.selectShowContent(this.state.showContent)}
                 <br/>
-                <SetPriority/>
             
             </div>
 

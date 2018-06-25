@@ -124,11 +124,11 @@ class AddParticipant extends Component {
                         <option key={topic} >{topic} </option>)}
                 </select>
                 <br/>
+
+
                 {this.state.selectedCompItem}
                 <br/>
                 {this.state.Limit}
-                <br/>
-                
             </div>
         )
 

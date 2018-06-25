@@ -107,9 +107,9 @@ class AddCompItem extends Component {
                 參賽人數:<br/>
                 Number of participants:
                 <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.numOfPeople.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br />
                 時間限制: <br/>
