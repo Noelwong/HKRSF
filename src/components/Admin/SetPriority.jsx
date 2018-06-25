@@ -107,7 +107,7 @@ class SetPriority extends Component {
                 >
                     Submit
                 </button>
-                <a href={this.state.url+this.state.rank}><button
+                <a target="_blank" href={this.state.url+this.state.rank}><button
                     className="btn btn-success"
                 >
                     gogo
