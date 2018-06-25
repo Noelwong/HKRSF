@@ -54,7 +54,7 @@ class SetPriority extends Component {
         rank.push(this.state.ItemType);
         rank.push(this.state.NumOfPeople);
         rank.push(this.state.TimeLimit);
-        
+        // eslint-disable-next-line 
         this.state.rank = JSON.stringify(rank);   
         console.log(this.state.rank);
     }

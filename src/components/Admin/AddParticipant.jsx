@@ -50,11 +50,11 @@ class AddParticipant extends Component {
                 if ( selectedcompItem === temp[i])
                 {
                     var numberOfpeopleChecker = temp2[i];
+                    // eslint-disable-next-line 
                     db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
                         const temp3 = coll.docs.map(doc => doc.id);
                         const temp4 = coll.docs.map(doc => doc.data().limit);
                         for(var i= 0 ;i<= temp3.length;i++ ){
-                            console.log(temp4[i]);
                             if ( numberOfpeopleChecker === temp3[i] ) {
                                 this.setState({Limit : temp4[i]});
                             }
@@ -67,6 +67,7 @@ class AddParticipant extends Component {
 
         
     }
+
 
     addParticipant(){
         return(
@@ -112,6 +113,8 @@ class AddParticipant extends Component {
         )
     }
 
+
+
     render() {
         return (
             <div>
@@ -124,6 +127,7 @@ class AddParticipant extends Component {
                 {this.state.selectedCompItem}
                 <br/>
                 {this.state.Limit}
+                <br/>
                 
             </div>
         )
