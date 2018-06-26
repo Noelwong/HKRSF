@@ -51,18 +51,18 @@ class CompetitionIndex extends Component {
         return (
                 <div>
                 <Navbar>
-                    <Navbar.Header>
+                <Link to={'/App'}><Navbar.Header>
                         <Navbar.Brand>
-                        <Link to={'/App'}>Competition Index</Link>
+                        Competition Index
                         </Navbar.Brand>
-                    </Navbar.Header>
+                    </Navbar.Header></Link>
                     <Nav>
                         <NavItem eventKey={1} onClick={() => this.FormathandleChange()}>
                         FormatSetting
                      </NavItem>
                        
-                        <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
+                        <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown" >
+                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()} >Add Competition Item</MenuItem>
                             <MenuItem eventKey={2.2} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
                         </NavDropdown>   
                         <NavItem eventKey={3} >
@@ -81,6 +81,7 @@ class CompetitionIndex extends Component {
                 <br />
                 <ShowComp />
                 <br />
+
                 {this.selectShowContent(this.state.showContent)}
                 <br/>
             

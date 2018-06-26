@@ -22,6 +22,7 @@ class SetPriority extends Component {
         this.getAll();
     }
 
+
     getAll(){
         this.Ref.onSnapshot(coll=> {
             let district = [];
