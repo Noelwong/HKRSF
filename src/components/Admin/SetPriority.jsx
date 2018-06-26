@@ -73,7 +73,7 @@ class SetPriority extends Component {
                     <table border="1" width="500" align="center">
                         <tbody>
                         <tr>
-                            <td  width="100" align="center"><font size="4">地區 (District)
+                            <td  width="80" align="center"><font size="4">地區 (District)
                                 <input type="number"
                                  id="District"
                                  min="1" max="5"
@@ -84,7 +84,12 @@ class SetPriority extends Component {
                         {
                             this.state.district.map((topic,index) =>
                             <tr>
-                                <td align="left" colSpan="1"><font size="3">{topic}  <input type="number"/></font></td>
+                                <td align="left" colSpan="1"><font size="3">{topic}
+                                <input type="number"
+                                       min="1" max= {this.state.district.length}
+                                       id = {topic}
+                                />
+                                </font></td>
                             </tr>)
                         }
 
@@ -93,7 +98,6 @@ class SetPriority extends Component {
                     <table border="1" width="500" align="center">
                         <tbody>
                         <tr>
-                        
                             <td align="center" width="181"><font size="4">比賽項目 (Item Type)
                                 <input type="number"
                                        id="NumOfPeople"
@@ -104,7 +108,12 @@ class SetPriority extends Component {
                         {
                             this.state.itemType.map((topic,index) =>
                                 <tr>
-                                    <td align="left" colSpan="1"><font size="3">{topic}</font></td>
+                                    <td align="left" colSpan="1"><font size="3">{topic}
+                                        <input type="number"
+                                               min="1" max= {this.state.itemType.length}
+                                               id = {topic}
+                                        />
+                                    </font></td>
                                 </tr>)
                         }
                         </tbody>
@@ -123,7 +132,12 @@ class SetPriority extends Component {
                         {
                             this.state.numOfPeople.map((topic,index) =>
                                 <tr>
-                                    <td align="left" colSpan="1"><font size="3">{topic}</font></td>
+                                    <td align="left" colSpan="1"><font size="3">{topic}
+                                        <input type="number"
+                                               min="1" max= {this.state.numOfPeople.length}
+                                               id = {topic}
+                                        />
+                                    </font></td>
                                 </tr>)
                         }
                         </tbody>
@@ -141,7 +155,12 @@ class SetPriority extends Component {
                         {
                             this.state.timeLimit.map((topic,index) =>
                                 <tr>
-                                    <td align="left" colSpan="1"><font size="3">{topic}</font></td>
+                                    <td align="left" colSpan="1"><font size="3">{topic}
+                                        <input type="number"
+                                               min="1" max= {this.state.timeLimit.length}
+                                               id = {topic}
+                                        />
+                                    </font></td>
                                 </tr>)
                         }
                         </tbody>
@@ -149,7 +168,7 @@ class SetPriority extends Component {
                     <table border="1" width="500" align="center">
                         <tbody>
                         <tr>
-                            <td align="center" width="105"><font size="4">組別 (Group Type)
+                            <td align="center" width="80"><font size="4">組別 (Group Type)
                                 <input type="number"
                                        id="GroupType"
                                        min="1" max="5"
@@ -159,7 +178,12 @@ class SetPriority extends Component {
                         {
                             this.state.groupType.map((topic,index) =>
                                 <tr>
-                                    <td align="left" colSpan="1"><font size="3">{topic}</font></td>
+                                    <td align="left" colSpan="1"><font size="3">{topic}
+                                        <input type="number"
+                                               min="1" max= {this.state.groupType.length}
+                                               id = {topic}
+                                        />
+                                    </font></td>
                                 </tr>)
                         }
                         </tbody>
@@ -176,7 +200,11 @@ class SetPriority extends Component {
                     Submit
                 </button></a>
                 </form>
-
+                {console.log(document.getElementById(this.state.district[0]))}
+                {console.log(document.getElementById(this.state.district[1]))}
+                {console.log(document.getElementById(this.state.district[2]))}
+                {console.log(document.getElementById(this.state.district[3]))}
+                {console.log(document.getElementById(this.state.district[4]))}
                 <br/>
 
             </div>
