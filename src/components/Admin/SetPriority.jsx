@@ -53,10 +53,15 @@ class SetPriority extends Component {
     }
 
     thisSetStatearray(district, itemType, numOfPeople, timeLimit, groupType) {
+        // eslint-disable-next-line 
         this.state.district = district;
+        // eslint-disable-next-line 
         this.state.itemType = itemType;
+        // eslint-disable-next-line 
         this.state.numOfPeople = numOfPeople;
+        // eslint-disable-next-line 
         this.state.timeLimit = timeLimit;
+        // eslint-disable-next-line 
         this.state.groupType = groupType;
     }
 
