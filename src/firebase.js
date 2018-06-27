@@ -10,6 +10,5 @@ import '@firebase/firestore';
     storageBucket: "hkrsf-csci321.appspot.com",
     messagingSenderId: "663836110072"
   };
-
 export const firebaseApp = firebase.initializeApp(config);
 export const db = firebase.firestore();
