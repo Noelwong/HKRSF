@@ -12,6 +12,13 @@ class SetPriority extends Component {
             itemType: [],
             numOfPeople: [],
             timeLimit: [],
+
+            districtpri:{},
+            groupTypepri: {},
+            itemTypepri: {},
+            numOfPeoplepri: {},
+            timeLimitpri: {},
+
             District: '',
             GroupType: '',
             ItemType: '',
@@ -67,7 +74,52 @@ class SetPriority extends Component {
 
     setRank() {
         this.setState({ rank: [this.state.District, this.state.GroupType, this.state.ItemType, this.state.NumOfPeople, this.state.TimeLimit] });
+        this.addDistrict();
+        this.addGroupType();
+        this.addItemType();
+        this.addNumOfPeople();
+        this.addTimeLimit();
+    }
 
+    addDistrict(){
+        for(var i = 0; i< this.state.district.length;i++) {
+        this.state.districtpri[this.state.district[i]] = document.getElementById(this.state.district[i]).value
+    }
+       var json = JSON.stringify(this.state.districtpri);
+        console.log( json);
+    }
+
+    addGroupType(){
+        for(var i = 0; i< this.state.groupType.length;i++) {
+            this.state.groupTypepri[this.state.groupType[i]] = document.getElementById(this.state.groupType[i]).value
+        }
+        var json = JSON.stringify(this.state.groupTypepri);
+        console.log( json);
+    }
+
+    addItemType(){
+        for(var i = 0; i< this.state.itemType.length;i++) {
+            this.state.itemTypepri[this.state.itemType[i]] = document.getElementById(this.state.itemType[i]).value
+        }
+        var json = JSON.stringify(this.state.itemTypepri);
+        console.log( json);
+    }
+
+    addNumOfPeople(){
+        for(var i = 0; i< this.state.numOfPeople.length;i++) {
+            this.state.numOfPeoplepri[this.state.numOfPeople[i]] = document.getElementById(this.state.numOfPeople[i]).value
+        }
+        var json = JSON.stringify(this.state.numOfPeoplepri);
+        console.log( json);
+    }
+
+
+    addTimeLimit(){
+        for(var i = 0; i< this.state.timeLimit.length;i++) {
+            this.state.timeLimitpri[this.state.timeLimit[i]] = document.getElementById(this.state.timeLimit[i]).value
+        }
+        var json = JSON.stringify(this.state.timeLimitpri);
+        console.log( json);
     }
 
 
