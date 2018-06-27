@@ -83,6 +83,7 @@ class SetPriority extends Component {
 
     addDistrict(){
         for(var i = 0; i< this.state.district.length;i++) {
+            // eslint-disable-next-line 
         this.state.districtpri[this.state.district[i]] = document.getElementById(this.state.district[i]).value
     }
        var json = JSON.stringify(this.state.districtpri);
@@ -91,6 +92,7 @@ class SetPriority extends Component {
 
     addGroupType(){
         for(var i = 0; i< this.state.groupType.length;i++) {
+            // eslint-disable-next-line 
             this.state.groupTypepri[this.state.groupType[i]] = document.getElementById(this.state.groupType[i]).value
         }
         var json = JSON.stringify(this.state.groupTypepri);
@@ -99,6 +101,7 @@ class SetPriority extends Component {
 
     addItemType(){
         for(var i = 0; i< this.state.itemType.length;i++) {
+            // eslint-disable-next-line 
             this.state.itemTypepri[this.state.itemType[i]] = document.getElementById(this.state.itemType[i]).value
         }
         var json = JSON.stringify(this.state.itemTypepri);
@@ -107,6 +110,7 @@ class SetPriority extends Component {
 
     addNumOfPeople(){
         for(var i = 0; i< this.state.numOfPeople.length;i++) {
+            // eslint-disable-next-line 
             this.state.numOfPeoplepri[this.state.numOfPeople[i]] = document.getElementById(this.state.numOfPeople[i]).value
         }
         var json = JSON.stringify(this.state.numOfPeoplepri);
@@ -116,6 +120,7 @@ class SetPriority extends Component {
 
     addTimeLimit(){
         for(var i = 0; i< this.state.timeLimit.length;i++) {
+            // eslint-disable-next-line 
             this.state.timeLimitpri[this.state.timeLimit[i]] = document.getElementById(this.state.timeLimit[i]).value
         }
         var json = JSON.stringify(this.state.timeLimitpri);
@@ -128,8 +133,9 @@ class SetPriority extends Component {
             <div>
                 <Table responsive bordered>
                     <thead  align="center">
+                    </thead>
                         <tbody >
-                            <tr>
+                            <tr key="District">
                                 <td><font size="4">地區 (District):
                                 <input type="number"
                                         id="District"
@@ -140,7 +146,7 @@ class SetPriority extends Component {
 
                             {
                                 this.state.district.map((topic, index) =>
-                                    <tr>
+                                    <tr key = {topic}>
                                         <td align="left" colSpan="1"><font size="3">{topic}
                                             <input type="number"
                                                 min="1" max={this.state.district.length}
@@ -151,22 +157,22 @@ class SetPriority extends Component {
                             }
 
                         </tbody>
-                    </thead>
-                </Table>;
+                </Table>
                     <Table responsive bordered>
                     <thead  align="center">
+                    </thead>
                         <tbody>
-                            <tr>
+                            <tr key = "ItemType">
                                 <td><font size="4">比賽項目 (Item Type):
                                 <input type="number"
-                                        id="NumOfPeople"
+                                        id="ItemType"
                                         min="1" max="5"
                                         onChange={event => this.setState({ ItemType: event.target.value })}
                                     /></font></td>
                             </tr>
                             {
                                 this.state.itemType.map((topic, index) =>
-                                    <tr>
+                                    <tr key ={topic}>
                                         <td align="left" colSpan="1"><font size="3">{topic}
                                             <input type="number"
                                                 min="1" max={this.state.itemType.length}
@@ -176,12 +182,12 @@ class SetPriority extends Component {
                                     </tr>)
                             }
                         </tbody>
-                    </thead>
-                </Table>;
+                </Table>
                     <Table responsive bordered>
                     <thead  align="center">
+                    </thead>
                         <tbody>
-                            <tr>
+                            <tr key ="NumOfPeople">
 
                                 <td><font size="4">參賽人數 (# Of People):
                                 <input type="number"
@@ -192,7 +198,7 @@ class SetPriority extends Component {
                             </tr>
                             {
                                 this.state.numOfPeople.map((topic, index) =>
-                                    <tr>
+                                    <tr key ={topic}>
                                         <td align="left" colSpan="1"><font size="3">{topic}
                                             <input type="number"
                                                 min="1" max={this.state.numOfPeople.length}
@@ -202,12 +208,12 @@ class SetPriority extends Component {
                                     </tr>)
                             }
                         </tbody>
-                    </thead>
-                </Table>;
+                </Table>
                     <Table responsive bordered>
                     <thead  align="center">
+                    </thead>
                         <tbody>
-                            <tr>
+                            <tr key ="TimeLimit">
                                 <td><font size="4"> 時間限制 (Time Limit):
                                 <input type="number"
                                         id="TimeLimit"
@@ -217,7 +223,7 @@ class SetPriority extends Component {
                             </tr>
                             {
                                 this.state.timeLimit.map((topic, index) =>
-                                    <tr>
+                                    <tr key ={topic}>
                                         <td align="left" colSpan="1"><font size="3">{topic}
                                             <input type="number"
                                                 min="1" max={this.state.timeLimit.length}
@@ -227,12 +233,13 @@ class SetPriority extends Component {
                                     </tr>)
                             }
                         </tbody>
-                    </thead>
-                </Table>;
+              
+                </Table>
                     <Table responsive bordered>
                     <thead  align="center">
+                    </thead>
                         <tbody>
-                            <tr>
+                            <tr key ="GroupType">
                                 <td><font size="4">組別 (Group Type):
                                 <input type="number"
                                         id="GroupType"
@@ -242,7 +249,7 @@ class SetPriority extends Component {
                             </tr>
                             {
                                 this.state.groupType.map((topic, index) =>
-                                    <tr>
+                                    <tr key ={topic}>
                                         <td align="left" colSpan="1"><font size="3">{topic}
                                             <input type="number"
                                                 min="1" max={this.state.groupType.length}
@@ -252,8 +259,7 @@ class SetPriority extends Component {
                                     </tr>)
                             }
                         </tbody>
-                    </thead>
-                </Table>;
+                </Table>
 
                      <br />
                 <a target="_blank" href={this.state.url + JSON.stringify(this.state.rank)}><button

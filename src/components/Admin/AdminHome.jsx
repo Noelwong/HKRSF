@@ -58,7 +58,7 @@ class AdminHome extends Component {
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
-                            <Link to={'/CompetitionIndex'}><MenuItem eventKey={2.2} >比賽主頁<br/>Competition Index</MenuItem></Link>
+                            <Link to={'/CompetitionIndex'}><MenuItem eventKey={2.2} ><Link to={'/CompetitionIndex'}>比賽主頁<br/>Competition Index</Link></MenuItem></Link>
                         </NavDropdown>  
                         <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
                         用戶管理<br/>User Management
