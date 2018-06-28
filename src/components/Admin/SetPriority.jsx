@@ -6,7 +6,7 @@ class SetPriority extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rank: [''],
+            rank: {},
             district: [],
             groupType: [],
             itemType: [],
@@ -18,13 +18,14 @@ class SetPriority extends Component {
             itemTypepri: {},
             numOfPeoplepri: {},
             timeLimitpri: {},
+            pack:{},
 
             District: '',
             GroupType: '',
             ItemType: '',
             NumOfPeople: '',
             TimeLimit: '',
-            url: 'https://us-central1-hkrsf-csci321.cloudfunctions.net/scheduling_test?arr_1='
+            url: 'https://us-central1-hkrsf-csci321.cloudfunctions.net/scheduling_test_02?req_object='
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getAll();
@@ -79,12 +80,31 @@ class SetPriority extends Component {
         this.addItemType();
         this.addNumOfPeople();
         this.addTimeLimit();
+        this.setPack();
     }
+    setPack(){
+        var VarPack = [];
+        var rank = [];
+        rank.push(this.state.District);
+        rank.push(this.state.GroupType);
+        rank.push(this.state.ItemType);
+        rank.push(this.state.NumOfPeople);
+        rank.push(this.state.TimeLimit);
+        VarPack.push(rank);
+        VarPack.push(this.state.districtpri);
+        VarPack.push(this.state.groupTypepri);
+        VarPack.push(this.state.itemTypepri);
+        VarPack.push(this.state.numOfPeoplepri);
+        VarPack.push(this.state.timeLimitpri);
+        this.setState({pack: VarPack})
+    }
+
+
 
     addDistrict(){
         for(var i = 0; i< this.state.district.length;i++) {
             // eslint-disable-next-line 
-        this.state.districtpri[this.state.district[i]] = document.getElementById(this.state.district[i]).value
+        this.state.districtpri[this.state.district[i]] = Number(document.getElementById(this.state.district[i]).value)
     }
        var json = JSON.stringify(this.state.districtpri);
         console.log( json);
@@ -93,7 +113,7 @@ class SetPriority extends Component {
     addGroupType(){
         for(var i = 0; i< this.state.groupType.length;i++) {
             // eslint-disable-next-line 
-            this.state.groupTypepri[this.state.groupType[i]] = document.getElementById(this.state.groupType[i]).value
+            this.state.groupTypepri[this.state.groupType[i]] =  Number(document.getElementById(this.state.groupType[i]).value)
         }
         var json = JSON.stringify(this.state.groupTypepri);
         console.log( json);
@@ -102,7 +122,7 @@ class SetPriority extends Component {
     addItemType(){
         for(var i = 0; i< this.state.itemType.length;i++) {
             // eslint-disable-next-line 
-            this.state.itemTypepri[this.state.itemType[i]] = document.getElementById(this.state.itemType[i]).value
+            this.state.itemTypepri[this.state.itemType[i]] =  Number(document.getElementById(this.state.itemType[i]).value)
         }
         var json = JSON.stringify(this.state.itemTypepri);
         console.log( json);
@@ -111,7 +131,7 @@ class SetPriority extends Component {
     addNumOfPeople(){
         for(var i = 0; i< this.state.numOfPeople.length;i++) {
             // eslint-disable-next-line 
-            this.state.numOfPeoplepri[this.state.numOfPeople[i]] = document.getElementById(this.state.numOfPeople[i]).value
+            this.state.numOfPeoplepri[this.state.numOfPeople[i]] =  Number(document.getElementById(this.state.numOfPeople[i]).value)
         }
         var json = JSON.stringify(this.state.numOfPeoplepri);
         console.log( json);
@@ -121,7 +141,7 @@ class SetPriority extends Component {
     addTimeLimit(){
         for(var i = 0; i< this.state.timeLimit.length;i++) {
             // eslint-disable-next-line 
-            this.state.timeLimitpri[this.state.timeLimit[i]] = document.getElementById(this.state.timeLimit[i]).value
+            this.state.timeLimitpri[this.state.timeLimit[i]] =  Number(document.getElementById(this.state.timeLimit[i]).value)
         }
         var json = JSON.stringify(this.state.timeLimitpri);
         console.log( json);
@@ -262,7 +282,7 @@ class SetPriority extends Component {
                 </Table>
 
                      <br />
-                <a target="_blank" href={this.state.url + JSON.stringify(this.state.rank)}><button
+                <a target="_blank" href={this.state.url +JSON.stringify(this.state.pack)}><button
                     className="btn btn-success"
                     onClick={() => this.setRank()}
                 >

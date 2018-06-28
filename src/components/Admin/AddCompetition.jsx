@@ -153,9 +153,9 @@ CompTypehandleChange(event) {
                     比賽類型<br/>
                     Competition type:
                     <select value={this.state.selectedCompType} onChange={this.CompTypehandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.comType.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
 
                 </form>

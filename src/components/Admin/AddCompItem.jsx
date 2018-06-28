@@ -99,9 +99,9 @@ class AddCompItem extends Component {
                 地區限制:<br/>
                 Distant:
                 <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>
-                    <option value='' >沒有指定地區</option>
+                    <option key='' >沒有指定地區</option>
                     {this.state.district.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br />
                 參賽人數:<br/>
@@ -115,25 +115,25 @@ class AddCompItem extends Component {
                 時間限制: <br/>
                 Time limit:
                 <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.timeLimit.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br />
                 組別選擇<br/>
                 Group:
                 <select value={this.state.selectedgroupType} onChange={this.groupTypeHandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.groupType.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br />
                 比賽項目: <br/>
                 Competition item:
                 <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
-                    <option value='' >Please select 請選擇</option>
+                    <option key='' >Please select 請選擇</option>
                     {this.state.itemType.map((topic, index) =>
-                        <option value={topic} >{topic} </option>)}
+                        <option key={topic} >{topic} </option>)}
                 </select>
                 <br/>
                 年齡下限<br/>
