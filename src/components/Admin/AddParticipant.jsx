@@ -68,10 +68,32 @@ class AddParticipant extends Component {
         
     }
 
+    addParticipant(state){
+        db.collection("competition").doc(sessionStorage.compID).collection("participant").doc().set({
+            CName: this.state.CName,
+            EName: this.state.EName,
+            BDate: new Date(this.state.BDate),
+            schoolName: this.state.schoolName,
+            ID: this.state.ID
+        });
 
-    addParticipant(){
-        return(
+    }
+
+
+
+    render() {
+        return (
             <div>
+                <select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
+                    <option key='' >Please select 請選擇</option>
+                    {this.state.compItem.map((topic, index) =>
+                        <option key={topic} >{topic} </option>)}
+                </select>
+                <br/>
+
+
+                {this.state.selectedCompItem}
+                <br/>
                 {this.state.Limit}
                 <br/>
                 中文姓名:
@@ -109,26 +131,14 @@ class AddParticipant extends Component {
                 placeholder="ID number"
                 onChange={event => this.setState({ ID: event.target.value })}
             />
-            </div>
-        )
-    }
-
-
-
-    render() {
-        return (
-            <div>
-                <select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.compItem.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br/>
-
-
-                {this.state.selectedCompItem}
-                <br/>
-                {this.state.Limit}
+            <br/>
+            <button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={() => this.addParticipant(this.state)}
+                >
+                    Submit
+                    </button>
             </div>
         )
 
