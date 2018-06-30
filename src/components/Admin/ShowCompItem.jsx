@@ -29,7 +29,7 @@ class ShowCompItem extends Component {
 
         return (
             <div>
-                <ListGroup>
+                <ListGroup style={{width: '30%'}}>
                 {this.state.compItem.map((topic, index) =>
                       <ListGroupItem key={topic}  >{topic}</ListGroupItem>
                 )}

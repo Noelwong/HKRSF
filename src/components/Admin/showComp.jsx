@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { Link } from 'react-router';
+
 
 class ShowComp extends Component {
     constructor(props) {
@@ -7,7 +9,8 @@ class ShowComp extends Component {
         this.state = {
             competition: [],
             compIndex: [],
-            competitionInx: 'NULL'
+            competitionInx: 'NULL',
+            btnShow: 'true',
         }
         this.getCompInfor();
         this.selectShowContent =this.selectShowContent.bind(this);
@@ -44,14 +47,13 @@ class ShowComp extends Component {
             <div>
                 {
                     this.state.competition.map((topic, index) =>
-                        <button className="btn btn-danger" onClick={() => this.handleSelect(index)} key={index} >{topic}</button>
+                        <button className="btn btn-info" onClick={() => this.handleSelect(index)} key={index} >{topic}</button>
                     )
                 }
                 {this.selectShowContent(this.state.competitionInx)}
+                <br/>
+                <Link to="/CompetitionIndex" ><button className="btn btn-danger">比賽主頁<br/>Competition Index</button></Link>
             </div>
-
-
-
         )
 
     }

@@ -151,7 +151,7 @@ class SetPriority extends Component {
     render() {
         return (
             <div>
-                <Table responsive bordered>
+                <Table responsive bordered style={{width: '30%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody >
@@ -178,7 +178,7 @@ class SetPriority extends Component {
 
                         </tbody>
                 </Table>
-                    <Table responsive bordered>
+                    <Table responsive bordered style={{width: '30%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -203,7 +203,7 @@ class SetPriority extends Component {
                             }
                         </tbody>
                 </Table>
-                    <Table responsive bordered>
+                    <Table responsive bordered style={{width: '30%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -229,7 +229,7 @@ class SetPriority extends Component {
                             }
                         </tbody>
                 </Table>
-                    <Table responsive bordered>
+                    <Table responsive bordered style={{width: '30%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -255,7 +255,7 @@ class SetPriority extends Component {
                         </tbody>
               
                 </Table>
-                    <Table responsive bordered>
+                    <Table responsive bordered style={{width: '30%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>

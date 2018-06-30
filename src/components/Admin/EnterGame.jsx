@@ -43,13 +43,12 @@ class EnterGame extends Component {
     render() {
         return (
             <div>
-                <ListGroup>
+                <ListGroup style={{width: '30%'}}>
                 {this.state.allCompItem.map((topic, index) =>
                       <ListGroupItem key={topic} onClick={() => this.handleSelectComp(topic)}>{topic}</ListGroupItem>
                 )}
                 </ListGroup>
-                <br/>
-                <ListGroup>
+                <ListGroup style={{width: '30%'}}>
                 {this.state.allParticipant.map((topic, index) =>
                       <ListGroupItem key={topic} onClick={() => this.handleSelectParticipant(topic)} >{topic}</ListGroupItem>
                 )}

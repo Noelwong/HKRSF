@@ -3,7 +3,6 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { firebaseApp } from '../../firebase';
 import { Link } from 'react-router';
 
-import ShowComp from './ShowComp';
 import FormatSetting from './FormatSetting';
 import AddCompItem from './AddCompItem';
 import AddParticipant from './AddParticipant'; 
@@ -78,18 +77,16 @@ class CompetitionIndex extends Component {
                      <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
                             scheduling
                      </NavItem>    
-                     <NavItem eventKey={6} onClick={() => this.handleShow()}>
+                     <NavItem eventKey={5} onClick={() => this.handleShow()}>
                         try
                      </NavItem>     
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={5} onClick={() => this.signOut()}>
+                        <NavItem eventKey={6} onClick={() => this.signOut()}>
                         登出<br />Sign Out
                      </NavItem>
                     </Nav>
                 </Navbar>
-                <br />
-                <ShowComp />
                 <br />
                 {this.selectShowContent(this.state.showContent)}
                 <br/>
