@@ -8,6 +8,7 @@ import FormatSetting from './FormatSetting';
 import AddCompItem from './AddCompItem';
 import AddParticipant from './AddParticipant'; 
 import SetPriority from './SetPriority';
+import EnterGame from './EnterGame'
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -27,8 +28,14 @@ class CompetitionIndex extends Component {
                 return (<FormatSetting />)
             }else if (showContent === 'scheduling') {
                 return (<SetPriority />)
+            }else if (showContent === 'show') {
+                return (<EnterGame />)
             }
         }
+    }
+
+    handleShow() {
+        this.setState({ showContent: 'show' })
     }
 
     handleChangeScheduling(){
@@ -70,7 +77,10 @@ class CompetitionIndex extends Component {
                      </NavItem>
                      <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
                             scheduling
-                     </NavItem>      
+                     </NavItem>    
+                     <NavItem eventKey={6} onClick={() => this.handleShow()}>
+                        try
+                     </NavItem>     
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={5} onClick={() => this.signOut()}>

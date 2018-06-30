@@ -9,6 +9,7 @@ import UserMan from './UserMan';
 
 
 
+
 class AdminHome extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +29,8 @@ class AdminHome extends Component {
     handleChangeUser() {
         this.setState({ showContent: 'UserMan' })
     }
+
+
 
     selectShowContent = (showContent) => {
         if (showContent != null) {
@@ -63,6 +66,7 @@ class AdminHome extends Component {
                         <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>
                         用戶管理<br/>User Management
                      </NavItem>       
+
                        
                     </Nav>
                     
