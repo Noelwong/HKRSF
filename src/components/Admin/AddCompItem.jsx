@@ -36,15 +36,28 @@ class AddCompItem extends Component {
         const selecteddistrict = this.state.selecteddistrict;
         const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
         const selectedgroupType = this.state.selectedgroupType;
-        db.collection("competition").doc(sessionStorage.compID).collection("competitionItem").doc(selecteddistrict+selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
-            district: this.state.selecteddistrict,
-            itemType: this.state.selecteditemType,
-            timeLimit: this.state.selectedtimeLimit,
-            numOfPeople: this.state.selectednumOfPeople,
-            groupType: this.state.selectedgroupType,
-            ageLowerBound: Number(this.state.ageLowerBound),
-            ageUpperBound: Number(this.state.ageUpperBound)
-        });
+        if(this.state.selecteddistrict === 'NULL'){
+            db.collection("competition").doc(sessionStorage.compID).collection("competitionItem").doc(selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
+                district: this.state.selecteddistrict,
+                itemType: this.state.selecteditemType,
+                timeLimit: this.state.selectedtimeLimit,
+                numOfPeople: this.state.selectednumOfPeople,
+                groupType: this.state.selectedgroupType,
+                ageLowerBound: Number(this.state.ageLowerBound),
+                ageUpperBound: Number(this.state.ageUpperBound)
+            });
+        }else{
+            db.collection("competition").doc(sessionStorage.compID).collection("competitionItem").doc(selecteddistrict+selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age).set({
+                district: this.state.selecteddistrict,
+                itemType: this.state.selecteditemType,
+                timeLimit: this.state.selectedtimeLimit,
+                numOfPeople: this.state.selectednumOfPeople,
+                groupType: this.state.selectedgroupType,
+                ageLowerBound: Number(this.state.ageLowerBound),
+                ageUpperBound: Number(this.state.ageUpperBound)
+            });
+        }
+        
 
     }
 
@@ -99,7 +112,8 @@ class AddCompItem extends Component {
                 地區限制:<br/>
                 Distant:
                 <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>
-                    <option key='' >沒有指定地區</option>
+                    <option key='' >Please select 請選擇</option>
+                    <option value='NULL' >沒有指定地區</option>
                     {this.state.district.map((topic, index) =>
                         <option key={topic} >{topic} </option>)}
                 </select>
