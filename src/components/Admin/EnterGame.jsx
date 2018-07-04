@@ -20,16 +20,11 @@ class EnterGame extends Component {
     }
 
     getAll(){
-        this.Ref.collection('competitionItem').onSnapshot(coll => {
-            const compItem = coll.docs.map(doc => doc.id)
-            // eslint-disable-next-line
-            this.state.allCompItem = compItem;
-        })
-        this.Ref.collection('participant').onSnapshot(coll => {
-            const participant = coll.docs.map(doc => doc.data().CName)
-            // eslint-disable-next-line
-            this.state.allParticipant = participant;
-        })
+            let tempCompItem = sessionStorage.getItem("compItem");
+            this.state.allCompItem = JSON.parse(tempCompItem);
+
+            let tempParticipant = sessionStorage.getItem("participant");
+            this.state.allParticipant = JSON.parse(tempParticipant);
     }
     
     handleSelectParticipant(topic){
@@ -39,6 +34,7 @@ class EnterGame extends Component {
     handleSelectComp(topic){
         this.setState({compItemName: topic});
     }
+
 
     render() {
         return (
@@ -57,6 +53,7 @@ class EnterGame extends Component {
                 {this.state.participantName}
                 <br/>
                 {this.state.compItemName}
+
             </div>
         )
         

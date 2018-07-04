@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { firebaseApp } from '../../firebase';
+import {db, firebaseApp} from '../../firebase';
 import { Link } from 'react-router';
 
 import FormatSetting from './FormatSetting';
@@ -15,7 +15,27 @@ class CompetitionIndex extends Component {
         this.state = {
             showContent: ''
         }
+        this.Ref = db.collection('competition').doc(sessionStorage.compID);
+        this.getAll();
     }
+
+    getAll(){
+        this.Ref.collection('competitionItem').onSnapshot(coll => {
+            const compItem = coll.docs.map(doc => doc.id)
+            // eslint-disable-next-line
+            sessionStorage.setItem("compItem", JSON.stringify(compItem));
+
+        })
+        this.Ref.collection('participant').onSnapshot(coll => {
+            const participant = coll.docs.map(doc => doc.data().CName)
+            // eslint-disable-next-line
+            sessionStorage.setItem("participant", JSON.stringify(participant));
+
+        })
+    }
+
+
+
 
     selectShowContent = (showContent) => {
         if (showContent != null) {
@@ -90,7 +110,7 @@ class CompetitionIndex extends Component {
                 <br />
                 {this.selectShowContent(this.state.showContent)}
                 <br/>
-            
+                 {this.getAll()}
             </div>
 
         )
