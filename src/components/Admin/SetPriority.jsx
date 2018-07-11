@@ -151,7 +151,7 @@ class SetPriority extends Component {
     render() {
         return (
             <div>
-                <Table responsive bordered style={{width: '30%'}}>
+                <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody >
@@ -178,7 +178,7 @@ class SetPriority extends Component {
 
                         </tbody>
                 </Table>
-                    <Table responsive bordered style={{width: '30%'}}>
+                    <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -203,7 +203,7 @@ class SetPriority extends Component {
                             }
                         </tbody>
                 </Table>
-                    <Table responsive bordered style={{width: '30%'}}>
+                    <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -215,6 +215,8 @@ class SetPriority extends Component {
                                         min="1" max="5"
                                         onChange={event => this.setState({ NumOfPeople: event.target.value })}
                                     /></font></td>
+                                    <td><font size="4">場區數目:
+                                </font></td>
                             </tr>
                             {
                                 this.state.numOfPeople.map((topic, index) =>
@@ -225,11 +227,16 @@ class SetPriority extends Component {
                                                 id={topic}
                                             />
                                         </font></td>
+                                        <td align="left" colSpan="1"><font size="3">
+                                            <input type="number"
+                                                id={topic}
+                                            />
+                                        </font></td>
                                     </tr>)
                             }
                         </tbody>
                 </Table>
-                    <Table responsive bordered style={{width: '30%'}}>
+                    <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>
@@ -255,7 +262,7 @@ class SetPriority extends Component {
                         </tbody>
               
                 </Table>
-                    <Table responsive bordered style={{width: '30%'}}>
+                    <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
                         <tbody>

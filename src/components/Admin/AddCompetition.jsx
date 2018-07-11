@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { Alert, Button } from 'react-bootstrap';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -18,6 +19,7 @@ class AddCompetition extends Component {
             location: '',
             selectedCompType: '',
             comType: [],
+            show: false,
             error: {
                 message: ''
             }
@@ -28,6 +30,8 @@ class AddCompetition extends Component {
         this.handleChangeDeadDate = this.handleChangeDeadDate.bind(this);
         this.handleChangePublishDate = this.handleChangePublishDate.bind(this);
         this.CompTypehandleChange = this.CompTypehandleChange.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
     }
     
     getCompType() {
@@ -87,11 +91,30 @@ CompTypehandleChange(event) {
             location: this.state.location,
             competitionType: this.state.selectedCompType
         })
+        this.setState({ show: true });
     }
 
+    handleDismiss() {
+        this.setState({ show: false });
+      }
+    
+      handleShow() {
+        this.setState({ show: true });
+      }
+
     render() {
-        return (
-            
+        if (this.state.show) {
+            return (
+              <Alert bsStyle="warning" onDismiss={this.handleDismiss}>
+                <h4>You added a competition call {this.state.competitionName}!</h4>
+                <p>The location of the competition are {this.state.location}</p>
+                <p>
+                  <Button onClick={this.handleDismiss}>Yes</Button>
+                </p>
+              </Alert>
+            );
+          }
+        return ( 
             <div>
                 <form>
                     比賽名稱:<br />

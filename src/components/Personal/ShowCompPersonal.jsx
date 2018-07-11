@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { ListGroup, ListGroupItem} from 'react-bootstrap';
 
 class ShowCompPersonal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            competition: []
+            competitionList: [],
+            competitionIDList: [],
+            competitionLocationList: [],
+            competitionDeadDateList: [],
+            competitionStartDateList: [],
+            competitionEndDateList: [], 
+
         }
         this.getCompInfor();
     }
 
     getCompInfor() {
-        db.collection('competition').where("competitionType", "==", "分區錦標賽Partition")
-        db.collection('competition').where("competitionType", "==", "錦標賽Championship").onSnapshot(coll => {
+        db.collection('competition').onSnapshot(coll => {
             const competition = coll.docs.map(doc => doc.data().name)
-            this.setState({ competition })
+            const competitionID = coll.docs.map(doc => doc.id)
+            const competitionLocation = coll.docs.map(doc => doc.data().location)
+            const competitionDeadDate = coll.docs.map(doc => doc.data().deadDate)
+            const competitionStartDate = coll.docs.map(doc => doc.data().startDate)
+            const competitionEndDate = coll.docs.map(doc => doc.data().endDate)
+            this.setState({ competitionList: competition})
+            this.setState({ competitionIDList: competitionID})
+            this.setState({ competitionLocationList: competitionLocation})
+            this.setState({ competitionDeadDateList: Date(competitionDeadDate)})
+            this.setState({ competitionStartDateList: Date(competitionStartDate)})
+            this.setState({ competitionEndDateList: Date(competitionEndDate)})
         })
 
     }
@@ -28,9 +44,13 @@ class ShowCompPersonal extends Component {
         return (
             <div>
                 {
-                    this.state.competition.map((topic, index) =>
-                        <button className="btn btn-danger" key={index}>{topic}</button>
-                    )
+                    this.state.competitionList.map((topic, index) =>
+                    
+                    <ListGroup>
+                            <ListGroupItem bsStyle="info">比賽名稱:{topic}</ListGroupItem>
+                            <ListGroupItem>比賽場地:{this.state.competitionLocationList[index]}</ListGroupItem>
+                            <ListGroupItem>{this.state.competitionStartDateList[index]}</ListGroupItem>
+                            </ListGroup>)
                 }
 
             </div>

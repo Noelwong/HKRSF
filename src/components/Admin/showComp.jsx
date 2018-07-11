@@ -15,6 +15,7 @@ class ShowComp extends Component {
         this.getCompInfor();
         this.selectShowContent =this.selectShowContent.bind(this);
         this.handleSelect =this.handleSelect.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
     }
 
     getCompInfor() {
@@ -31,12 +32,18 @@ class ShowComp extends Component {
     handleSelect(index){
         const selected = this.state.compIndex[index];
         this.setState({competitionInx: selected});
+        this.handleDismiss();
     }
 
 
     selectShowContent = (competitionInx) => {
         sessionStorage.compID = competitionInx;
     }
+
+    handleDismiss() {
+        this.setState({ btnShow:  !'true'});
+    }
+
 
 
 
@@ -52,7 +59,7 @@ class ShowComp extends Component {
                 }
                 {this.selectShowContent(this.state.competitionInx)}
                 <br/>
-                <Link to="/CompetitionIndex" ><button className="btn btn-danger">比賽主頁<br/>Competition Index</button></Link>
+                <Link to="/CompetitionIndex" ><button className="btn btn-danger" disabled={this.state.btnShow}>比賽主頁<br/>Competition Index</button></Link>
             </div>
         )
 
