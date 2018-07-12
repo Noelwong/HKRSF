@@ -91,7 +91,7 @@ CompTypehandleChange(event) {
             location: this.state.location,
             competitionType: this.state.selectedCompType
         })
-        this.setState({ show: true });
+        this.setState({ show: false });
     }
 
     handleDismiss() {
@@ -105,28 +105,34 @@ CompTypehandleChange(event) {
     render() {
         if (this.state.show) {
             return (
-              <Alert bsStyle="warning" onDismiss={this.handleDismiss}>
-                <h4>You added a competition call {this.state.competitionName}!</h4>
-                <p>The location of the competition are {this.state.location}</p>
-                <p>
-                  <Button onClick={this.handleDismiss}>Yes</Button>
-                </p>
-              </Alert>
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>You are adding a new competition!</h4>
+                    <p>Competition name: {this.state.competitionName}</p>
+                    <p>Start Date: {Date(this.state.startDate)}<span>  </span>End Date: {Date(this.state.endDate)}</p>
+                    <p>Dead Date: {Date(this.state.deadDate)}<span>  </span>Publish Date: {Date(this.state.publishDate)}</p>
+                    <p>Location: {this.state.location}<span>  </span>Competition Type: {this.state.selectedCompType}</p>
+                    <p>
+                        <Button bsStyle="danger" onClick={() => this.addCompetition(this.state)}>Confirm</Button>
+                        <span> or </span>
+                        <Button onClick={this.handleDismiss}>Cancel</Button>
+                    </p>
+                </Alert>
             );
-          }
+        }
         return ( 
             <div>
                 <form>
                     比賽名稱:<br />
-                    Competition name:<br />
+                    Competition name:<span>  </span>
                     <input type="text"
                         id="CompetitionName"
                         placeholder="competitionName"
                         onChange={event => this.setState({ competitionName: event.target.value })}
                     />
-                    <br />
+                    <br/>
+                    <br/>
                     開始日期:<br />
-                    Start Date:<br />
+                    Start Date:<span>  </span>
                     <DatePicker
                         selected={this.state.startDate}
                         onChange={this.handleChangeStartDate}
@@ -138,7 +144,7 @@ CompTypehandleChange(event) {
                     />
                     <br />
                     結束日期:<br />
-                    End Date:<br />
+                    End Date:<span>  </span>
                     <DatePicker
                         selected={this.state.endDate}
                         onChange={this.handleChangeEndDate}
@@ -150,19 +156,19 @@ CompTypehandleChange(event) {
                     />
                     <br />
                     地點:<br />
-                    Location:<br />
+                    Location:<span>  </span>
                     <input type="text" id="Location" placeholder="location"
                         onChange={event => this.setState({ location: event.target.value })} />
                     <br />
                     截止報名日期<br />
-                    Deadline for registration<br />
+                    Deadline for registration:<span>  </span>
                     <DatePicker
                         selected={this.state.deadDate}
                         onChange={this.handleChangeDeadDate}
                     />
                     <br />
                     公佈日期:<br />
-                    Publish Date:<br />
+                    Publish Date:<span>  </span>
                     <DatePicker
                         selected={this.state.publishDate}
                         onChange={this.handleChangePublishDate}
@@ -185,7 +191,7 @@ CompTypehandleChange(event) {
                 <button
                     className="btn btn-success"
                     type="button"
-                    onClick={() => this.addCompetition(this.state)}
+                    onClick={() => this.handleShow()}
                 >
                     Submit
                     </button>

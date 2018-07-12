@@ -106,12 +106,6 @@ class App extends Component {
                 <br/>
                  {this.roleBasePage(this.state.userType)}
                 <br/>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                >
-                    登出<br/>Sign Out
-                </button>
             </div>
         )
     }

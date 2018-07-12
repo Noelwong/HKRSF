@@ -96,6 +96,7 @@ class SetPriority extends Component {
         VarPack.push(this.state.itemTypepri);
         VarPack.push(this.state.numOfPeoplepri);
         VarPack.push(this.state.timeLimitpri);
+        VarPack.push(sessionStorage.compID)
         this.setState({pack: VarPack})
     }
 

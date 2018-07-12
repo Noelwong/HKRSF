@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { Alert, Button } from 'react-bootstrap';
 
 class UserMan extends Component {
     constructor(props) {
@@ -7,55 +8,81 @@ class UserMan extends Component {
         this.state = {
             UID: '',
             userType: '',
-            name: ''
+            name: '',
+            show: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
     }
 
     handleChange(event) {
         this.setState({ userType: event.target.value });
     }
-     addnewUser(){
+    addnewUser() {
         db.collection("user").doc(this.state.UID).set({
             name: this.state.name,
             userType: this.state.userType
         });
-     }
+        this.setState({ show: false });
+    }
+
+    handleDismiss() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
     render() {
+        if (this.state.show) {
+            return (
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>You adding a new account to the system!</h4>
+                    <p>name: {this.state.name}</p>
+                    <p>userType: {this.state.userType}</p>
+                    <p>
+                        <Button bsStyle="danger" onClick={() => this.addnewUser()}>Confirm</Button>
+                        <span> or </span>
+                        <Button onClick={this.handleDismiss}>Cancel</Button>
+                    </p>
+                </Alert>
+            );
+        }
         return (
             <div>
                 UID:
                 <input type="text"
-                     id="UID" 
-                     onChange={event => this.setState({ UID: event.target.value })}
-                     />
-                <br/>
-                用戶類型: <br/>
+                    id="UID"
+                    onChange={event => this.setState({ UID: event.target.value })}
+                />
+                <br />
+                用戶類型: <br />
                 User Type:
                 <select value={this.state.userType} onChange={this.handleChange} >
                     <option value="">Please Select User type</option>
                     <option value="Admin">管理員 Admin</option>
                     <option value="Judge">評判 Judge</option>
                 </select>
-                <br/>
-                姓名: <br/>
+                <br />
+                姓名: <br />
                 Name:
                 <input type="text"
-                     id="name" 
-                     onChange={event => this.setState({ name: event.target.value })}
-                     />
-                     <br/>
-                     <button
-                    className="btn btn-success"
-                    onClick={() => this.addnewUser()}
+                    id="name"
+                    onChange={event => this.setState({ name: event.target.value })}
+                />
+                <br />
+                <br/>
+                <Button bsStyle="success"
+                    onClick={() => this.handleShow()}
                 >
                     Submit
-                </button>
+                </Button>
             </div>
         )
 
     }
 
-    
+
 }
 export default UserMan;
