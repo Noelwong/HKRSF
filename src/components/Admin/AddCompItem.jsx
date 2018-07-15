@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { Alert, Button } from 'react-bootstrap';
 
 import ShowCompItem from './ShowCompItem';
 
@@ -18,7 +19,8 @@ class AddCompItem extends Component {
             selectednumOfPeople: '',
             selectedgroupType:'',
             ageLowerBound: '',
-            ageUpperBound: ''
+            ageUpperBound: '',
+            show: false
         }
         this.getitemType();
         this.itemTypeHandleChange = this.itemTypeHandleChange.bind(this);
@@ -26,7 +28,8 @@ class AddCompItem extends Component {
         this.numOfPeopleHandleChange = this.numOfPeopleHandleChange.bind(this);
         this.groupTypeHandleChange = this.groupTypeHandleChange.bind(this);
         this.districtHandleChange = this.districtHandleChange.bind(this);
-
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
     }
 
     addComptetionItem(state){
@@ -104,7 +107,36 @@ class AddCompItem extends Component {
         this.setState({ selecteddistrict: event.target.value });
     }
 
+    handleDismiss() {
+        this.setState({ show: false });
+      }
+    
+      handleShow() {
+        this.setState({ show: true });
+      }
+
     render() {
+        if (this.state.show) {
+            const selectednumOfPeople = this.state.selectednumOfPeople;
+            const selectedtimeLimit = this.state.selectedtimeLimit;
+            const selecteditemType = this.state.selecteditemType;
+            const age = this.state.ageLowerBound+'-'+this.state.ageUpperBound;
+            const selectedgroupType = this.state.selectedgroupType;
+            return (
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>You are adding a new competition item!</h4>
+                    <p>Item name: {selectednumOfPeople+selectedtimeLimit+selectedgroupType+selecteditemType+age}</p>
+                    <p>District: {this.state.selecteddistrict}<span>  </span>ItemType: {this.state.selecteditemType}</p>
+                    <p>Time Limit: {this.state.selectedtimeLimit}<span>  </span>Number Of People: {this.state.selectednumOfPeople}</p>
+                    <p>Group Type: {this.state.selectedgroupType}<span>  </span>Age group: {age}</p>
+                    <p>
+                        <Button bsStyle="danger" onClick={() => this.addComptetionItem(this.state)}>Confirm</Button>
+                        <span> or </span>
+                        <Button onClick={this.handleDismiss}>Cancel</Button>
+                    </p>
+                </Alert>
+            );
+        }
         return (
             <div>
                 <ShowCompItem />
@@ -168,7 +200,7 @@ class AddCompItem extends Component {
                      <br/>
                 <button
                     className="btn btn-success"
-                    onClick={() => this.addComptetionItem(this.state)}    
+                    onClick={() => this.handleShow()}    
                 >
                     Submit
                 </button>
