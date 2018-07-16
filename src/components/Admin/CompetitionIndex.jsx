@@ -13,7 +13,9 @@ class CompetitionIndex extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showContent: ''
+            showContent: '',
+            participantSetID :[],
+            participantSetName : []
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
@@ -26,12 +28,26 @@ class CompetitionIndex extends Component {
             sessionStorage.setItem("compItem", JSON.stringify(compItem));
 
         })
+
         this.Ref.collection('participant').onSnapshot(coll => {
             const participant = coll.docs.map(doc => doc.data().CName)
             // eslint-disable-next-line
             sessionStorage.setItem("participant", JSON.stringify(participant));
 
-        })
+    })
+        var localparticipantSetID = [];
+        var localparticipantSetName = [];
+        this.Ref.collection('participant').get()
+            .then(onSnapshot => {
+                    onSnapshot.forEach(doc => {
+                        localparticipantSetID.push(doc.id);
+                        localparticipantSetName.push(doc.data().CName);
+
+                    })
+                }
+            )
+        this.state.participantSetID = localparticipantSetID ;
+        this.state.participantSetName = localparticipantSetName ;
     }
 
 
@@ -55,6 +71,10 @@ class CompetitionIndex extends Component {
 
     handleShow() {
         this.setState({ showContent: 'show' })
+        sessionStorage.setItem("participantSetID", JSON.stringify(this.state.participantSetID));
+        sessionStorage.setItem("participantSetName", JSON.stringify( this.state.participantSetName));
+        console.log(sessionStorage.participantSetID)
+        console.log(sessionStorage.participantSetName)
     }
 
     handleChangeScheduling(){
