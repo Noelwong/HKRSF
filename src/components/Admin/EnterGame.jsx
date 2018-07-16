@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ReactDOM from 'react-dom';
+import { Button } from 'react-bootstrap';
 
 
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
@@ -70,16 +71,18 @@ class EnterGame extends Component {
             compItemName: '',
             allParticipant: [],
             allCompItem: [],
-            items: getItems(0),
+            items: [],
             selected: getItems(5, 10),
             newParticipant:[],
             participantSetID :[],
-            participantSetName : []
+            participantSetName : [],
+            Limit:''
         };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
         this.handleSelectParticipant = this.handleSelectParticipant.bind(this);
         this.handleSelectComp = this.handleSelectComp.bind(this);
+        this.submitButton = this.submitButton.bind(this);
 
         /**
          * A semi-generic way to handle multiple lists. Matches
@@ -112,7 +115,6 @@ class EnterGame extends Component {
 
                 if (source.droppableId === 'droppable2') {
                     state = { selected: items };
-                    console.log(items);
                 }
                 this.setState(state);
             } else {
@@ -191,8 +193,61 @@ class EnterGame extends Component {
 
     handleSelectComp(topic){
         this.setState({compItemName: topic});
+        this.getCompLimit(topic);
     }
 
+    getCompLimit(selectedcompItem){
+        console.log(selectedcompItem);
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot( coll => {
+            const temp = coll.docs.map(doc => doc.id);
+            const temp2 = coll.docs.map(doc => doc.data().numOfPeople);
+            for (var i =0;i <= temp.length;i++)
+            {
+                if ( selectedcompItem === temp[i])
+                {
+                    var numberOfpeopleChecker = temp2[i];
+                    // eslint-disable-next-line
+                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
+                        const temp3 = coll.docs.map(doc => doc.id);
+                        const temp4 = coll.docs.map(doc => doc.data().limit);
+                        for(var i= 0 ;i<= temp3.length;i++ ){
+                            if ( numberOfpeopleChecker === temp3[i] ) {
+                                this.setState({Limit : temp4[i]});
+                            }
+                        }
+                    })
+                }
+            }
+        })
+
+    }
+
+    submitButton(){
+        if (this.state.compItemName ===null ||
+            this.state.items === null ||
+            this.state.compItemName === undefined ||
+            this.state.items === undefined ||
+            this.state.compItemName === ''||
+            this.state.items.length === 0)  /*  confirm have data  */
+        {
+            console.log("NULL");
+            alert("Have not select Competition item or Participants")
+        }else{
+            console.log("not NULL");
+
+            const selectedParticipant =this.state.items;
+
+            for(var i = 0 ; i<selectedParticipant.length;i++) {
+               /* this.Ref.collection('participant').doc(selectedParticipant[i].id).set({
+                    user_CompetitionItem1 : ['test']
+                }) */
+            }
+
+
+
+
+        }
+    }
 
     render() {
         return (
@@ -213,7 +268,7 @@ class EnterGame extends Component {
 
                     <Row horizontal='center'>
                         <column>
-                            <button>Submit</button>
+                            <Button bsStyle="danger"onClick={()=>this.submitButton()} >Submit</Button>
                         </column>
                     </Row>
 

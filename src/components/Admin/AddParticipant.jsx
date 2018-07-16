@@ -109,7 +109,7 @@ class AddParticipant extends Component {
                 School Name:
                 <input type="text"
                        placeholder="學校名稱 School Name"
-                       onChange={event => this.setState({ EName: event.target.value })}
+                       onChange={event => this.setState({ schoolName: event.target.value })}
                 />
                 <br/>
                 身份證號碼:<br/>
@@ -121,8 +121,32 @@ class AddParticipant extends Component {
                 <br/>
                 <br/>
         </div>;
+                return Participant1;
+        }
 
-            let Participant2 =
+    render() {
+        return (
+            <div>
+                {this.createParticipant()}
+
+            <button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={() => this.addParticipant(this.state)}
+                >
+                    Submit
+                    </button>
+            </div>
+        )
+
+    }
+
+}
+export default AddParticipant;
+
+
+
+/* let Participant2 =
                 <div>
                 <br/>
                 中文姓名:
@@ -151,7 +175,7 @@ class AddParticipant extends Component {
                 School Name:
                 <input type="text"
                        placeholder="學校名稱 School Name"
-                       onChange={event => this.setState({ EName: event.target.value })}
+                       onChange={event => this.setState({ schoolName: event.target.value })}
                 />
                 <br/>
                 身份證號碼:<br/>
@@ -231,7 +255,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -270,7 +294,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -308,7 +332,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -351,7 +375,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -390,7 +414,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -428,7 +452,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -508,7 +532,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -547,7 +571,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -585,7 +609,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -623,7 +647,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -661,7 +685,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -699,7 +723,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -746,7 +770,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -793,7 +817,7 @@ class AddParticipant extends Component {
                     School Name:
                     <input type="text"
                            placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
+                           onChange={event => this.setState({ schoolName: event.target.value })}
                     />
                     <br/>
                     身份證號碼:<br/>
@@ -804,46 +828,4 @@ class AddParticipant extends Component {
                     />
                     <br/>
                     <br/>
-                </div>;
-                    if (this.state.Limit  === 1)
-                    {return Participant1}
-                    else if( this.state.Limit  === 2)
-                    {return Participant2}
-                    else if( this.state.Limit  === 3)
-                    {return Participant3}
-                    else if( this.state.Limit  === 4)
-                    {return Participant4}
-                    else if( this.state.Limit  === 8)
-                    {return Participant8}
-
-        }
-
-    render() {
-        return (
-            <div>
-                <select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.compItem.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br/>
-
-                {this.state.selectedCompItem}
-                <br/>
-                {this.state.Limit}
-                <br/>
-                {this.createParticipant()}
-            <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={() => this.addParticipant(this.state)}
-                >
-                    Submit
-                    </button>
-            </div>
-        )
-
-    }
-
-}
-export default AddParticipant;
+                </div>; */
