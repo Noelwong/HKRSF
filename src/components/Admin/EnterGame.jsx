@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
 
 
@@ -83,7 +83,7 @@ class EnterGame extends Component {
         this.handleSelectParticipant = this.handleSelectParticipant.bind(this);
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.submitButton = this.submitButton.bind(this);
-
+        this.checkDuplicates = this.checkDuplicates.bind(this);
         /**
          * A semi-generic way to handle multiple lists. Matches
          * the IDs of the droppable container to the names of the
@@ -134,7 +134,7 @@ class EnterGame extends Component {
 
     getAll(){
             let tempCompItem = sessionStorage.getItem("compItem");
-        console.log(sessionStorage.participant);
+            // console.log(sessionStorage.participant);
             this.state.allCompItem = JSON.parse(tempCompItem);
         /*   const setComp = JSON.parse(tempCompItem);
   this.state.items = setComp.map((k,i) => ({
@@ -148,11 +148,11 @@ class EnterGame extends Component {
             this.state.allParticipant = JSON.parse(tempParticipant);*/
 
         let tempParticipantID = sessionStorage.getItem("participantSetID");
-        console.log(tempParticipantID)
+        /*console.log(tempParticipantID)*/
         const setPID = JSON.parse(tempParticipantID);
 
         let tempParticipantName = sessionStorage.getItem("participantSetName");
-        console.log(tempParticipantName)
+        // console.log(tempParticipantName)
         const setPName = JSON.parse(tempParticipantName);
 
         this.state.selected = setPID.map((k,i) => ({
@@ -234,20 +234,41 @@ class EnterGame extends Component {
             alert("Have not select Competition item or Participants")
         }else{
             console.log("not NULL");
-
             const selectedParticipant =this.state.items;
-
-            for(var i = 0 ; i<selectedParticipant.length;i++) {
-               /* this.Ref.collection('participant').doc(selectedParticipant[i].id).set({
-                    user_CompetitionItem1 : ['test']
-                }) */
+            const selectedCompItemName =this.state.compItemName;
+            console.log(selectedParticipant);
+            console.log(selectedCompItemName);
+            const checkDuplicatesFunction = this.checkDuplicates;
+            let i ;
+            for( i = 0 ; i<selectedParticipant.length;i++) {
+                const selectedParticipant1 = selectedParticipant[i].id;
+                this.Ref.collection('participant').doc(selectedParticipant1).get().then(function(doc) {
+                    let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
+                    console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
+                   if(!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
+                    tempArrayOfCompetitionItem.push(selectedCompItemName);
+                    db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
+                        user_CompetitionItem: tempArrayOfCompetitionItem
+                    })
+                     }
+                    })
             }
-
-
-
-
         }
     }
+
+
+    checkDuplicates (tempArray, tempAddItems){
+        var checker = false;
+        tempArray.forEach(function(value){
+            if (value === tempAddItems)
+            {
+                console.log("found")
+                checker = true;
+            }
+        });
+        return checker;
+    }
+
 
     render() {
         return (
@@ -256,9 +277,9 @@ class EnterGame extends Component {
                 <DragDropContext onDragEnd={this.onDragEnd}>
                 <Column flexGrow={1}>
                     <Row horizontal='center'>
-                        <column>
+                        <Column>
                         <h4>Select Competition and Athletes</h4>
-                        </column>
+                        </Column>
                     </Row>
 
                     <Row horizontal='center'>
@@ -267,15 +288,15 @@ class EnterGame extends Component {
                     </Row>
 
                     <Row horizontal='center'>
-                        <column>
+                        <Column>
                             <Button bsStyle="danger"onClick={()=>this.submitButton()} >Submit</Button>
-                        </column>
+                        </Column>
                     </Row>
 
                     <Row horizontal='center'>
-                        <column>
+                        <Column>
                             <h4> </h4>
-                        </column>
+                        </Column>
                     </Row>
 
                     <Row >
@@ -397,3 +418,9 @@ export default EnterGame;
                 {this.state.participantName}
                 <br/>
 * */
+
+
+
+/* this.Ref.collection('participant').doc(selectedParticipant[i].id).update({
+                    user_CompetitionItem1 : ['test']
+                }) */

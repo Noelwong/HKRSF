@@ -75,7 +75,8 @@ class AddParticipant extends Component {
             EName: this.state.EName,
             BDate: new Date(this.state.BDate),
             schoolName: this.state.schoolName,
-            ID: this.state.ID
+            ID: this.state.ID,
+            user_CompetitionItem: []
         });
 
     }
