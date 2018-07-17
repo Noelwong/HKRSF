@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-// import ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
-
+// import ReactDOM from 'react-dom';
 
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Column, Row } from 'simple-flexbox';
-
 
 
 const getItems = (count, offset = 0) =>
@@ -98,7 +96,6 @@ class EnterGame extends Component {
 
         this.onDragEnd = result => {
             const { source, destination } = result;
-
             // dropped outside the list
             if (!destination) {
                 return;
@@ -159,30 +156,7 @@ class EnterGame extends Component {
             id: setPID[i],
             content: setPName[i]
         }))
-          /*  this.state.selected = setP.map((k,i) => ({
-                id: `${k}`,
-                content: setP[i]
-            })) */
 
-       /* this.Ref.collection('participant').get()
-            .then(onSnapshot => {
-
-                onSnapshot.forEach(doc => {
-
-                    this.state.participantSetID.push(doc.id);
-                    this.state.participantSetName.push(doc.data().CName);
-
-                    console.log( this.state.participantSetID );
-                    console.log( this.state.participantSetName);
-                })
-            }
-        )*/
-
-
-      /* this.state.selected = this.state.participantSetID.map((topic, index) => ({
-            id:  this.state.participantSetID[index],
-            content: this.state.participantSetName[index]
-        })) */
 
 
     }
@@ -230,45 +204,79 @@ class EnterGame extends Component {
             this.state.compItemName === ''||
             this.state.items.length === 0)  /*  confirm have data  */
         {
-            console.log("NULL");
+            // console.log("NULL");
             alert("Have not select Competition item or Participants")
         }else{
-            console.log("not NULL");
+            // console.log("not NULL");
             const selectedParticipant =this.state.items;
             const selectedCompItemName =this.state.compItemName;
-            console.log(selectedParticipant);
-            console.log(selectedCompItemName);
+            const numOfmember = this.state.Limit;
+            // console.log(selectedParticipant);
+            // console.log(selectedCompItemName);
             const checkDuplicatesFunction = this.checkDuplicates;
             let i ;
-            for( i = 0 ; i<selectedParticipant.length;i++) {
-                const selectedParticipant1 = selectedParticipant[i].id;
-                this.Ref.collection('participant').doc(selectedParticipant1).get().then(function(doc) {
-                    let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
-                    console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
-                   if(!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
-                    tempArrayOfCompetitionItem.push(selectedCompItemName);
-                    db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
-                        user_CompetitionItem: tempArrayOfCompetitionItem
+            if(numOfmember === 1){
+                for (i = 0; i < selectedParticipant.length; i++) {
+                    const selectedParticipant1 = selectedParticipant[i].id;
+                    const selectedParticipant2 = selectedParticipant[i].content;
+                    this.Ref.collection('participant').doc(selectedParticipant1).get().then(function (doc) {
+                        let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
+                        // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
+                        if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
+                            tempArrayOfCompetitionItem.push(selectedCompItemName);
+                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
+                                user_CompetitionItem: tempArrayOfCompetitionItem
+                            })
+                            console.log("ADD");
+
+                            db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc(selectedParticipant1).set({
+                                ParticipantID: selectedParticipant1,
+                                ParticipantName: selectedParticipant2
+                            })
+
+                        }
                     })
-                     }
-                    })
+                }
             }
+            else if (numOfmember !== selectedParticipant.length){
+                console.log("Please select correct number of people ");
+            }
+            else {
+                console.log("Correct")
+                for (i = 0; i < selectedParticipant.length; i++) {
+                    const selectedParticipant1 = selectedParticipant[i].id;
+                    // const selectedParticipant2 = selectedParticipant[i].content;
+                    this.Ref.collection('participant').doc(selectedParticipant1).get().then(function (doc) {
+                        let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
+                        // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
+                        if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
+                            tempArrayOfCompetitionItem.push(selectedCompItemName);
+                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
+                                user_CompetitionItem: tempArrayOfCompetitionItem
+                            })
+                            console.log("ADD");
+                        }
+                    })
+                }
+                db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc().set({
+                    teamMember: selectedParticipant
+                })
+            }
+
         }
     }
-
 
     checkDuplicates (tempArray, tempAddItems){
         var checker = false;
         tempArray.forEach(function(value){
             if (value === tempAddItems)
             {
-                console.log("found")
+                console.log("found Duplicates")
                 checker = true;
             }
         });
         return checker;
     }
-
 
     render() {
         return (
@@ -386,11 +394,10 @@ class EnterGame extends Component {
     }
 
 }
+
 export default EnterGame;
 
-
 /*
-
                 <Column flexGrow={1}>
                     <Row horizontal='center'>
                         <h1>HEADER</h1>
@@ -419,8 +426,31 @@ export default EnterGame;
                 <br/>
 * */
 
-
-
 /* this.Ref.collection('participant').doc(selectedParticipant[i].id).update({
                     user_CompetitionItem1 : ['test']
                 }) */
+
+/*  this.state.selected = setP.map((k,i) => ({
+             id: `${k}`,
+             content: setP[i]
+         })) */
+
+/* this.Ref.collection('participant').get()
+     .then(onSnapshot => {
+
+         onSnapshot.forEach(doc => {
+
+             this.state.participantSetID.push(doc.id);
+             this.state.participantSetName.push(doc.data().CName);
+
+             console.log( this.state.participantSetID );
+             console.log( this.state.participantSetName);
+         })
+     }
+ )*/
+
+
+/* this.state.selected = this.state.participantSetID.map((topic, index) => ({
+      id:  this.state.participantSetID[index],
+      content: this.state.participantSetName[index]
+  })) */
