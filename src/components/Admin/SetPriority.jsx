@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { Table } from 'react-bootstrap';
+import { Column, Row } from 'simple-flexbox';
 
 class SetPriority extends Component {
     constructor(props) {
@@ -18,6 +19,8 @@ class SetPriority extends Component {
             itemTypepri: {},
             numOfPeoplepri: {},
             timeLimitpri: {},
+            speedVenue:{},
+            fancyVenue:{},
             pack:{},
 
             District: '',
@@ -80,6 +83,8 @@ class SetPriority extends Component {
         this.addItemType();
         this.addNumOfPeople();
         this.addTimeLimit();
+        this.addSpeedVenue();
+        this.addFancyVenue();
         this.setPack();
     }
     setPack(){
@@ -96,7 +101,11 @@ class SetPriority extends Component {
         VarPack.push(this.state.itemTypepri);
         VarPack.push(this.state.numOfPeoplepri);
         VarPack.push(this.state.timeLimitpri);
-        VarPack.push(sessionStorage.compID)
+        VarPack.push(sessionStorage.compID);
+        VarPack.push(this.state.speedVenue);
+        VarPack.push(this.state.fancyVenue);
+
+
         this.setState({pack: VarPack})
     }
 
@@ -148,95 +157,153 @@ class SetPriority extends Component {
         console.log( json);
     }
 
+    addSpeedVenue(){
+        for(var i = 0; i< this.state.numOfPeople.length;i++) {
+            // eslint-disable-next-line
+            this.state.speedVenue[this.state.numOfPeople[i]] =  Number(document.getElementById(this.state.numOfPeople[i]+'速度賽').value)
+        }
+        var json = JSON.stringify(this.state.speedVenue);
+        console.log( json);
+
+    }
+
+    addFancyVenue(){
+        for(var i = 0; i< this.state.numOfPeople.length;i++) {
+            // eslint-disable-next-line
+            this.state.fancyVenue[this.state.numOfPeople[i]] =  Number(document.getElementById(this.state.numOfPeople[i]+'花式賽').value)
+        }
+        var json = JSON.stringify(this.state.fancyVenue);
+        console.log( json);
+    }
+
+
+
 
     render() {
         return (
             <div>
-                <Table responsive bordered style={{width: '35%'}}>
-                    <thead  align="center">
-                    </thead>
-                        <tbody >
-                            <tr key="District">
-                                <td><font size="4">地區 (District):
-                                <input type="number"
-                                        id="District"
-                                        min="1" max="5"
-                                        onChange={event => this.setState({ District: event.target.value })}
-                                    /></font></td>
-                            </tr>
 
-                            {
-                                this.state.district.map((topic, index) =>
-                                    <tr key = {topic}>
-                                        <td align="left" colSpan="1"><font size="3">{topic}
+                <Column flexGrow={1}>
+
+
+                    <Row>
+
+                        <Column flexGrow={0.5}>
+                                <Table responsive bordered style={{width: '70%'}}>
+                                    <thead  align="center">
+                                    </thead>
+                                    <tbody >
+                                    <tr key="District">
+                                        <td><font size="4">地區 (District):
                                             <input type="number"
-                                                min="1" max={this.state.district.length}
-                                                id={topic}
-                                            />
-                                        </font></td>
-                                    </tr>)
-                            }
+                                                   id="District"
+                                                   min="1" max="5"
+                                                   onChange={event => this.setState({ District: event.target.value })}
+                                            /></font></td>
+                                    </tr>
 
-                        </tbody>
-                </Table>
-                    <Table responsive bordered style={{width: '35%'}}>
-                    <thead  align="center">
-                    </thead>
-                        <tbody>
-                            <tr key = "ItemType">
-                                <td><font size="4">比賽項目 (Item Type):
-                                <input type="number"
-                                        id="ItemType"
-                                        min="1" max="5"
-                                        onChange={event => this.setState({ ItemType: event.target.value })}
-                                    /></font></td>
-                            </tr>
-                            {
-                                this.state.itemType.map((topic, index) =>
-                                    <tr key ={topic}>
-                                        <td align="left" colSpan="1"><font size="3">{topic}
+                                    {
+                                        this.state.district.map((topic, index) =>
+                                            <tr key = {topic}>
+                                                <td align="left" colSpan="1"><font size="3">{topic}
+                                                    <input type="number"
+                                                           min="1" max={this.state.district.length}
+                                                           id={topic}
+                                                    />
+                                                </font></td>
+                                            </tr>)
+                                    }
+
+                                    </tbody>
+                                </Table>
+                        </Column>
+
+                        <Column flexGrow={0.5}>
+                                <Table responsive bordered style={{width: '70%'}}>
+                                    <thead  align="center">
+                                    </thead>
+                                    <tbody>
+                                    <tr key = "ItemType">
+                                        <td><font size="4">比賽項目 (Item Type):
                                             <input type="number"
-                                                min="1" max={this.state.itemType.length}
-                                                id={topic}
-                                            />
-                                        </font></td>
-                                    </tr>)
-                            }
-                        </tbody>
-                </Table>
-                    <Table responsive bordered style={{width: '35%'}}>
-                    <thead  align="center">
-                    </thead>
-                        <tbody>
-                            <tr key ="NumOfPeople">
+                                                   id="ItemType"
+                                                   min="1" max="5"
+                                                   onChange={event => this.setState({ ItemType: event.target.value })}
+                                            /></font></td>
+                                    </tr>
+                                    {
+                                        this.state.itemType.map((topic, index) =>
+                                            <tr key ={topic}>
+                                                <td align="left" colSpan="1"><font size="3">{topic}
+                                                    <input type="number"
+                                                           min="1" max={this.state.itemType.length}
+                                                           id={topic}
+                                                    />
+                                                </font></td>
+                                            </tr>
+                                        )
 
-                                <td><font size="4">參賽人數 (# Of People):
-                                <input type="number"
-                                        id="NumOfPeople"
-                                        min="1" max="5"
-                                        onChange={event => this.setState({ NumOfPeople: event.target.value })}
-                                    /></font></td>
-                                    <td><font size="4">場區數目:
+                                    }
+                                    </tbody>
+                                </Table>
+                        </Column>
+
+                        <Column>
+                                <Table responsive bordered style={{width: '60%'}}>
+                                <thead  align="center">
+                                </thead>
+                                <tbody>
+                                <tr key ="NumOfPeople">
+
+                                    <td><font size="4">參賽人數 (# Of People):
+                                        <input type="number"
+                                               id="NumOfPeople"
+                                               min="1" max="5"
+                                               onChange={event => this.setState({ NumOfPeople: event.target.value })}
+                                        /></font></td>
+
+                                    <td><font size="4">速度賽場區數目:
                                 </font></td>
-                            </tr>
-                            {
-                                this.state.numOfPeople.map((topic, index) =>
-                                    <tr key ={topic}>
-                                        <td align="left" colSpan="1"><font size="3">{topic}
-                                            <input type="number"
-                                                min="1" max={this.state.numOfPeople.length}
-                                                id={topic}
-                                            />
-                                        </font></td>
-                                        <td align="left" colSpan="1"><font size="3">
-                                            <input type="number"
-                                                id={topic}
-                                            />
-                                        </font></td>
-                                    </tr>)
-                            }
-                        </tbody>
-                </Table>
+                                    <td><font size="4">花式賽場區數目:
+                                    </font></td>
+                                </tr>
+                                {
+                                    this.state.numOfPeople.map((topic, index) =>
+                                        <tr key ={topic}>
+                                            <td align="left" colSpan="1"><font size="3">{topic}
+                                                <input type="number"
+                                                       min="1" max={this.state.numOfPeople.length}
+                                                       id={topic}
+                                                />
+                                            </font></td>
+
+                                            <td align="left" colSpan="1"><font size="3">
+                                                <input type="number"
+                                                       id={topic+'速度賽'}
+                                                />
+                                            </font></td>
+
+                                            <td align="left" colSpan="1"><font size="3">
+                                                <input type="number"
+                                                       id={topic+'花式賽'}
+                                                />
+                                            </font></td>
+                                        </tr>)
+
+                                }
+                                </tbody>
+                            </Table>
+                        </Column>
+
+
+                    </Row>
+
+
+
+
+                </Column>
+
+
                     <Table responsive bordered style={{width: '35%'}}>
                     <thead  align="center">
                     </thead>
