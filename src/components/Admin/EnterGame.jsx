@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
-// import ReactDOM from 'react-dom';
-
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Column, Row } from 'simple-flexbox';
 
 
 const getItems = (count, offset = 0) =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k + offset}`,
-        content: `item ${k + offset}`
+    Array.from({ length: count }, (v, index) => index).map(index => ({
+        id: `item-${index + offset}`,
+        content: `item ${index + offset}`
     }));
 
 // a little function to help us with reordering the result
@@ -71,10 +69,10 @@ class EnterGame extends Component {
             allCompItem: [],
             items: [],
             selected: getItems(5, 10),
-            newParticipant:[],
-            participantSetID :[],
-            participantSetName : [],
-            Limit:''
+            newParticipant: [],
+            participantSetID: [],
+            participantSetName: [],
+            Limit: ''
         };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
@@ -126,23 +124,24 @@ class EnterGame extends Component {
                     selected: result.droppable2,
                 });
             }
-    }
+        }
     };
 
-    getAll(){
-            let tempCompItem = sessionStorage.getItem("compItem");
-            // console.log(sessionStorage.participant);
-            this.state.allCompItem = JSON.parse(tempCompItem);
+    getAll() {
+        let tempCompItem = sessionStorage.getItem("compItem");
+        // console.log(sessionStorage.participant);
+        // eslint-disable-next-line
+        this.state.allCompItem = JSON.parse(tempCompItem);
         /*   const setComp = JSON.parse(tempCompItem);
   this.state.items = setComp.map((k,i) => ({
       id: `${k}`,
       content: setComp[i]
   }))*/
 
-          /*  let tempParticipant = sessionStorage.getItem("participant");
-            console.log(tempParticipant)
-            const setP = JSON.parse(tempParticipant);
-            this.state.allParticipant = JSON.parse(tempParticipant);*/
+        /*  let tempParticipant = sessionStorage.getItem("participant");
+          console.log(tempParticipant)
+          const setP = JSON.parse(tempParticipant);
+          this.state.allParticipant = JSON.parse(tempParticipant);*/
 
         let tempParticipantID = sessionStorage.getItem("participantSetID");
         /*console.log(tempParticipantID)*/
@@ -151,8 +150,8 @@ class EnterGame extends Component {
         let tempParticipantName = sessionStorage.getItem("participantSetName");
         // console.log(tempParticipantName)
         const setPName = JSON.parse(tempParticipantName);
-
-        this.state.selected = setPID.map((k,i) => ({
+        // eslint-disable-next-line
+        this.state.selected = setPID.map((k, i) => ({
             id: setPID[i],
             content: setPName[i]
         }))
@@ -160,33 +159,31 @@ class EnterGame extends Component {
 
 
     }
-    
-    handleSelectParticipant(topic){
-        this.setState({participantName: topic});
+
+    handleSelectParticipant(topic) {
+        this.setState({ participantName: topic });
     }
 
-    handleSelectComp(topic){
-        this.setState({compItemName: topic});
+    handleSelectComp(topic) {
+        this.setState({ compItemName: topic });
         this.getCompLimit(topic);
     }
 
-    getCompLimit(selectedcompItem){
+    getCompLimit(selectedcompItem) {
         console.log(selectedcompItem);
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot( coll => {
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
             const temp = coll.docs.map(doc => doc.id);
             const temp2 = coll.docs.map(doc => doc.data().numOfPeople);
-            for (var i =0;i <= temp.length;i++)
-            {
-                if ( selectedcompItem === temp[i])
-                {
+            for (var i = 0; i <= temp.length; i++) {
+                if (selectedcompItem === temp[i]) {
                     var numberOfpeopleChecker = temp2[i];
                     // eslint-disable-next-line
-                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
+                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll => {
                         const temp3 = coll.docs.map(doc => doc.id);
                         const temp4 = coll.docs.map(doc => doc.data().limit);
-                        for(var i= 0 ;i<= temp3.length;i++ ){
-                            if ( numberOfpeopleChecker === temp3[i] ) {
-                                this.setState({Limit : temp4[i]});
+                        for (var i = 0; i <= temp3.length; i++) {
+                            if (numberOfpeopleChecker === temp3[i]) {
+                                this.setState({ Limit: temp4[i] });
                             }
                         }
                     })
@@ -196,26 +193,25 @@ class EnterGame extends Component {
 
     }
 
-    submitButton(){
-        if (this.state.compItemName ===null ||
+    submitButton() {
+        if (this.state.compItemName === null ||
             this.state.items === null ||
             this.state.compItemName === undefined ||
             this.state.items === undefined ||
-            this.state.compItemName === ''||
-            this.state.items.length === 0)  /*  confirm have data  */
-        {
+            this.state.compItemName === '' ||
+            this.state.items.length === 0)  /*  confirm have data  */ {
             // console.log("NULL");
             alert("Have not select Competition item or Participants")
-        }else{
+        } else {
             // console.log("not NULL");
-            const selectedParticipant =this.state.items;
-            const selectedCompItemName =this.state.compItemName;
+            const selectedParticipant = this.state.items;
+            const selectedCompItemName = this.state.compItemName;
             const numOfmember = this.state.Limit;
             // console.log(selectedParticipant);
             // console.log(selectedCompItemName);
             const checkDuplicatesFunction = this.checkDuplicates;
-            let i ;
-            if(numOfmember === 1){
+            let i;
+            if (numOfmember === 1) {
                 for (i = 0; i < selectedParticipant.length; i++) {
                     const selectedParticipant1 = selectedParticipant[i].id;
                     const selectedParticipant2 = selectedParticipant[i].content;
@@ -238,7 +234,7 @@ class EnterGame extends Component {
                     })
                 }
             }
-            else if (numOfmember !== selectedParticipant.length){
+            else if (numOfmember !== selectedParticipant.length) {
                 console.log("Please select correct number of people ");
             }
             else {
@@ -266,11 +262,10 @@ class EnterGame extends Component {
         }
     }
 
-    checkDuplicates (tempArray, tempAddItems){
+    checkDuplicates(tempArray, tempAddItems) {
         var checker = false;
-        tempArray.forEach(function(value){
-            if (value === tempAddItems)
-            {
+        tempArray.forEach(function (value) {
+            if (value === tempAddItems) {
                 console.log("found Duplicates")
                 checker = true;
             }
@@ -283,75 +278,75 @@ class EnterGame extends Component {
             <div>
 
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                <Column flexGrow={1}>
-                    <Row horizontal='center'>
-                        <Column>
-                        <h4>Select Competition and Athletes</h4>
-                        </Column>
-                    </Row>
+                    <Column flexGrow={1}>
+                        <Row horizontal='center'>
+                            <Column>
+                                <h4>Select Competition and Athletes</h4>
+                            </Column>
+                        </Row>
 
-                    <Row horizontal='center'>
-                        <h2>{this.state.compItemName}</h2>
+                        <Row horizontal='center'>
+                            <h2>{this.state.compItemName}</h2>
 
-                    </Row>
+                        </Row>
 
-                    <Row horizontal='center'>
-                        <Column>
-                            <Button bsStyle="danger"onClick={()=>this.submitButton()} >Submit</Button>
-                        </Column>
-                    </Row>
+                        <Row horizontal='center'>
+                            <Column>
+                                <Button bsStyle="danger" onClick={() => this.submitButton()} >Submit</Button>
+                            </Column>
+                        </Row>
 
-                    <Row horizontal='center'>
-                        <Column>
-                            <h4> </h4>
-                        </Column>
-                    </Row>
+                        <Row horizontal='center'>
+                            <Column>
+                                <h4> </h4>
+                            </Column>
+                        </Row>
 
-                    <Row >
-                        <Column flexGrow={0} horizontal='center'>
-                            <ListGroup style={{width: '80%'}} >
-                                {this.state.allCompItem.map((topic, index) =>
-                                    <ListGroupItem key={topic} onClick={() => this.handleSelectComp(topic)}>{topic}</ListGroupItem>
-                                )}
-                            </ListGroup>
+                        <Row >
+                            <Column flexGrow={0} horizontal='center'>
+                                <ListGroup style={{ width: '80%' }} >
+                                    {this.state.allCompItem.map((topic, index) =>
+                                        <ListGroupItem key={topic} onClick={() => this.handleSelectComp(topic)}>{topic}</ListGroupItem>
+                                    )}
+                                </ListGroup>
 
 
-                        </Column>
+                            </Column>
 
-                        <Column flexGrow={0.5} horizontal='center' >
+                            <Column flexGrow={0.5} horizontal='center' >
 
-                            <Droppable droppableId="droppable" >
-                                {(provided, snapshot) => (
-                                    <div
-                                        ref={provided.innerRef}
-                                        style={getListStyle(snapshot.isDraggingOver)}>
-                                        {this.state.items.map((item, index) => (
-                                            <Draggable
-                                                key={item.id}
-                                                draggableId={item.id}
-                                                index={index}>
-                                                {(provided, snapshot) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        style={getItemStyle(
-                                                            snapshot.isDragging,
-                                                            provided.draggableProps.style
-                                                        )}>
-                                                        {item.content}
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
+                                <Droppable droppableId="droppable" >
+                                    {(provided, snapshot) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            style={getListStyle(snapshot.isDraggingOver)}>
+                                            {this.state.items.map((item, index) => (
+                                                <Draggable
+                                                    key={item.id}
+                                                    draggableId={item.id}
+                                                    index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            style={getItemStyle(
+                                                                snapshot.isDragging,
+                                                                provided.draggableProps.style
+                                                            )}>
+                                                            {item.content}
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
 
-                        </Column>
+                            </Column>
 
-                        <Column flexGrow={0.5} horizontal='center'>
+                            <Column flexGrow={0.5} horizontal='center'>
 
                                 <Droppable droppableId="droppable2">
 
@@ -383,14 +378,14 @@ class EnterGame extends Component {
                                     )}
                                 </Droppable>
 
-                        </Column>
-                    </Row>
-                </Column>
+                            </Column>
+                        </Row>
+                    </Column>
                 </DragDropContext>
 
             </div>
         )
-        
+
     }
 
 }

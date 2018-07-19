@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { Alert, Button } from 'react-bootstrap';
 
+import '../../css/Form.css'
+
 class UserMan extends Component {
     constructor(props) {
         super(props);
@@ -50,34 +52,40 @@ class UserMan extends Component {
             );
         }
         return (
-            <div>
-                UID:
+            <div class="row centered-form">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            UID:
                 <input type="text"
-                    id="UID"
-                    onChange={event => this.setState({ UID: event.target.value })}
-                />
-                <br />
-                用戶類型: <br />
-                User Type:
+                                id="UID"
+                                onChange={event => this.setState({ UID: event.target.value })}
+                            />
+                            <br />
+                            用戶類型: <br />
+                            User Type:
                 <select value={this.state.userType} onChange={this.handleChange} >
-                    <option value="">Please Select User type</option>
-                    <option value="Admin">管理員 Admin</option>
-                    <option value="Judge">評判 Judge</option>
-                </select>
-                <br />
-                姓名: <br />
-                Name:
+                                <option value="">Please Select User type</option>
+                                <option value="Admin">管理員 Admin</option>
+                                <option value="Judge">評判 Judge</option>
+                            </select>
+                            <br />
+                            姓名: <br />
+                            Name:
                 <input type="text"
-                    id="name"
-                    onChange={event => this.setState({ name: event.target.value })}
-                />
-                <br />
-                <br/>
-                <Button bsStyle="success"
-                    onClick={() => this.handleShow()}
-                >
-                    Submit
+                                id="name"
+                                onChange={event => this.setState({ name: event.target.value })}
+                            />
+                            <br />
+                            <br />
+                            <Button bsStyle="success"
+                                onClick={() => this.handleShow()}
+                            >
+                                Submit
                 </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 
