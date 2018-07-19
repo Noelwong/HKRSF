@@ -7,61 +7,74 @@ class FormatSetting extends Component {
         this.state = {
             addType: '',
             itemIn: '',
-            district:''
+            district: '',
+            ItemType:''
         }
 
         this.itemTypeChange = this.itemTypeChange.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
     }
 
     itemTypeChange(event) {
         this.setState({ addType: event.target.value });
     }
 
+    handleChange(event) {
+        this.setState({ ItemType: event.target.value });
+    }
+
     selectItem() {
         const addType = this.state.addType;
         if (addType != null) {
-            if(addType === "itemType"){
-                return(
-                    <input type="text"
-                    placeholder="比賽項目名稱 Competition Item Name"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
-                )
-            }else if(addType === "timeLimit"){
-                return(
-                    <input type="number"
-                    placeholder="秒 seconds"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
-                )
-            }else if(addType === "numOfPeople"){
-                return(
-                    <input type="number"
-                    placeholder="人數 people"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
-                )
-            }else if(addType === "groupType"){
-                return(
-                    <input type="text"
-                    placeholder="組別 Group"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
-                )
-            }else if(addType === "district"){
-                return(
+            if (addType === "itemType") {
+                return (
                     <div>
+                        <input type="text"
+                            placeholder="比賽項目名稱 Competition Item Name"
+                            onChange={event => this.setState({ itemIn: event.target.value })}
+                        />
+                        <br/>
+                        <select value={this.state.ItemType} onChange={this.handleChange} >
+                            <option value="">Please Select !!</option>
+                            <option value="speed">速度賽 Speed</option>
+                            <option value="fancy">花式賽 Fancy</option>
+                        </select>
+                    </div>
+                )
+            } else if (addType === "timeLimit") {
+                return (
+                    <input type="number"
+                        placeholder="秒 seconds"
+                        onChange={event => this.setState({ itemIn: event.target.value })}
+                    />
+                )
+            } else if (addType === "numOfPeople") {
+                return (
+                    <input type="number"
+                        placeholder="人數 people"
+                        onChange={event => this.setState({ itemIn: event.target.value })}
+                    />
+                )
+            } else if (addType === "groupType") {
+                return (
                     <input type="text"
-                    placeholder="地區 District"
-                    onChange={event => this.setState({ district: event.target.value })}
-                />
-                <br/>
-                <input type="text"
-                    placeholder="包括 Include"
-                    onChange={event => this.setState({ itemIn: event.target.value })}
-                />
-                </div>
+                        placeholder="組別 Group"
+                        onChange={event => this.setState({ itemIn: event.target.value })}
+                    />
+                )
+            } else if (addType === "district") {
+                return (
+                    <div>
+                        <input type="text"
+                            placeholder="地區 District"
+                            onChange={event => this.setState({ district: event.target.value })}
+                        />
+                        <br />
+                        <input type="text"
+                            placeholder="包括 Include"
+                            onChange={event => this.setState({ itemIn: event.target.value })}
+                        />
+                    </div>
                 )
             }
         }
@@ -78,7 +91,7 @@ class FormatSetting extends Component {
                     <option value='groupType' >組別 Group</option>
                     <option value='district' >地區 District</option>
                 </select>
-                <br/>
+                <br />
                 {this.selectItem()}
                 <br />
                 <button
@@ -95,24 +108,26 @@ class FormatSetting extends Component {
         const addType = this.state.addType;
         const itemIn = this.state.itemIn;
         const district = this.state.district;
+        const ItemType = this.state.ItemType;
         if (addType != null && itemIn != null) {
-            if(addType === "itemType"){
+            if (addType === "itemType") {
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn).set({
-                    name: itemIn
+                    name: itemIn,
+                    type: ItemType
                 })
-            }else if(addType === "timeLimit"){
-                db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn+'sec').set({
+            } else if (addType === "timeLimit") {
+                db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn + 'sec').set({
                     limit: Number(itemIn)
                 })
-            }else if(addType === "numOfPeople"){
-                db.collection("competitionFormat").doc("competitionItem").collection(addType).doc('Group'+itemIn).set({
+            } else if (addType === "numOfPeople") {
+                db.collection("competitionFormat").doc("competitionItem").collection(addType).doc('Group' + itemIn).set({
                     limit: Number(itemIn)
                 })
-            }else if(addType === "groupType"){
+            } else if (addType === "groupType") {
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(itemIn).set({
                     gender: itemIn
                 })
-            }else if(addType === "district"){
+            } else if (addType === "district") {
                 db.collection("competitionFormat").doc("competitionItem").collection(addType).doc(district).set({
                     include: itemIn
                 })
