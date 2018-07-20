@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Column, Row } from 'simple-flexbox';
 
+import '../../css/Form.css'
 
 const getItems = (count, offset = 0) =>
     Array.from({ length: count }, (v, index) => index).map(index => ({

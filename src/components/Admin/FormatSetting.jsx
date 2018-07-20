@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 
+import '../../css/Form.css'
+
 class FormatSetting extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +10,7 @@ class FormatSetting extends Component {
             addType: '',
             itemIn: '',
             district: '',
-            ItemType:''
+            ItemType: ''
         }
 
         this.itemTypeChange = this.itemTypeChange.bind(this);
@@ -33,7 +35,7 @@ class FormatSetting extends Component {
                             placeholder="比賽項目名稱 Competition Item Name"
                             onChange={event => this.setState({ itemIn: event.target.value })}
                         />
-                        <br/>
+                        <br />
                         <select value={this.state.ItemType} onChange={this.handleChange} >
                             <option value="">Please Select !!</option>
                             <option value="speed">速度賽 Speed</option>
@@ -82,24 +84,30 @@ class FormatSetting extends Component {
 
     render() {
         return (
-            <div>
-                <select value={this.state.addType} onChange={this.itemTypeChange}>
-                    <option value='' >Please select 請選擇</option>
-                    <option value='itemType' >比賽項目 Competition Item</option>
-                    <option value='timeLimit' >時間限制 Time Limit</option>
-                    <option value='numOfPeople' >參賽人數 Participants</option>
-                    <option value='groupType' >組別 Group</option>
-                    <option value='district' >地區 District</option>
-                </select>
-                <br />
-                {this.selectItem()}
-                <br />
-                <button
-                    className="btn btn-success"
-                    onClick={() => this.addnewitem()}
-                >
-                    Submit
+            <div class="row centered-form">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <select value={this.state.addType} onChange={this.itemTypeChange}>
+                                <option value='' >Please select 請選擇</option>
+                                <option value='itemType' >比賽項目 Competition Item</option>
+                                <option value='timeLimit' >時間限制 Time Limit</option>
+                                <option value='numOfPeople' >參賽人數 Participants</option>
+                                <option value='groupType' >組別 Group</option>
+                                <option value='district' >地區 District</option>
+                            </select>
+                            <br />
+                            {this.selectItem()}
+                            <br />
+                            <button
+                                className="btn btn-success"
+                                onClick={() => this.addnewitem()}
+                            >
+                                Submit
                 </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 

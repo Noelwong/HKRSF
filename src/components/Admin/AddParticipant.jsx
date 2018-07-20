@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../css/Form.css'
 
 class AddParticipant extends Component {
     constructor(props) {
@@ -109,7 +110,7 @@ class AddParticipant extends Component {
                 showMonthDropdown
                 showYearDropdown
                 dropdownMode="select"
-            /><br />
+            />
             性別: <br />
             Gender:
             <select value={this.state.Gender} onChange={this.handleChange} >
@@ -117,6 +118,7 @@ class AddParticipant extends Component {
                 <option value="male">男 Male</option>
                 <option value="female">女 Female</option>
             </select>
+            <br/>
             學校名稱: <br />
             School Name:
                 <input type="text"
@@ -138,16 +140,22 @@ class AddParticipant extends Component {
 
     render() {
         return (
-            <div>
-                {this.createParticipant()}
+            <div class="row centered-form">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {this.createParticipant()}
 
-                <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={() => this.addParticipant(this.state)}
-                >
-                    Submit
+                            <button
+                                className="btn btn-success"
+                                type="button"
+                                onClick={() => this.addParticipant(this.state)}
+                            >
+                                Submit
                     </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 
