@@ -16,6 +16,7 @@ import ForgetPassword from './components/ForgetPassword';
 import AddInfor from './components/AddInfor';
 
 import CompetitionIndex from './components/Admin/CompetitionIndex';
+import CompetitionIndexPersonal from './components/Personal/CompetitionIndex';
 
 
 const store = createStore(reducer);
@@ -42,6 +43,7 @@ ReactDOM.render(
         <Route path="/forgetpassword" component={ForgetPassword} />
         <Route path="/addinfor" component={AddInfor} />
 
+        <Route path="/CompetitionIndexPersonal" component={CompetitionIndexPersonal}/>
         <Route path="/CompetitionIndex" component={CompetitionIndex} />
     </Router>
     </Provider>, document.getElementById('root')

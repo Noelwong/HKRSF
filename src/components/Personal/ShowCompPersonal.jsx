@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { db } from '../../firebase';
+import {db, firebaseApp} from '../../firebase';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router';
+
 
 class ShowCompPersonal extends Component {
     constructor(props) {
@@ -13,8 +15,14 @@ class ShowCompPersonal extends Component {
             competitionStartDateList: [],
             competitionEndDateList: [],
 
+            compIndex: [],
+
+            competitionInx: 'NULL',
+            btnShow: 'true',
+
         }
         this.getCompInfor();
+        // this.selectShowContent =this.selectShowContent.bind(this);
     }
 
     getCompInfor() {
@@ -53,11 +61,37 @@ class ShowCompPersonal extends Component {
             this.setState({ competitionEndDateList: competitionEndDateList })
         })
 
+
+        db.collection('competition').onSnapshot(coll => {
+            const compIndex = coll.docs.map(doc => doc.id)
+            this.setState({ compIndex })
+        })
     }
 
-    show(index) {
-        console.log("this one:" + index)
+
+    handleSelect(index){
+        const selected = this.state.compIndex[index];
+        this.setState({competitionInx: selected});
+        sessionStorage.compID=this.state.compIndex[index];
+        db.collection('competition').doc(this.state.compIndex[index]).collection('participant').get()
+            .then(onSnapshot => {
+                    onSnapshot.forEach(doc => {
+                        if (doc.data().uid === firebaseApp.auth().currentUser.uid)
+                        {
+                            console.log('Find');
+                        }else {
+
+                            console.log("Not Found: " +firebaseApp.auth().currentUser.uid);
+                        }
+                    })
+                }
+            )
+
     }
+
+    // selectShowContent = (competitionInx) => {
+    //     sessionStorage.compID = competitionInx;
+    // };
 
     render() {
 
@@ -65,21 +99,17 @@ class ShowCompPersonal extends Component {
             <div>
                 {
                     this.state.competitionList.map((topic, index) =>
-                        <Button key={index} onClick={() => this.show(index)}>
+                        <Link to="/CompetitionIndexPersonal" ><Button key={index} onClick={() => this.handleSelect(index)}>
                             比賽名稱: {topic}
                             <br />
                             比賽場地: {this.state.competitionLocationList[index]}
                             <br />
                             比賽時間:{this.state.competitionStartDateList[index]}
-                        </Button>)
+                        </Button></Link>)
                 }
-
+                {/*{this.selectShowContent(this.state.competitionInx)}*/}
             </div>
-
-
-
         )
-
     }
 
 }
