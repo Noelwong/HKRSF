@@ -46,7 +46,9 @@ class CompetitionIndex extends Component {
                     })
                 }
             )
+        // eslint-disable-next-line
         this.state.participantSetID = localparticipantSetID ;
+        // eslint-disable-next-line
         this.state.participantSetName = localparticipantSetName ;
     }
 

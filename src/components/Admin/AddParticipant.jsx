@@ -5,28 +5,30 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../css/Form.css'
 
 class AddParticipant extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            compItem:[],
-            selectedCompItem:'',
-            CName:'',
-            EName:'',
-            BDate:moment(),
-            schoolName:'',
-            ID:'',
-            Limit:''
+            compItem: [],
+            selectedCompItem: '',
+            CName: '',
+            EName: '',
+            BDate: moment(),
+            schoolName: '',
+            ID: '',
+            Limit: '',
+            Gender: ''
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getCompItem();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
     }
 
     date(date) {
-        this.setState({BDate: date});
+        this.setState({ BDate: date });
     }
 
     CompItemHandleChange(event) {
@@ -34,42 +36,44 @@ class AddParticipant extends Component {
         this.getCompLimit(event.target.value);
     }
 
-    getCompItem(){
+    handleChange(event) {
+        this.setState({ Gender: event.target.value });
+    }
+
+    getCompItem() {
         this.Ref.onSnapshot(coll => {
             const compItem = coll.docs.map(doc => doc.id);
             this.setState({ compItem })
         })
     }
 
-    getCompLimit(selectedcompItem){
+    getCompLimit(selectedcompItem) {
         console.log(selectedcompItem);
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot( coll => {
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
             const temp = coll.docs.map(doc => doc.id);
             const temp2 = coll.docs.map(doc => doc.data().numOfPeople);
-            for (var i =0;i <= temp.length;i++)
-            {
-                if ( selectedcompItem === temp[i])
-                {
+            for (var i = 0; i <= temp.length; i++) {
+                if (selectedcompItem === temp[i]) {
                     var numberOfpeopleChecker = temp2[i];
-                    // eslint-disable-next-line 
-                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll =>{
+                    // eslint-disable-next-line
+                    db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll => {
                         const temp3 = coll.docs.map(doc => doc.id);
                         const temp4 = coll.docs.map(doc => doc.data().limit);
-                        for(var i= 0 ;i<= temp3.length;i++ ){
-                            if ( numberOfpeopleChecker === temp3[i] ) {
-                                this.setState({Limit : temp4[i]});
+                        for (var i = 0; i <= temp3.length; i++) {
+                            if (numberOfpeopleChecker === temp3[i]) {
+                                this.setState({ Limit: temp4[i] });
                             }
                         }
                     })
                 }
             }
-            })
+        })
 
 
-        
+
     }
 
-    addParticipant(state){
+    addParticipant(state) {
         db.collection("competition").doc(sessionStorage.compID).collection("participant").doc().set({
             CName: this.state.CName,
             EName: this.state.EName,
@@ -78,67 +82,82 @@ class AddParticipant extends Component {
             ID: this.state.ID,
             user_CompetitionItem: [],
             teamCode:[],
-            activate:false
+            activate:false,
+            Gender: this.state.Gender,
         });
 
     }
 
-        createParticipant (){
-            let Participant1 =<div>
-                <br/>
-                中文姓名:
+    createParticipant() {
+        let Participant1 = <div>
+            <br />
+            中文姓名:
                 <input type="text"
-                       placeholder="中文姓名"
-                       onChange={event => this.setState({ CName: event.target.value })}
-                />
-                <br/>
-                Name in English:
+                placeholder="中文姓名"
+                onChange={event => this.setState({ CName: event.target.value })}
+            />
+            <br />
+            Name in English:
                 <input type="text"
-                       placeholder="Name in English"
-                       onChange={event => this.setState({ EName: event.target.value })}
-                />
-                <br/>
-                出生日期:<br/>
-                Date of Birth:
+                placeholder="Name in English"
+                onChange={event => this.setState({ EName: event.target.value })}
+            />
+            <br />
+            出生日期:<br />
+            Date of Birth:
                 <DatePicker
-                    selected={this.state.BDate}
-                    onChange={this.date.bind(this)}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                /><br/>
-                學校名稱: <br/>
-                School Name:
+                selected={this.state.BDate}
+                onChange={this.date.bind(this)}
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+            />
+            性別: <br />
+            Gender:
+            <select value={this.state.Gender} onChange={this.handleChange} >
+                <option value="">Please Select!</option>
+                <option value="male">男 Male</option>
+                <option value="female">女 Female</option>
+            </select>
+            <br/>
+            學校名稱: <br />
+            School Name:
                 <input type="text"
-                       placeholder="學校名稱 School Name"
-                       onChange={event => this.setState({ schoolName: event.target.value })}
-                />
-                <br/>
-                身份證號碼:<br/>
-                ID:
+                placeholder="學校名稱 School Name"
+                onChange={event => this.setState({ schoolName: event.target.value })}
+            />
+            <br />
+            身份證號碼:<br />
+            ID:
                 <input type="text"
-                       placeholder="ID number"
-                       onChange={event => this.setState({ ID: event.target.value })}
-                />
-                <br/>
-                <br/>
+                placeholder="ID number"
+                onChange={event => this.setState({ ID: event.target.value })}
+            />
+            <br />
+            <br />
         </div>;
-                return Participant1;
-        }
+        return Participant1;
+    }
 
     render() {
         return (
-            <div>
-                {this.createParticipant()}
+            <div class="row centered-form">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {this.createParticipant()}
 
-            <button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={() => this.addParticipant(this.state)}
-                >
-                    Submit
+                            <button
+                                className="btn btn-success"
+                                type="button"
+                                onClick={() => this.addParticipant(this.state)}
+                            >
+                                Submit
                     </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
 
@@ -146,689 +165,3 @@ class AddParticipant extends Component {
 
 }
 export default AddParticipant;
-
-
-
-/* let Participant2 =
-                <div>
-                <br/>
-                中文姓名:
-                <input type="text"
-                       placeholder="中文姓名"
-                       onChange={event => this.setState({ CName: event.target.value })}
-                />
-                <br/>
-                Name in English:
-                <input type="text"
-                       placeholder="Name in English"
-                       onChange={event => this.setState({ EName: event.target.value })}
-                />
-                <br/>
-                出生日期:<br/>
-                Date of Birth:
-                <DatePicker
-                    selected={this.state.BDate}
-                    onChange={this.date.bind(this)}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                /><br/>
-                學校名稱: <br/>
-                School Name:
-                <input type="text"
-                       placeholder="學校名稱 School Name"
-                       onChange={event => this.setState({ schoolName: event.target.value })}
-                />
-                <br/>
-                身份證號碼:<br/>
-                ID:
-                <input type="text"
-                       placeholder="ID number"
-                       onChange={event => this.setState({ ID: event.target.value })}
-                />
-                <br/>
-                <br/>
-                <br/>
-                中文姓名:
-                <input type="text"
-                       placeholder="中文姓名"
-                       onChange={event => this.setState({ CName: event.target.value })}
-                />
-                <br/>
-                Name in English:
-                <input type="text"
-                       placeholder="Name in English"
-                       onChange={event => this.setState({ EName: event.target.value })}
-                />
-                <br/>
-                出生日期:<br/>
-                Date of Birth:
-                <DatePicker
-                    selected={this.state.BDate}
-                    onChange={this.date.bind(this)}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                /><br/>
-                學校名稱: <br/>
-                School Name:
-                <input type="text"
-                       placeholder="學校名稱 School Name"
-                       onChange={event => this.setState({ EName: event.target.value })}
-                />
-                <br/>
-                身份證號碼:<br/>
-                ID:
-                <input type="text"
-                       placeholder="ID number"
-                       onChange={event => this.setState({ ID: event.target.value })}
-                />
-                <br/>
-                <br/>
-            </div>;
-
-            let Participant3 =
-                <div>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                </div>;
-
-
-            let Participant4 =
-                <div>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                </div>;
-
-            let Participant8 =
-                <div>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/><select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                        <option key='' >Please select 請選擇</option>
-                        {this.state.compItem.map((topic, index) =>
-                            <option key={topic} >{topic} </option>)}
-                    </select>
-                    <br/>
-
-                    {this.state.selectedCompItem}
-                    <br/>
-                    {this.state.Limit}
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/><select value={this.state.selectedCompItem} onChange={this.CompItemHandleChange}>
-                        <option key='' >Please select 請選擇</option>
-                        {this.state.compItem.map((topic, index) =>
-                            <option key={topic} >{topic} </option>)}
-                    </select>
-                    <br/>
-
-                    {this.state.selectedCompItem}
-                    <br/>
-                    {this.state.Limit}
-                    <br/>
-                    中文姓名:
-                    <input type="text"
-                           placeholder="中文姓名"
-                           onChange={event => this.setState({ CName: event.target.value })}
-                    />
-                    <br/>
-                    Name in English:
-                    <input type="text"
-                           placeholder="Name in English"
-                           onChange={event => this.setState({ EName: event.target.value })}
-                    />
-                    <br/>
-                    出生日期:<br/>
-                    Date of Birth:
-                    <DatePicker
-                        selected={this.state.BDate}
-                        onChange={this.date.bind(this)}
-                        peekNextMonth
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                    /><br/>
-                    學校名稱: <br/>
-                    School Name:
-                    <input type="text"
-                           placeholder="學校名稱 School Name"
-                           onChange={event => this.setState({ schoolName: event.target.value })}
-                    />
-                    <br/>
-                    身份證號碼:<br/>
-                    ID:
-                    <input type="text"
-                           placeholder="ID number"
-                           onChange={event => this.setState({ ID: event.target.value })}
-                    />
-                    <br/>
-                    <br/>
-                </div>; */

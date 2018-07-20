@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { Alert, Button } from 'react-bootstrap';
+import { Column, Row } from 'simple-flexbox';
 
 import ShowCompItem from './ShowCompItem';
 
@@ -146,64 +147,77 @@ class AddCompItem extends Component {
         }
         return (
             <div>
-                <ShowCompItem />
-                <br />
-                地區限制:<br />
-                Distant:
+                <Column>
+                    <Row >
+                        <Column flexGrow={2}>
+                            <ShowCompItem />
+                        </Column>
+                        <Column flexGrow={0.5}>
+                            <div class="row centered-form">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            地區限制:<br />
+                                            Distant:
                 <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    <option value='NULL' >沒有指定地區</option>
-                    {this.state.district.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br />
-                參賽人數:<br />
-                Number of participants:
+                                                <option key='' >Please select 請選擇</option>
+                                                <option value='NULL' >沒有指定地區</option>
+                                                {this.state.district.map((topic, index) =>
+                                                    <option key={topic} >{topic} </option>)}
+                                            </select>
+                                            <br />
+                                            參賽人數:<br />
+                                            Number of participants:
                 <select value={this.state.selectednumOfPeople} onChange={this.numOfPeopleHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.numOfPeople.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br />
-                時間限制: <br />
-                Time limit:
+                                                <option key='' >Please select 請選擇</option>
+                                                {this.state.numOfPeople.map((topic, index) =>
+                                                    <option key={topic} >{topic} </option>)}
+                                            </select>
+                                            <br />
+                                            時間限制: <br />
+                                            Time limit:
                 <select value={this.state.selectedtimeLimit} onChange={this.timeLimitHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.timeLimit.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br />
-                組別選擇<br />
-                Group:
+                                                <option key='' >Please select 請選擇</option>
+                                                {this.state.timeLimit.map((topic, index) =>
+                                                    <option key={topic} >{topic} </option>)}
+                                            </select>
+                                            <br />
+                                            組別選擇<br />
+                                            Group:
                 <select value={this.state.selectedgroupType} onChange={this.groupTypeHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.groupType.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br />
-                比賽項目: <br />
-                Competition item:
+                                                <option key='' >Please select 請選擇</option>
+                                                {this.state.groupType.map((topic, index) =>
+                                                    <option key={topic} >{topic} </option>)}
+                                            </select>
+                                            <br />
+                                            比賽項目: <br />
+                                            Competition item:
                 <select value={this.state.selecteditemType} onChange={this.itemTypeHandleChange}>
-                    <option key='' >Please select 請選擇</option>
-                    {this.state.itemType.map((topic, index) =>
-                        <option key={topic} >{topic} </option>)}
-                </select>
-                <br />
-                年齡下限<br />
-                Age Lower Bound:
+                                                <option key='' >Please select 請選擇</option>
+                                                {this.state.itemType.map((topic, index) =>
+                                                    <option key={topic} >{topic} </option>)}
+                                            </select>
+                                            <br />
+                                            年齡下限<br />
+                                            Age Lower Bound:
                 <input type="number"
-                    id="ageLowerBound"
-                    min="3" max="80"
-                    onChange={event => this.setState({ ageLowerBound: event.target.value })}
-                />
-                <br />
-                年齡上限<br />
-                Age Upper Bound:
+                                                id="ageLowerBound"
+                                                min="3" max="80"
+                                                onChange={event => this.setState({ ageLowerBound: event.target.value })}
+                                            />
+                                            <br />
+                                            年齡上限<br />
+                                            Age Upper Bound:
                 <input type="number"
-                    id="ageUpperBound"
-                    min="3" max="80"
-                    onChange={event => this.setState({ ageUpperBound: event.target.value })}
-                />
+                                                id="ageUpperBound"
+                                                min="3" max="80"
+                                                onChange={event => this.setState({ ageUpperBound: event.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                        </Column>
+                    </Row>
+                </Column>
                 <br />
                 <button
                     className="btn btn-success"
