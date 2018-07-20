@@ -52,10 +52,10 @@ class UserMan extends Component {
             );
         }
         return (
-            <div class="row centered-form">
-                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+            <div className="row centered-form">
+                <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
                             UID:
                 <input type="text"
                                 id="UID"

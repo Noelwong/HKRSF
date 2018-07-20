@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-import { ListGroup, ListGroupItem} from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
 class ShowCompPersonal extends Component {
@@ -12,7 +11,7 @@ class ShowCompPersonal extends Component {
             competitionLocationList: [],
             competitionDeadDateList: [],
             competitionStartDateList: [],
-            competitionEndDateList: [], 
+            competitionEndDateList: [],
 
         }
         this.getCompInfor();
@@ -24,9 +23,9 @@ class ShowCompPersonal extends Component {
             const competitionID = coll.docs.map(doc => doc.id)
             const competitionLocation = coll.docs.map(doc => doc.data().location)
 
-            this.setState({ competitionList: competition})
-            this.setState({ competitionIDList: competitionID})
-            this.setState({ competitionLocationList: competitionLocation})
+            this.setState({ competitionList: competition })
+            this.setState({ competitionIDList: competitionID })
+            this.setState({ competitionLocationList: competitionLocation })
 
 
             const competitionDeadDate = coll.docs.map(doc => doc.data().deadDate)
@@ -35,36 +34,30 @@ class ShowCompPersonal extends Component {
 
 
             const competitionDeadDateList = [];
-            for (var i =0; i<competitionDeadDate.length;i++){
+            for (var i = 0; i < competitionDeadDate.length; i++) {
                 competitionDeadDateList.push(competitionDeadDate[i].toString())
             }
 
             const competitionStartDateList = [];
-            for (var j =0; j<competitionStartDate.length;j++){
+            for (var j = 0; j < competitionStartDate.length; j++) {
                 competitionStartDateList.push(competitionStartDate[j].toString())
             }
 
             const competitionEndDateList = [];
-            for (var k =0; j<competitionEndDate.length;k++){
+            for (var k = 0; j < competitionEndDate.length; k++) {
                 competitionEndDateList.push(competitionEndDate[k].toString())
             }
 
-           this.setState({ competitionDeadDateList:competitionDeadDateList})
-           this.setState({ competitionStartDateList:competitionStartDateList})
-           this.setState({ competitionEndDateList: competitionEndDateList})
+            this.setState({ competitionDeadDateList: competitionDeadDateList })
+            this.setState({ competitionStartDateList: competitionStartDateList })
+            this.setState({ competitionEndDateList: competitionEndDateList })
         })
 
     }
 
-    check(){
-        console.log(this.state.competitionDeadDateList);
-        console.log(this.state.competitionStartDateList);
-        console.log(this.state.competitionEndDateList);
+    show(index) {
+        console.log("this one:" + index)
     }
-
-
-
-
 
     render() {
 
@@ -72,13 +65,14 @@ class ShowCompPersonal extends Component {
             <div>
                 {
                     this.state.competitionList.map((topic, index) =>
-                    <ListGroup >
-                            <ListGroupItem bsStyle="info">比賽名稱: {topic}</ListGroupItem>
-                            <ListGroupItem>比賽場地: {this.state.competitionLocationList[index]}</ListGroupItem>
-                            <ListGroupItem>{this.state.competitionStartDateList[index]}</ListGroupItem>
-                    </ListGroup>)
+                        <Button key={index} onClick={() => this.show(index)}>
+                            比賽名稱: {topic}
+                            <br />
+                            比賽場地: {this.state.competitionLocationList[index]}
+                            <br />
+                            比賽時間:{this.state.competitionStartDateList[index]}
+                        </Button>)
                 }
-                <Button bsStyle="danger" onClick={()=> this.check()}></Button>
 
             </div>
 

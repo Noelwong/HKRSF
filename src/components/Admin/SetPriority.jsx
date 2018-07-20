@@ -183,8 +183,8 @@ class SetPriority extends Component {
         return (
             <div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div className="panel panel-default">
+                            <div className="panel-heading">
                                 <Column flexGrow={1}>
                                     <Row>
 

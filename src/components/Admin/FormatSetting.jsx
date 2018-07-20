@@ -84,10 +84,10 @@ class FormatSetting extends Component {
 
     render() {
         return (
-            <div class="row centered-form">
-                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+            <div className="row centered-form">
+                <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
                             <select value={this.state.addType} onChange={this.itemTypeChange}>
                                 <option value='' >Please select 請選擇</option>
                                 <option value='itemType' >比賽項目 Competition Item</option>

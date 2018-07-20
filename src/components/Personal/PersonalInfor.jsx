@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
-
+import '../../css/Form.css'
 
 class PersonalInfor extends Component {
     constructor(props) {
@@ -118,7 +118,10 @@ class PersonalInfor extends Component {
     render(){
 
         return (
-            <div>
+            <div className="row centered-form">
+            <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
                 <form>
                 個人會員申請表<br />
                 Personal Membership Application Form<br />
@@ -231,19 +234,13 @@ class PersonalInfor extends Component {
                 >
                     Submit
                 </button>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => this.signOut()}
-                > 
-                    Sign Out
-                </button>
                 <br/>
                 <font for="title" color="red">{this.state.info}</font>
             </div>
+            </div>
+            </div>
+            </div>
         )
-    }
-    signOut() {
-        firebaseApp.auth().signOut();
     }
 
     addPersonalInfor(state) {

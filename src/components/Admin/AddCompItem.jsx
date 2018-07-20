@@ -5,6 +5,8 @@ import { Column, Row } from 'simple-flexbox';
 
 import ShowCompItem from './ShowCompItem';
 
+import '../../css/Form.css'
+
 class AddCompItem extends Component {
     constructor(props) {
         super(props);
@@ -153,9 +155,9 @@ class AddCompItem extends Component {
                             <ShowCompItem />
                         </Column>
                         <Column flexGrow={0.5}>
-                            <div class="row centered-form">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
+                            <div className="row centered-form">
+                                    <div className="panel panel-default">
+                                        <div className="panel-heading">
                                             地區限制:<br />
                                             Distant:
                 <select value={this.state.selecteddistrict} onChange={this.districtHandleChange}>
