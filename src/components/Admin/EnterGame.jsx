@@ -215,6 +215,7 @@ class EnterGame extends Component {
             // console.log(selectedCompItemName);
             const checkDuplicatesFunction = this.checkDuplicates;
             let i ;
+            let teamCode1 = '';
             if(numOfmember === 1){
                 for (i = 0; i < selectedParticipant.length; i++) {
                     const selectedParticipant1 = selectedParticipant[i].id;
@@ -226,23 +227,25 @@ class EnterGame extends Component {
                             tempArrayOfCompetitionItem.push(selectedCompItemName);
                             db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
                                 user_CompetitionItem: tempArrayOfCompetitionItem
-                            })
-                            console.log("ADD");
+                            });
+                            console.log("ADD1");
 
                             db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc(selectedParticipant1).set({
                                 ParticipantID: selectedParticipant1,
                                 ParticipantName: selectedParticipant2
                             })
-
                         }
+
                     })
+
+
                 }
             }
             else if (numOfmember !== selectedParticipant.length){
                 console.log("Please select correct number of people ");
             }
-            else {
-                console.log("Correct")
+            else { //team
+                console.log("Correct");
                 for (i = 0; i < selectedParticipant.length; i++) {
                     const selectedParticipant1 = selectedParticipant[i].id;
                     // const selectedParticipant2 = selectedParticipant[i].content;
@@ -254,17 +257,46 @@ class EnterGame extends Component {
                             db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
                                 user_CompetitionItem: tempArrayOfCompetitionItem
                             })
-                            console.log("ADD");
                         }
+
+                        if(i === selectedParticipant.length){
+                            console.log('End');
+                            console.log('L: '+selectedParticipant.length);
+                            console.log('i:' + i);
+                        }else{
+                            console.log(i);
+                        }
+
                     })
                 }
-                db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc().set({
-                    teamMember: selectedParticipant
-                })
-            }
 
+                db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').add({
+                    teamMember: selectedParticipant
+                }).
+                then(teamCode =>{
+                    teamCode1 =teamCode.id;
+                    console.log(teamCode.id);
+                    let tempTeamCodeArray = {
+                        itemName: selectedCompItemName,
+                        teamCode: teamCode.id
+                    };
+
+
+                    for (i= 0;i< selectedParticipant.length;i++){
+                        const selectedParticipant1 = selectedParticipant[i].id;
+                        this.Ref.collection('participant').doc(selectedParticipant1).get().then(function (doc) {
+                            let tempArrayOfTeamCode = doc.data().teamCode;
+                            tempArrayOfTeamCode.push(tempTeamCodeArray);
+                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
+                                teamCode: tempArrayOfTeamCode
+                            })
+                        })
+                    }
+                });
+            }
         }
     }
+
 
     checkDuplicates (tempArray, tempAddItems){
         var checker = false;
