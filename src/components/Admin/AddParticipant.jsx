@@ -55,7 +55,7 @@ class AddParticipant extends Component {
             for (var i = 0; i <= temp.length; i++) {
                 if (selectedcompItem === temp[i]) {
                     var numberOfpeopleChecker = temp2[i];
-                    // eslint-disable-next-line 
+                    // eslint-disable-next-line
                     db.collection('competitionFormat').doc('competitionItem').collection('numOfPeople').onSnapshot(coll => {
                         const temp3 = coll.docs.map(doc => doc.id);
                         const temp4 = coll.docs.map(doc => doc.data().limit);
@@ -80,8 +80,10 @@ class AddParticipant extends Component {
             BDate: new Date(this.state.BDate),
             schoolName: this.state.schoolName,
             ID: this.state.ID,
+            user_CompetitionItem: [],
+            teamCode:[],
+            activate:false,
             Gender: this.state.Gender,
-            user_CompetitionItem: []
         });
 
     }
