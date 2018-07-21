@@ -43,7 +43,6 @@ class AddCompItem extends Component {
         const age = this.state.ageLowerBound + '-' + this.state.ageUpperBound;
         const selectedgroupType = this.state.selectedgroupType;
         db.collection("competitionFormat").doc("competitionItem").collection("itemType").doc(selecteditemType).get().then(doc => {
-
             const itemType = doc.data().type;
 
             if (this.state.selecteddistrict === 'NULL') {

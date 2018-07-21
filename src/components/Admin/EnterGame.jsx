@@ -212,7 +212,6 @@ class EnterGame extends Component {
             // console.log(selectedCompItemName);
             const checkDuplicatesFunction = this.checkDuplicates;
             let i ;
-            let teamCode1 = '';
             if(numOfmember === 1){
                 for (i = 0; i < selectedParticipant.length; i++) {
                     const selectedParticipant1 = selectedParticipant[i].id;
@@ -245,10 +244,9 @@ class EnterGame extends Component {
                 console.log("Correct");
                 for (i = 0; i < selectedParticipant.length; i++) {
                     const selectedParticipant1 = selectedParticipant[i].id;
-                    // const selectedParticipant2 = selectedParticipant[i].content;
+                    // eslint-disable-next-line
                     this.Ref.collection('participant').doc(selectedParticipant1).get().then(function (doc) {
                         let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
-                        // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
                         if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
                             tempArrayOfCompetitionItem.push(selectedCompItemName);
                             db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant1).update({
@@ -269,9 +267,7 @@ class EnterGame extends Component {
 
                 db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').add({
                     teamMember: selectedParticipant
-                }).
-                then(teamCode =>{
-                    teamCode1 =teamCode.id;
+                }).then(teamCode =>{
                     console.log(teamCode.id);
                     let tempTeamCodeArray = {
                         itemName: selectedCompItemName,
