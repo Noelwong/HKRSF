@@ -295,6 +295,18 @@ class EnterGame extends Component {
         return checker;
     }
 
+
+    checkQ(){
+
+        // db.collection('competition').doc(sessionStorage.compID).collection('competitionItem')
+
+
+
+
+    }
+
+
+
     render() {
         return (
             <div>

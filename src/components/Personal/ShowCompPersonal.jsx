@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {db, firebaseApp} from '../../firebase';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
-import moment from 'moment';
 
 class ShowCompPersonal extends Component {
     constructor(props) {
@@ -23,7 +22,6 @@ class ShowCompPersonal extends Component {
         }
         this.getCompInfor();
         this.user = firebaseApp.auth().currentUser;
-
     }
 
     getCompInfor() {
@@ -62,13 +60,11 @@ class ShowCompPersonal extends Component {
             this.setState({ competitionEndDateList: competitionEndDateList });
         });
 
-
         db.collection('competition').onSnapshot(coll => {
             const compIndex = coll.docs.map(doc => doc.id);
             this.setState({ compIndex })
         })
     }
-
 
     handleSelect(index){
         const selected = this.state.compIndex[index];
@@ -90,16 +86,8 @@ class ShowCompPersonal extends Component {
                             runTime++;
                         }
                     });
-
-                let tempCName ='';
-                let tempEName ='';
-                let tempGender ='';
-                let tempBDate = moment();
-                let tempID ='';
-                let tempSchoolName ='';
                 if(runTime === addToComp) {
                     const uid = this.user.uid;
-
                     db.collection("user").doc(uid).get().then(doc =>{
                         if (!doc.exists) {
                             console.log('No such document!');
@@ -120,15 +108,10 @@ class ShowCompPersonal extends Component {
 
                     })
                 }
-
                 }
             )
 
     }
-
-    // selectShowContent = (competitionInx) => {
-    //     sessionStorage.compID = competitionInx;
-    // };
 
     render() {
 
@@ -144,7 +127,6 @@ class ShowCompPersonal extends Component {
                             比賽時間:{this.state.competitionStartDateList[index]}
                         </Button></Link>)
                 }
-                {/*{this.selectShowContent(this.state.competitionInx)}*/}
             </div>
         )
     }
