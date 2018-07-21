@@ -157,8 +157,6 @@ class EnterGame extends Component {
             content: setPName[i]
         }))
 
-
-
     }
 
     handleSelectParticipant(topic) {
@@ -200,16 +198,12 @@ class EnterGame extends Component {
             this.state.compItemName === undefined ||
             this.state.items === undefined ||
             this.state.compItemName === '' ||
-            this.state.items.length === 0)  /*  confirm have data  */ {
-            // console.log("NULL");
+            this.state.items.length === 0)  /*  confirm have data  */{
             alert("Have not select Competition item or Participants")
         } else {
-            // console.log("not NULL");
             const selectedParticipant = this.state.items;
             const selectedCompItemName = this.state.compItemName;
             const numOfmember = this.state.Limit;
-            // console.log(selectedParticipant);
-            // console.log(selectedCompItemName);
             const checkDuplicatesFunction = this.checkDuplicates;
             let i ;
             if(numOfmember === 1){
@@ -225,7 +219,6 @@ class EnterGame extends Component {
                                 user_CompetitionItem: tempArrayOfCompetitionItem
                             });
                             console.log("ADD1");
-
                             db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc(selectedParticipantID).set({
                                 ParticipantID: selectedParticipantID,
                                 ParticipantName: selectedParticipantName
@@ -274,7 +267,6 @@ class EnterGame extends Component {
                         itemName: selectedCompItemName,
                         teamCode: teamCode.id
                     };
-
 
                     for (i= 0;i< selectedParticipant.length;i++){
                         const selectedParticipantID = selectedParticipant[i].id;

@@ -23,14 +23,14 @@ class CompetitionIndex extends Component {
 
     getAll(){
         this.Ref.collection('competitionItem').onSnapshot(coll => {
-            const compItem = coll.docs.map(doc => doc.id)
+            const compItem = coll.docs.map(doc => doc.id);
             // eslint-disable-next-line
             sessionStorage.setItem("compItem", JSON.stringify(compItem));
 
         })
 
         this.Ref.collection('participant').onSnapshot(coll => {
-            const participant = coll.docs.map(doc => doc.data().CName)
+            const participant = coll.docs.map(doc => doc.data().CName);
             // eslint-disable-next-line
             sessionStorage.setItem("participant", JSON.stringify(participant));
 
@@ -71,10 +71,10 @@ class CompetitionIndex extends Component {
     }
 
     handleShow() {
-        this.setState({ showContent: 'show' })
+        this.setState({ showContent: 'show' });
         sessionStorage.setItem("participantSetID", JSON.stringify(this.state.participantSetID));
         sessionStorage.setItem("participantSetName", JSON.stringify( this.state.participantSetName));
-        console.log(sessionStorage.participantSetID)
+        console.log(sessionStorage.participantSetID);
         console.log(sessionStorage.participantSetName)
     }
 

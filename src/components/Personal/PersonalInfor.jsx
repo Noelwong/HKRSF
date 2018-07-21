@@ -38,18 +38,18 @@ class PersonalInfor extends Component {
     }  
      
     CName(event){
-        this.setState({CName:event.target.value})
-        var chineseName = /^[\u4e00-\u9fa5]{0,}$/;
-        var val_CName = event.target.value;
+        this.setState({CName:event.target.value});
+        let chineseName = /^[\u4e00-\u9fa5]{0,}$/;
+        let val_CName = event.target.value;
         
 
         if(chineseName.test(val_CName)){
-            this.setState({"checkCName":true})
+            this.setState({"checkCName":true});
             setTimeout(function(){
                 this.setState({info_CName:""});
             }.bind(this), 1000);
         }else{ 
-            this.setState({"checkCName":false})
+            this.setState({"checkCName":false});
             this.setState({info_CName:"請輸入正確的中文名字"});
         }
         
@@ -57,20 +57,20 @@ class PersonalInfor extends Component {
     }
 
     EName(event){
-        this.setState({EName:event.target.value})
-        var englishName = /^[A-Za-z]+$/;
-        var val_EName = event.target.value;
+        this.setState({EName:event.target.value});
+        let englishName = /^[A-Za-z]+$/;
+        let val_EName = event.target.value;
         
         if(englishName.test(val_EName)){
-            this.setState({"checkEName":true})
+            this.setState({"checkEName":true});
             setTimeout(function(){
                 this.setState({info_EName:""});
             }.bind(this), 1000);
         }else{
-            this.setState({"checkEName":false})
-            this.setState({info_EName:"Please Input Correct English Name"})
+            this.setState({"checkEName":false});
+            this.setState({info_EName:"Please Input Correct English Name"});
         }
-        this.setState({"val_EName":val_EName})
+        this.setState({"val_EName":val_EName});
     }
 
     date(date) {
@@ -78,23 +78,23 @@ class PersonalInfor extends Component {
     }
 
     ID(event){
-        this.setState({ID:event.target.value})
-        var IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
-        var val_ID = event.target.value;
+        this.setState({ID:event.target.value});
+        let IDName = /[A-Z]{1,2}[0-9]{6}([0-9A])/;
+        let val_ID = event.target.value;
         
 
         if(IDName.test(val_ID)){
-            this.setState({"checkID":true})
+            this.setState({"checkID":true});
             setTimeout(function(){
                 this.setState({info_ID:""});
             }.bind(this), 1000);
             
         }else{
-            this.setState({"checkID":false})
-            this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"})
+            this.setState({"checkID":false});
+            this.setState({info_ID:"請輸入正確的身份證號碼/Please Input Correct ID Number"});
             
         }
-        this.setState({"val_ID":val_ID})
+        this.setState({"val_ID":val_ID});
 
     }
     
@@ -263,7 +263,7 @@ class PersonalInfor extends Component {
             judgeLevel: this.state.judgeLevel,
             judgeYear: this.state.judgeYear
         });}else{
-            this.setState({info:"ERROR"})
+            this.setState({info:"ERROR"});
             setTimeout(function(){
                 this.setState({info:""})
             }.bind(this),3000);
