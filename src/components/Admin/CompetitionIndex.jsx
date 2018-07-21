@@ -7,7 +7,8 @@ import FormatSetting from './FormatSetting';
 import AddCompItem from './AddCompItem';
 import AddParticipant from './AddParticipant'; 
 import SetPriority from './SetPriority';
-import EnterGame from './EnterGame'
+import EnterGame from './EnterGame';
+import DeleteCompItem from './DeleteCompItem';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -67,6 +68,8 @@ class CompetitionIndex extends Component {
                 return (<SetPriority />)
             }else if (showContent === 'show') {
                 return (<EnterGame />)
+            }else if (showContent === 'DecCompItem') {
+                return (<DeleteCompItem />)
             }
         }
     }
@@ -90,6 +93,10 @@ class CompetitionIndex extends Component {
     handleChangeAddParticipant() {
         this.setState({ showContent: 'AddParticipant' })
     }
+    
+    handleDeleteItem(){
+        this.setState({ showContent: 'DecCompItem' })
+    }
 
     FormathandleChange() {
         this.setState({ showContent: 'FormatSetting' })
@@ -111,7 +118,8 @@ class CompetitionIndex extends Component {
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
-                            <MenuItem eventKey={2.2} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
+                            <MenuItem eventKey={2.2} onClick={() => this.handleDeleteItem()}>Delete Competition Item</MenuItem>
+                            <MenuItem eventKey={2.3} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
                         </NavDropdown>   
                         <NavItem eventKey={3} >
                             評判

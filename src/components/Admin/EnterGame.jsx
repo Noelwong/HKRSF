@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Column, Row } from 'simple-flexbox';
 
@@ -73,7 +73,8 @@ class EnterGame extends Component {
             newParticipant: [],
             participantSetID: [],
             participantSetName: [],
-            Limit: ''
+            Limit: '',
+            show: false
         };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
@@ -81,6 +82,8 @@ class EnterGame extends Component {
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.submitButton = this.submitButton.bind(this);
         this.checkDuplicates = this.checkDuplicates.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
         /**
          * A semi-generic way to handle multiple lists. Matches
          * the IDs of the droppable container to the names of the
@@ -130,26 +133,11 @@ class EnterGame extends Component {
 
     getAll() {
         let tempCompItem = sessionStorage.getItem("compItem");
-        // console.log(sessionStorage.participant);
         // eslint-disable-next-line
         this.state.allCompItem = JSON.parse(tempCompItem);
-        /*   const setComp = JSON.parse(tempCompItem);
-  this.state.items = setComp.map((k,i) => ({
-      id: `${k}`,
-      content: setComp[i]
-  }))*/
-
-        /*  let tempParticipant = sessionStorage.getItem("participant");
-          console.log(tempParticipant)
-          const setP = JSON.parse(tempParticipant);
-          this.state.allParticipant = JSON.parse(tempParticipant);*/
-
         let tempParticipantID = sessionStorage.getItem("participantSetID");
-        /*console.log(tempParticipantID)*/
         const setPID = JSON.parse(tempParticipantID);
-
         let tempParticipantName = sessionStorage.getItem("participantSetName");
-        // console.log(tempParticipantName)
         const setPName = JSON.parse(tempParticipantName);
         // eslint-disable-next-line
         this.state.selected = setPID.map((k, i) => ({
@@ -195,6 +183,7 @@ class EnterGame extends Component {
     }
 
     submitButton() {
+        this.setState({ show: false });
         if (this.state.compItemName === null ||
             this.state.items === null ||
             this.state.compItemName === undefined ||
@@ -302,7 +291,27 @@ class EnterGame extends Component {
         return checker;
     }
 
+    handleDismiss() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
+
     render() {
+        if (this.state.show) {
+            return (
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>Are you adding a participant to a game?</h4>
+                    <p>
+                        <Button bsStyle="danger" onClick={() => this.submitButton()}>Confirm</Button>
+                        <span> or </span>
+                        <Button onClick={this.handleDismiss}>Cancel</Button>
+                    </p>
+                </Alert>
+            )
+        }
         return (
             <div>
 
@@ -321,7 +330,7 @@ class EnterGame extends Component {
 
                         <Row horizontal='center'>
                             <Column>
-                                <Button bsStyle="danger" onClick={() => this.submitButton()} >Submit</Button>
+                                <Button bsStyle="danger" onClick={() => this.handleShow()} >Submit</Button>
                             </Column>
                         </Row>
 

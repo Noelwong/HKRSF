@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
+import { Alert, Button } from 'react-bootstrap';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -19,12 +20,15 @@ class AddParticipant extends Component {
             schoolName: '',
             ID: '',
             Limit: '',
-            Gender: ''
+            Gender: '',
+            show: false
         }
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getCompItem();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
     }
 
     date(date) {
@@ -85,7 +89,7 @@ class AddParticipant extends Component {
             activate:false,
             Gender: this.state.Gender,
         });
-
+        this.setState({ show: false });
     }
 
     createParticipant() {
@@ -139,8 +143,30 @@ class AddParticipant extends Component {
         </div>;
         return Participant1;
     }
+    handleDismiss() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
 
     render() {
+        if (this.state.show) {
+            return (
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>You are adding a new participant!</h4>
+                    <p>中文姓名:{this.state.CName}<span>  </span>EName: {this.state.EName}</p>
+                    <p>BDate: {Date(this.state.BDate)}<span>  </span>schoolName: {this.state.schoolName}</p>
+                    <p>ID: {this.state.ID}<span>  </span>Gender: {this.state.Gender}</p>
+                    <p>
+                        <Button bsStyle="danger" onClick={() => this.addParticipant(this.state)}>Confirm</Button>
+                        <span> or </span>
+                        <Button onClick={this.handleDismiss}>Cancel</Button>
+                    </p>
+                </Alert>
+            )
+        }
         return (
             <div className="row centered-form">
                 <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
@@ -151,7 +177,7 @@ class AddParticipant extends Component {
                             <button
                                 className="btn btn-success"
                                 type="button"
-                                onClick={() => this.addParticipant(this.state)}
+                                onClick={() => this.handleShow()}
                             >
                                 Submit
                     </button>
