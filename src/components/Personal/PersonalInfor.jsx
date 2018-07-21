@@ -148,8 +148,8 @@ class PersonalInfor extends Component {
                 Gender 
                 <select id = "gender" value={this.state.gender} onChange={this.genderHandleChange.bind(this)} >
                     <option value ="">Please Select Your School type</option>
-                    <option value ="male">男Male</option>
-                    <option value="female">女Female</option>
+                    <option value ="Male">男Male</option>
+                    <option value="Female">女Female</option>
                 </select>
                 <br/>
                 出生日期<br/>

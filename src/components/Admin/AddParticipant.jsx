@@ -121,8 +121,8 @@ class AddParticipant extends Component {
             Gender:
             <select value={this.state.Gender} onChange={this.handleChange} >
                 <option value="">Please Select!</option>
-                <option value="male">男 Male</option>
-                <option value="female">女 Female</option>
+                <option value="Male">男 Male</option>
+                <option value="Female">女 Female</option>
             </select>
             <br/>
             學校名稱: <br />
