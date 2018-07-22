@@ -9,7 +9,6 @@ class ShowParticipant extends Component {
             compItem: [],
             compItemDetail: [],
             participant: [],
-            partID: [],
             selectedComp: '',
             selectedPartID: ''
         }
@@ -26,7 +25,6 @@ class ShowParticipant extends Component {
         var tempCompItem = [];
         this.Ref.where("numOfPeople", "==", "個人Personal").get().then(snapshot => {
             snapshot.forEach(doc => {
-                var tempCompItemDetail = [];
                 var tempName = []
                 const compItem = doc.id
                 tempCompItem.push(compItem);
@@ -35,13 +33,13 @@ class ShowParticipant extends Component {
                         
                         const partID = doc.id
                         const participant = doc.data().ParticipantName
-                        tempName.push(participant)
+                        var dataSet = {[partID]: participant}
+                        tempName.push(JSON.stringify(dataSet))
 
                     })
 
                 })
-                tempCompItemDetail.push(tempName)
-                this.state.compItemDetail.push(tempCompItemDetail)
+                this.state.compItemDetail.push(tempName)
                 
             })
             console.log(this.state.compItemDetail)
@@ -50,8 +48,7 @@ class ShowParticipant extends Component {
     }
 
     render() {
-        console.log("Name" + this.state.compItemDetail)
-        console.log("ID" + this.state.partID)
+        console.log(this.state.compItemDetail)
         return (
             <div>
                 {this.state.compItem.map((topic, index) =>
@@ -59,10 +56,9 @@ class ShowParticipant extends Component {
                         <ListGroupItem key={topic}  >{topic}</ListGroupItem>
                         
                         <ListGroupItem>{this.state.compItemDetail[index].map((name, i) =>
-                            name.map((PName, j) =>
-                            <Button key={j}>{PName}</Button>
+                            <Button key={i}>{name}</Button>
                         )
-                        )
+
 
                         }</ListGroupItem>
                     </ListGroup>
