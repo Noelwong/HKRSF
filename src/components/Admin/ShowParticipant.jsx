@@ -42,8 +42,9 @@ class ShowParticipant extends Component {
                 })
                 tempCompItemDetail.push(tempName)
                 this.state.compItemDetail.push(tempCompItemDetail)
+                
             })
-
+            console.log(this.state.compItemDetail)
             this.setState({ compItem: tempCompItem })
         })
     }
@@ -56,9 +57,13 @@ class ShowParticipant extends Component {
                 {this.state.compItem.map((topic, index) =>
                     <ListGroup key={topic} style={{ width: '30%' }}>
                         <ListGroupItem key={topic}  >{topic}</ListGroupItem>
+                        
                         <ListGroupItem>{this.state.compItemDetail[index].map((name, i) =>
-                            <Button key={name}>{name}</Button>
+                            name.map((PName, j) =>
+                            <Button key={j}>{PName}</Button>
                         )
+                        )
+
                         }</ListGroupItem>
                     </ListGroup>
                 )}
