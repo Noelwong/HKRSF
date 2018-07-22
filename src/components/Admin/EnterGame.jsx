@@ -145,8 +145,6 @@ class EnterGame extends Component {
             content: setPName[i]
         }))
 
-
-
     }
 
     handleSelectParticipant(topic) {
@@ -281,10 +279,10 @@ class EnterGame extends Component {
 
 
     checkDuplicates (tempArray, tempAddItems){
-        var checker = false;
+        let checker = false;
         tempArray.forEach(function (value) {
             if (value === tempAddItems) {
-                console.log("found Duplicates")
+                console.log("found Duplicates");
                 checker = true;
             }
         });
