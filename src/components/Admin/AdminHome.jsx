@@ -36,6 +36,7 @@ class AdminHome extends Component {
 
 
 
+
     selectShowContent = (showContent) => {
         if (showContent != null) {
             if (showContent === 'FormatSetting') {
@@ -49,7 +50,7 @@ class AdminHome extends Component {
                 return (<ShowComp />)
             }
         }
-    }
+    };
 
     render() {
         return (

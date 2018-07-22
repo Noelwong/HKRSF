@@ -10,6 +10,7 @@ import SetPriority from './SetPriority';
 import EnterGame from './EnterGame';
 import DeleteCompItem from './DeleteCompItem';
 import ShowPart from './ShowParticipant';
+import Score from './ShowScore';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -18,27 +19,27 @@ class CompetitionIndex extends Component {
             showContent: '',
             participantSetID :[],
             participantSetName : []
-        }
+        };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
     }
 
     getAll(){
         this.Ref.collection('competitionItem').onSnapshot(coll => {
-            const compItem = coll.docs.map(doc => doc.id)
+            const compItem = coll.docs.map(doc => doc.id);
             // eslint-disable-next-line
             sessionStorage.setItem("compItem", JSON.stringify(compItem));
 
-        })
+        });
 
         this.Ref.collection('participant').onSnapshot(coll => {
-            const participant = coll.docs.map(doc => doc.data().CName)
+            const participant = coll.docs.map(doc => doc.data().CName);
             // eslint-disable-next-line
             sessionStorage.setItem("participant", JSON.stringify(participant));
 
-    })
-        var localparticipantSetID = [];
-        var localparticipantSetName = [];
+    });
+        let localparticipantSetID = [];
+        let localparticipantSetName = [];
         this.Ref.collection('participant').get()
             .then(onSnapshot => {
                     onSnapshot.forEach(doc => {
@@ -47,7 +48,7 @@ class CompetitionIndex extends Component {
 
                     })
                 }
-            )
+            );
         // eslint-disable-next-line
         this.state.participantSetID = localparticipantSetID ;
         // eslint-disable-next-line
@@ -73,16 +74,18 @@ class CompetitionIndex extends Component {
                 return (<DeleteCompItem />)
             }else if (showContent === 'showPart') {
                 return (<ShowPart />)
+            }else if (showContent ==='Score') {
+                return (<Score />)
             }
         }
-    }
+    };
 
     handleShow() {
-        this.setState({ showContent: 'show' })
+        this.setState({ showContent: 'show' });
         sessionStorage.setItem("participantSetID", JSON.stringify(this.state.participantSetID));
         sessionStorage.setItem("participantSetName", JSON.stringify( this.state.participantSetName));
-        console.log(sessionStorage.participantSetID)
-        console.log(sessionStorage.participantSetName)
+        console.log(sessionStorage.participantSetID);
+        console.log(sessionStorage.participantSetName);
     }
 
     handleChangeScheduling(){
@@ -108,6 +111,12 @@ class CompetitionIndex extends Component {
     handleShowPart() {
         this.setState({ showContent: 'showPart' })
     }
+
+    handleShowScore() {
+        this.setState({ showContent: 'Score' })
+    }
+
+
     render() {
         return (
                 <div>
@@ -138,7 +147,11 @@ class CompetitionIndex extends Component {
                      </NavItem>    
                      <NavItem eventKey={7} onClick={() => this.handleShowPart()}>
                         try
-                     </NavItem> 
+                    </NavItem>
+                        <NavItem eventKey={8} onClick={() => this.handleShowScore()}>
+                            Show Score
+                        </NavItem>
+
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={6} onClick={() => this.signOut()}>

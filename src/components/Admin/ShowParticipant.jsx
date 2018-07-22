@@ -57,7 +57,7 @@ class ShowParticipant extends Component {
                         <ListGroupItem key={topic}  >{topic}</ListGroupItem>
                         
                         <ListGroupItem>{this.state.compItemDetail[index].map((name, i) =>
-                            <Button key={i}>{JSON.parse(name).participant}</Button>
+                            <Button key={JSON.parse(name).participant}>{JSON.parse(name).participant}</Button>
                         )
 
 

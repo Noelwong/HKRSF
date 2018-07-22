@@ -16,7 +16,7 @@ class CompetitionIndex extends Component {
             showContent: '',
             participantSetID :[],
             participantSetName : []
-        }
+        };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
     }
@@ -27,7 +27,7 @@ class CompetitionIndex extends Component {
             // eslint-disable-next-line
             sessionStorage.setItem("compItem", JSON.stringify(compItem));
 
-        })
+        });
 
         this.Ref.collection('participant').onSnapshot(coll => {
             const participant = coll.docs.map(doc => doc.data().CName);
