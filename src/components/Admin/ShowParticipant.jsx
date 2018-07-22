@@ -11,7 +11,7 @@ class ShowParticipant extends Component {
             participant: [],
             selectedComp: '',
             selectedPartID: ''
-        }
+        };
         this.Ref = db.collection('competition').doc(sessionStorage.compID).collection('competitionItem');
         this.getAll();
         this.CompItemHandleChange = this.CompItemHandleChange.bind(this);
@@ -22,33 +22,34 @@ class ShowParticipant extends Component {
     }
 
     getAll() {
-        var tempCompItem = [];
+        let tempCompItem = [];
         this.Ref.where("numOfPeople", "==", "個人Personal").get().then(snapshot => {
             snapshot.forEach(doc => {
-                var tempName = []
-                const compItem = doc.id
+                let tempName = [];
+                const compItem = doc.id;
                 tempCompItem.push(compItem);
                 this.Ref.doc(compItem).collection("participantCollection").get().then(snapshot => {
                     snapshot.forEach(doc => {
                         
-                        const partID = doc.id
-                        const participant = doc.data().ParticipantName
-                        var dataSet = {[partID]: participant}
+                        const partID = doc.id;
+                        const participant = doc.data().ParticipantName;
+                        let dataSet = {partID:partID,
+                            participant:participant};
                         tempName.push(JSON.stringify(dataSet))
 
                     })
 
-                })
+                });
                 this.state.compItemDetail.push(tempName)
                 
-            })
-            console.log(this.state.compItemDetail)
+            });
+            console.log(this.state.compItemDetail);
             this.setState({ compItem: tempCompItem })
         })
     }
 
     render() {
-        console.log(this.state.compItemDetail)
+        console.log(this.state.compItemDetail);
         return (
             <div>
                 {this.state.compItem.map((topic, index) =>
@@ -56,7 +57,7 @@ class ShowParticipant extends Component {
                         <ListGroupItem key={topic}  >{topic}</ListGroupItem>
                         
                         <ListGroupItem>{this.state.compItemDetail[index].map((name, i) =>
-                            <Button key={i}>{name}</Button>
+                            <Button key={i}>{JSON.parse(name).participant}</Button>
                         )
 
 
