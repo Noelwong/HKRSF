@@ -9,6 +9,7 @@ import AddParticipant from './AddParticipant';
 import SetPriority from './SetPriority';
 import EnterGame from './EnterGame';
 import DeleteCompItem from './DeleteCompItem';
+import ShowPart from './ShowParticipant';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -70,6 +71,8 @@ class CompetitionIndex extends Component {
                 return (<EnterGame />)
             }else if (showContent === 'DecCompItem') {
                 return (<DeleteCompItem />)
+            }else if (showContent === 'showPart') {
+                return (<ShowPart />)
             }
         }
     }
@@ -102,6 +105,9 @@ class CompetitionIndex extends Component {
         this.setState({ showContent: 'FormatSetting' })
     }
   
+    handleShowPart() {
+        this.setState({ showContent: 'showPart' })
+    }
     render() {
         return (
                 <div>
@@ -128,8 +134,11 @@ class CompetitionIndex extends Component {
                             scheduling
                      </NavItem>    
                      <NavItem eventKey={5} onClick={() => this.handleShow()}>
+                        Add player
+                     </NavItem>    
+                     <NavItem eventKey={7} onClick={() => this.handleShowPart()}>
                         try
-                     </NavItem>     
+                     </NavItem> 
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={6} onClick={() => this.signOut()}>
