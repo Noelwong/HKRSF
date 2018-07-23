@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { Column, Row } from 'simple-flexbox';
 
 
@@ -18,10 +18,13 @@ class ShowScore extends Component {
             participantSetID: [],
             participantSetName: [],
             Limit: '',
-            show: false
+            show: false,
+            ArrayOfParticipantInItem:[],
+            marks:''
         };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.handleSelectComp = this.handleSelectComp.bind(this);
+        this.handleShowScore = this.handleShowScore.bind(this);
         this.getAll();
     }
 
@@ -38,6 +41,91 @@ class ShowScore extends Component {
         //     id: setPID[i],
         //     content: setPName[i]
         // }))
+        let ArrayOfParticipantInItem =[];
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
+            coll.forEach(doc=>{
+                let tempArrayOfParticipantInItem = [];
+                db.collection('competition').doc(sessionStorage.compID).collection('participant').onSnapshot(coll2 =>{
+                    coll2.forEach(doc2 =>{
+                        const tempUserCompetitionItem =doc2.data().user_CompetitionItem;
+                            for (let i = 0; i < tempUserCompetitionItem.length;i++){
+                                if(tempUserCompetitionItem[i]===doc.id){
+                                    tempArrayOfParticipantInItem.push(doc2.data().CName);
+                                    // console.log(doc2.data().CName);
+                                    // console.log(doc.id);
+                                    // console.log(tempUserCompetitionItem[i]);
+                                    // console.log(ArrayOfParticipantInItem);
+                                }
+
+                        }
+                        // ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem)
+                    })
+                });
+                if(tempArrayOfParticipantInItem[0] === null){
+                    ArrayOfParticipantInItem.push("No Participant");
+                } else{
+                ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem);
+                }
+                // console.log(doc.id);
+            });
+            this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
+            console.log(this.state.ArrayOfParticipantInItem);
+            // console.log(ArrayOfParticipantInItem);
+        })
+
+
+        //Sorting
+
+        let tempMarks = 0;
+        let tempMarkSet ={};
+        // this.Ref.collection('competitionItem').
+        // doc(this.state.allCompItem[index]).
+        // collection('participantCollection').
+        // // where("ParticipantName","==",name).
+        // get().
+        // then(snapshot =>{
+        //     snapshot.forEach(doc =>{
+        //         tempMarks =doc.data().TotalMark;
+        //         alert("In Competiton : "+
+        //             this.state.allCompItem[index] +
+        //             "  Participant: " +
+        //             name +
+        //             "\n GET  " +
+        //             " " +
+        //             doc.data().TotalMark +
+        //             " Marks");
+        //         console.log(doc.data().TotalMark);
+        //
+        //         const pMarks = {
+        //             [name]:doc.data().TotalMark
+        //         }
+        //
+        //         tempMarkSet[doc.data().ParticipantName] = doc.data().TotalMark;
+        //     })
+        //
+        //     let sortTable =[];
+        //     for ( let pName in tempMarkSet){
+        //         sortTable.push([pName,tempMarkSet[pName]]);
+        //     }
+        //     sortTable.sort(function(a, b) {
+        //         return b[1] - a[1];
+        //     });
+        //
+        //     console.log(tempMarkSet);
+        //     console.log(sortTable);
+        // })
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -70,6 +158,35 @@ class ShowScore extends Component {
         this.setState({ compItemName: topic });
         this.getCompLimit(topic);
     }
+
+    handleShowScore(name, index){
+        let tempMarks = 0;
+
+        this.Ref.collection('competitionItem').
+        doc(this.state.allCompItem[index]).
+        collection('participantCollection').
+        where("ParticipantName","==",name).
+        get().
+        then(snapshot =>{
+            snapshot.forEach(doc =>{
+                tempMarks =doc.data().TotalMark;
+                alert("In Competiton : "+
+                    this.state.allCompItem[index] +
+                    "  Participant: " +
+                    name +
+                    "\n GET  " +
+                    " " +
+                    doc.data().TotalMark +
+                    " Marks");
+                console.log(doc.data().TotalMark);
+
+            });
+
+        })
+
+    }
+
+
     render(){
 
         return(
@@ -82,20 +199,28 @@ class ShowScore extends Component {
                     </Row>
 
                     <Row horizontal='center'>
-                        <h2>{this.state.compItemName}</h2>
+                        <h2>{this.state.marks}</h2>
 
                     </Row>
                     <Row >
+
+
                         <Column flexGrow={0} horizontal='center'>
-                            <ListGroup style={{ width: '80%' }} >
-                                {this.state.allCompItem.map((topic, index) =>
-                                    <ListGroupItem key={topic} onClick={() => this.handleSelectComp(topic)}>{topic}</ListGroupItem>
+
+                                {this.state.ArrayOfParticipantInItem.map((topic, index) =>
+                                    <ListGroup key = {"ShowScoreList"+topic} style={{ width: '80%' }} >
+                                        <ListGroupItem key={topic+index}  >{this.state.allCompItem[index]} </ListGroupItem>
+
+                                    <ListGroupItem >
+                                        {topic.map((name,i)=>
+                                        <Button key = {name+this.state.ArrayOfParticipantInItem[index]} onClick={() => this.handleShowScore(name,index)}>{name}</Button>
+                                    )
+                                        }</ListGroupItem>
+                                    </ListGroup>
                                 )}
-                            </ListGroup>
-
-
                         </Column>
                     </Row>
+
 
                 </Column>
 
