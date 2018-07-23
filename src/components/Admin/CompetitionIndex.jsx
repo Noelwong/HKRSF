@@ -19,10 +19,13 @@ class CompetitionIndex extends Component {
         this.state = {
             showContent: '',
             participantSetID :[],
-            participantSetName : []
-        };
+            participantSetName : [],
+            ArrayOfParticipantInItem:[]
+        }
+        ;
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.getAll();
+        sessionStorage.compItemDetail = [];
     }
 
     getAll(){
@@ -37,7 +40,6 @@ class CompetitionIndex extends Component {
             const participant = coll.docs.map(doc => doc.data().CName);
             // eslint-disable-next-line
             sessionStorage.setItem("participant", JSON.stringify(participant));
-
     });
         let localparticipantSetID = [];
         let localparticipantSetName = [];
@@ -46,7 +48,6 @@ class CompetitionIndex extends Component {
                     onSnapshot.forEach(doc => {
                         localparticipantSetID.push(doc.id);
                         localparticipantSetName.push(doc.data().CName);
-
                     })
                 }
             );
@@ -54,6 +55,38 @@ class CompetitionIndex extends Component {
         this.state.participantSetID = localparticipantSetID ;
         // eslint-disable-next-line
         this.state.participantSetName = localparticipantSetName ;
+
+        let ArrayOfParticipantInItem =[];
+        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
+            coll.forEach(doc=>{
+                let tempArrayOfParticipantInItem = [];
+                db.collection('competition').doc(sessionStorage.compID).collection('participant').onSnapshot(coll2 =>{
+                    coll2.forEach(doc2 =>{
+                        const tempUserCompetitionItem =doc2.data().user_CompetitionItem;
+                        for (let i = 0; i < tempUserCompetitionItem.length;i++){
+                            if(tempUserCompetitionItem[i]===doc.id){
+                                tempArrayOfParticipantInItem.push(doc2.data().CName);
+                            }
+                        }
+                    })
+                });
+                if(tempArrayOfParticipantInItem[0] === null){
+                    ArrayOfParticipantInItem.push("No Participant");
+                } else{
+                    ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem);
+                }
+            });
+            // console.log(ArrayOfParticipantInItem);
+            // console.log(this.state.ArrayOfParticipantInItem);
+            // return ArrayOfParticipantInItem;
+            this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
+
+            console.log(sessionStorage.ArrayOfParticipantInItem)
+        });
+
+        sessionStorage.setItem("ArrayOfParticipantInItem", JSON.stringify(this.state.ArrayOfParticipantInItem));
+
+
     }
 
 

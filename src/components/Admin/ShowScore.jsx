@@ -4,6 +4,18 @@ import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { Column, Row } from 'simple-flexbox';
 
 
+const getItemIndb =()=>{
+    let tempCompItem = sessionStorage.getItem("compItem");
+    return  JSON.parse(tempCompItem);
+};
+
+const testAll =()=>{
+    let tempAll = sessionStorage.getItem("ArrayOfParticipantInItem");
+    return JSON.parse(tempAll);
+
+};
+
+
 class ShowScore extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +23,7 @@ class ShowScore extends Component {
             participantName: '',
             compItemName: '',
             allParticipant: [],
-            allCompItem: [],
+            allCompItem: getItemIndb(),
             items: [],
             selected: [],
             newParticipant: [],
@@ -19,57 +31,54 @@ class ShowScore extends Component {
             participantSetName: [],
             Limit: '',
             show: false,
-            ArrayOfParticipantInItem:[],
-            marks:''
+            ArrayOfParticipantInItem: testAll(),
+            marks:'',
+            render: false
         };
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
+
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.handleShowScore = this.handleShowScore.bind(this);
         this.showRanking = this.showRanking.bind(this);
-        this.getAll();
-    }
-
-    getAll() {
-        let tempCompItem = sessionStorage.getItem("compItem");
-        // eslint-disable-next-line
-        this.state.allCompItem = JSON.parse(tempCompItem);
-
-        let ArrayOfParticipantInItem =[];
-        db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
-            coll.forEach(doc=>{
-                let tempArrayOfParticipantInItem = [];
-                db.collection('competition').doc(sessionStorage.compID).collection('participant').onSnapshot(coll2 =>{
-                    coll2.forEach(doc2 =>{
-                        const tempUserCompetitionItem =doc2.data().user_CompetitionItem;
-                            for (let i = 0; i < tempUserCompetitionItem.length;i++){
-                                if(tempUserCompetitionItem[i]===doc.id){
-                                    tempArrayOfParticipantInItem.push(doc2.data().CName);
-                                    // console.log(doc2.data().CName);
-                                    // console.log(doc.id);
-                                    // console.log(tempUserCompetitionItem[i]);
-                                    // console.log(ArrayOfParticipantInItem);
-                                }
-
-                        }
-                        // ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem)
-                    })
-                });
-                if(tempArrayOfParticipantInItem[0] === null){
-                    ArrayOfParticipantInItem.push("No Participant");
-                } else{
-                ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem);
-                }
-                // console.log(doc.id);
-            });
-            this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
-            console.log(this.state.ArrayOfParticipantInItem);
-            // console.log(ArrayOfParticipantInItem);
-        });
-
-
 
     }
 
+
+    //  getAll (){
+    //
+    //     let ArrayOfParticipantInItem =[];
+    //     db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
+    //         coll.forEach(doc=>{
+    //             let tempArrayOfParticipantInItem = [];
+    //             db.collection('competition').doc(sessionStorage.compID).collection('participant').onSnapshot(coll2 =>{
+    //                 coll2.forEach(doc2 =>{
+    //                     const tempUserCompetitionItem =doc2.data().user_CompetitionItem;
+    //                     for (let i = 0; i < tempUserCompetitionItem.length;i++){
+    //                         if(tempUserCompetitionItem[i]===doc.id){
+    //                             tempArrayOfParticipantInItem.push(doc2.data().CName);
+    //                             // console.log(doc2.data().CName);
+    //                             // console.log(doc.id);
+    //                             // console.log(tempUserCompetitionItem[i]);
+    //                             // console.log(ArrayOfParticipantInItem);
+    //                         }
+    //
+    //                     }
+    //                 })
+    //             });
+    //             if(tempArrayOfParticipantInItem[0] === null){
+    //                 ArrayOfParticipantInItem.push("No Participant");
+    //             } else{
+    //                 ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem);
+    //             }
+    //         });
+    //         // console.log(ArrayOfParticipantInItem);
+    //         // console.log(this.state.ArrayOfParticipantInItem);
+    //         // return ArrayOfParticipantInItem;
+    //         this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
+    //         console.log(this.state.ArrayOfParticipantInItem);
+    //     });
+    //
+    // };
 
     getCompLimit(selectedcompItem) {
         console.log(selectedcompItem);
@@ -101,13 +110,10 @@ class ShowScore extends Component {
     }
 
     handleShowScore(name, index){
-        let tempMarks = 0;
         let tempMarkSet ={};
         this.Ref.collection('competitionItem').doc(this.state.allCompItem[index]).collection('participantCollection').where("ParticipantName","==",name).get().then(
             snapshot =>{
             snapshot.forEach(doc =>{
-                tempMarks =doc.data().TotalMark;
-
                 if(doc.data().TotalMark === undefined) {
                     alert("This participant haven't finish the item");
                     }
@@ -166,7 +172,7 @@ class ShowScore extends Component {
                 newPScore.push(temp[1]);
             }
 
-            if(newPScore[0] && newPScore[1] && newPScore[0] !== undefined || null) {
+            if(newPScore[0] && newPScore[1] && newPScore[0] !==undefined) {
                 alert("In " + this.state.allCompItem[index] + "\n\n" +
                     "The winner is : " + newPName[0] + " Score : " + newPScore[0] + "\n" +
                     "The second place is : " + newPName[1] + " Score : " + newPScore[1] + "\n" +
@@ -183,28 +189,29 @@ class ShowScore extends Component {
 
 
 
-
     render(){
 
         return(
+
             <div>
                 <Column flexGrow={1}>
                     <Row horizontal='center'>
+
                         <Column>
 
-                            <h4> Show All Competitions and Athletes</h4>
-
+                            <h3>Click on items to Show ranking, Click on athlete to show the Score</h3>
                         </Column>
+
                     </Row>
 
                     <Row >
 
+
                         <Column flexGrow={0} horizontal='center'>
 
                                 {this.state.ArrayOfParticipantInItem.map((topic, index) =>
-                                    <ListGroup key = {"ShowScoreList"+topic} style={{ width: '80%' }} >
-                                        <ListGroupItem key={topic+index} onClick={()=>this.showRanking(index)} >{this.state.allCompItem[index]} </ListGroupItem>
-
+                                    <ListGroup key = {"ShowScoreList"+index} style={{ width: '80%' }} >
+                                        <ListGroupItem key={topic[index]+index} onClick={()=>this.showRanking(index)} >{this.state.allCompItem[index]} </ListGroupItem>
                                     <ListGroupItem >
                                         {topic.map((name,i)=>
                                         <Button key = {name+this.state.ArrayOfParticipantInItem[index]+name} onClick={() => this.handleShowScore(name,index)}>{name}</Button>
@@ -214,11 +221,9 @@ class ShowScore extends Component {
                                 )}
                         </Column>
                     </Row>
-
-
                 </Column>
-
             </div>
+
         )
     }
 
