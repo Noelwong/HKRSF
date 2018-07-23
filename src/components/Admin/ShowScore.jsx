@@ -25,11 +25,10 @@ class ShowScore extends Component {
         this.Ref = db.collection('competition').doc(sessionStorage.compID);
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.handleShowScore = this.handleShowScore.bind(this);
-        this.sortButton = this.sortButton.bind(this);
-        this.reloadB = this.reloadB.bind(this);
+        this.showRanking = this.showRanking.bind(this);
         this.getAll();
     }
-    
+
     getAll() {
         let tempCompItem = sessionStorage.getItem("compItem");
         // eslint-disable-next-line
@@ -104,22 +103,25 @@ class ShowScore extends Component {
     handleShowScore(name, index){
         let tempMarks = 0;
         let tempMarkSet ={};
-        this.Ref.collection('competitionItem').
-        doc(this.state.allCompItem[index]).
-        collection('participantCollection').
-        where("ParticipantName","==",name).
-        get().
-        then(snapshot =>{
+        this.Ref.collection('competitionItem').doc(this.state.allCompItem[index]).collection('participantCollection').where("ParticipantName","==",name).get().then(
+            snapshot =>{
             snapshot.forEach(doc =>{
                 tempMarks =doc.data().TotalMark;
-                alert("In Competiton : "+
-                    this.state.allCompItem[index] +
-                    "  Participant: " +
-                    name +
-                    "\n GET  " +
-                    " " +
-                    doc.data().TotalMark +
-                    " Marks");
+
+                if(doc.data().TotalMark === undefined) {
+                    alert("This participant haven't finish the item");
+                    }
+                    else {
+                    alert("In Competiton : "+
+                        this.state.allCompItem[index] +
+                        "  Participant: " +
+                        name +
+                        "\n GET  " +
+                        " " +
+                        doc.data().TotalMark +
+                        " Marks");
+
+                }
                 console.log(doc.data().TotalMark);
                 tempMarkSet[doc.data().ParticipantName] = doc.data().TotalMark;
             });
@@ -139,21 +141,15 @@ class ShowScore extends Component {
 
     }
 
-    sortButton(index){
+    showRanking(index){
         let tempMarks = 0;
         let tempMarkSet ={};
-        this.Ref.collection('competitionItem').
-        doc(this.state.allCompItem[0]).
-        collection('participantCollection').
-        //where("ParticipantName","==",name).
-        get().
-        then(snapshot =>{
+        this.Ref.collection('competitionItem').doc(this.state.allCompItem[index]).collection('participantCollection').get().then(snapshot =>{
             snapshot.forEach(doc =>{
                 tempMarks =doc.data().TotalMark;
                 console.log(doc.data().TotalMark);
                 tempMarkSet[doc.data().ParticipantName] = doc.data().TotalMark;
             });
-
             let sortTable =[];
             for ( let pName in tempMarkSet){
                 sortTable.push([pName,tempMarkSet[pName]]);
@@ -162,7 +158,23 @@ class ShowScore extends Component {
                 return b[1] - a[1];
             });
 
-            console.log(tempMarkSet);
+            let newPName =[] ;
+            let newPScore = [] ;
+            for (let i =0; i<sortTable.length;i++){
+                let temp =sortTable[i];
+                newPName.push(temp[0]);
+                newPScore.push(temp[1]);
+            }
+
+            if(newPScore[0] && newPScore[1] && newPScore[0] !== undefined || null) {
+                alert("In " + this.state.allCompItem[index] + "\n\n" +
+                    "The winner is : " + newPName[0] + " Score : " + newPScore[0] + "\n" +
+                    "The second place is : " + newPName[1] + " Score : " + newPScore[1] + "\n" +
+                    "The third place : " + newPName[2] + " Score : " + newPScore[2] + "\n"
+                );
+            }else {
+                alert("The Competition haven't finish")
+            }
             console.log(sortTable);
         })
 
@@ -170,10 +182,7 @@ class ShowScore extends Component {
     }
 
 
-    reloadB(){
 
-        window.location.reload();
-    }
 
     render(){
 
@@ -194,7 +203,7 @@ class ShowScore extends Component {
 
                                 {this.state.ArrayOfParticipantInItem.map((topic, index) =>
                                     <ListGroup key = {"ShowScoreList"+topic} style={{ width: '80%' }} >
-                                        <ListGroupItem key={topic+index}  >{this.state.allCompItem[index]} </ListGroupItem>
+                                        <ListGroupItem key={topic+index} onClick={()=>this.showRanking(index)} >{this.state.allCompItem[index]} </ListGroupItem>
 
                                     <ListGroupItem >
                                         {topic.map((name,i)=>

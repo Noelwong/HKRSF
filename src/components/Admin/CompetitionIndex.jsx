@@ -151,7 +151,7 @@ class CompetitionIndex extends Component {
                             scheduling
                      </NavItem>     
                      <NavItem eventKey={5} onClick={() => this.handleTry()}>
-                        try
+                         Generate QRcode
                     </NavItem>
                         <NavItem eventKey={8} onClick={() => this.handleShowScore()}>
                             Show Score
