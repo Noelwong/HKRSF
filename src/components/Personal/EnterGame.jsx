@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { db } from '../../firebase';
+import {db, firebaseApp} from '../../firebase';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
@@ -24,40 +24,7 @@ const reorder = (list, startIndex, endIndex) => {
 /**
  * Moves an item from one list to another list.
  */
-const move = (source, destination, droppableSource, droppableDestination) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const [removed] = sourceClone.splice(droppableSource.index, 1);
 
-    destClone.splice(droppableDestination.index, 0, removed);
-
-    const result = {};
-    result[droppableSource.droppableId] = sourceClone;
-    result[droppableDestination.droppableId] = destClone;
-
-    return result;
-};
-
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
-    padding: grid * 2,
-    margin: "4px",
-    // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
-    // styles we need to apply on draggables
-    ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding: grid,
-    width: 455
-});
 
 
 class EnterGame extends Component {
@@ -69,7 +36,7 @@ class EnterGame extends Component {
             allParticipant: [],
             allCompItem: [],
             items: [],
-            selected: getItems(5, 10),
+            // selected: [],
             newParticipant: [],
             participantSetID: [],
             participantSetName: [],
@@ -81,51 +48,9 @@ class EnterGame extends Component {
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.submitButton = this.submitButton.bind(this);
         this.checkDuplicates = this.checkDuplicates.bind(this);
-        /**
-         * A semi-generic way to handle multiple lists. Matches
-         * the IDs of the droppable container to the names of the
-         * source arrays stored in the state.
-         */
-        this.id2List = {
-            droppable: 'items',
-            droppable2: 'selected'
-        };
 
-        this.getList = id => this.state[this.id2List[id]];
 
-        this.onDragEnd = result => {
-            const { source, destination } = result;
-            // dropped outside the list
-            if (!destination) {
-                return;
-            }
 
-            if (source.droppableId === destination.droppableId) {
-                const items = reorder(
-                    this.getList(source.droppableId),
-                    source.index,
-                    destination.index
-                );
-
-                let state = { items };
-
-                if (source.droppableId === 'droppable2') {
-                    state = { selected: items };
-                }
-                this.setState(state);
-            } else {
-                const result = move(
-                    this.getList(source.droppableId),
-                    this.getList(destination.droppableId),
-                    source,
-                    destination
-                );
-                this.setState({
-                    items: result.droppable,
-                    selected: result.droppable2,
-                });
-            }
-        }
     };
 
     getAll() {
@@ -134,10 +59,19 @@ class EnterGame extends Component {
         // eslint-disable-next-line
         this.state.allCompItem = JSON.parse(tempCompItem);
         /*   const setComp = JSON.parse(tempCompItem);
-  this.state.items = setComp.map((k,i) => ({
+        this.state.items = setComp.map((k,i) => ({
       id: `${k}`,
       content: setComp[i]
   }))*/
+
+        db.collection('competition').doc(sessionStorage.compID).collection('participant').where("uid","==", firebaseApp.auth().currentUser.uid).get().then(snapshot=>{
+           snapshot.forEach(doc =>{
+               this.state.items.id= doc.id;
+               this.state.items.content =doc.data().CName;
+               console.log(this.state.items);
+           })
+        });
+
 
         /*  let tempParticipant = sessionStorage.getItem("participant");
           console.log(tempParticipant)
@@ -197,8 +131,7 @@ class EnterGame extends Component {
             this.state.items === null ||
             this.state.compItemName === undefined ||
             this.state.items === undefined ||
-            this.state.compItemName === '' ||
-            this.state.items.length === 0)  /*  confirm have data  */{
+            this.state.compItemName === '' )  /*  confirm have data  */{
             alert("Have not select Competition item or Participants")
         } else {
             const selectedParticipant = this.state.items;
@@ -206,86 +139,72 @@ class EnterGame extends Component {
             const numOfmember = this.state.Limit;
             const checkDuplicatesFunction = this.checkDuplicates;
             let i ;
-            if(numOfmember === 1){
-                for (i = 0; i < selectedParticipant.length; i++) {
-                    const selectedParticipantID = selectedParticipant[i].id;
-                    const selectedParticipantName = selectedParticipant[i].content;
-                    this.Ref.collection('participant').doc(selectedParticipantID).get().then(function (doc) {
-                        let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
-                        // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
-                        if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
-                            tempArrayOfCompetitionItem.push(selectedCompItemName);
-                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipantID).update({
-                                user_CompetitionItem: tempArrayOfCompetitionItem
-                            });
-                            console.log("ADD1");
-                            db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc(selectedParticipantID).set({
-                                ParticipantID: selectedParticipantID,
-                                ParticipantName: selectedParticipantName
-                            })
-                        }
 
-                    })
+            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipant.id).update({
+                user_CompetitionItem: selectedCompItemName
+            });
+
+            db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').doc(selectedParticipant.id).set({
+                ParticipantID: selectedParticipant.id,
+                ParticipantName: selectedParticipant.content
+            })
 
 
-                }
-            }
-            else if (numOfmember !== selectedParticipant.length) {
-                console.log("Please select correct number of people ");
-            }
-            else { //team
-                console.log("Correct");
-                for (i = 0; i < selectedParticipant.length; i++) {
-                    const selectedParticipantID = selectedParticipant[i].id;
-                    // eslint-disable-next-line
-                    this.Ref.collection('participant').doc(selectedParticipantID).get().then(function (doc) {
-                        let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
-                        // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
-                        if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
-                            tempArrayOfCompetitionItem.push(selectedCompItemName);
-                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipantID).update({
-                                user_CompetitionItem: tempArrayOfCompetitionItem
-                            })
-                        }
 
-                        if(i === selectedParticipant.length){
-                            console.log('End');
-                            console.log('L: '+selectedParticipant.length);
-                            console.log('i:' + i);
-                        }else{
-                            console.log(i);
-                        }
 
-                    })
-                }
-
-                db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').add({
-                    teamMember: selectedParticipant
-                }).then(teamCode =>{
-                    console.log(teamCode.id);
-                    let tempTeamCodeArray = {
-                        itemName: selectedCompItemName,
-                        teamCode: teamCode.id
-                    };
-
-                    for (i= 0;i< selectedParticipant.length;i++){
-                        const selectedParticipantID = selectedParticipant[i].id;
-                        this.Ref.collection('participant').doc(selectedParticipantID).get().then(function (doc) {
-                            let tempArrayOfTeamCode = doc.data().teamCode;
-                            tempArrayOfTeamCode.push(tempTeamCodeArray);
-                            db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipantID).update({
-                                teamCode: tempArrayOfTeamCode
-                            })
-                        })
-                    }
-                });
-            }
+            // else { //team
+            //     console.log("Correct");
+            //     for (i = 0; i < selectedParticipant.length; i++) {
+            //         const selectedParticipantID = selectedParticipant[i].id;
+            //         // eslint-disable-next-line
+            //         this.Ref.collection('participant').doc(selectedParticipantID).get().then(function (doc) {
+            //             let tempArrayOfCompetitionItem = doc.data().user_CompetitionItem;
+            //             // console.log(checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName));
+            //             if (!checkDuplicatesFunction(tempArrayOfCompetitionItem, selectedCompItemName)) {
+            //                 tempArrayOfCompetitionItem.push(selectedCompItemName);
+            //                 db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipantID).update({
+            //                     user_CompetitionItem: tempArrayOfCompetitionItem
+            //                 })
+            //             }
+            //
+            //             if(i === selectedParticipant.length){
+            //                 console.log('End');
+            //                 console.log('L: '+selectedParticipant.length);
+            //                 console.log('i:' + i);
+            //             }else{
+            //                 console.log(i);
+            //             }
+            //
+            //         })
+            //     }
+            //
+            //     db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').doc(selectedCompItemName).collection('participantCollection').add({
+            //         teamMember: selectedParticipant
+            //     }).then(teamCode =>{
+            //         console.log(teamCode.id);
+            //         let tempTeamCodeArray = {
+            //             itemName: selectedCompItemName,
+            //             teamCode: teamCode.id
+            //         };
+            //
+            //         for (i= 0;i< selectedParticipant.length;i++){
+            //             const selectedParticipantID = selectedParticipant[i].id;
+            //             this.Ref.collection('participant').doc(selectedParticipantID).get().then(function (doc) {
+            //                 let tempArrayOfTeamCode = doc.data().teamCode;
+            //                 tempArrayOfTeamCode.push(tempTeamCodeArray);
+            //                 db.collection('competition').doc(sessionStorage.compID).collection('participant').doc(selectedParticipantID).update({
+            //                     teamCode: tempArrayOfTeamCode
+            //                 })
+            //             })
+            //         }
+            //     });
+            // }
         }
     }
 
 
     checkDuplicates (tempArray, tempAddItems){
-        var checker = false;
+        let checker = false;
         tempArray.forEach(function (value) {
             if (value === tempAddItems) {
                 console.log("found Duplicates")
@@ -322,98 +241,29 @@ class EnterGame extends Component {
                         <Row horizontal='center'>
                             <h2>{this.state.compItemName}</h2>
 
+
+                        </Row>
+                        <Row horizontal='center'>
+
+                            <h3>{this.state.Limit}</h3>
+
                         </Row>
 
                         <Row horizontal='center'>
                             <Column>
                                 <Button bsStyle="danger" onClick={() => this.submitButton()} >Submit</Button>
                             </Column>
-                        </Row>
 
-                        <Row horizontal='center'>
-                            <Column>
-                                <h4> </h4>
-                            </Column>
-                        </Row>
-
-                        <Row >
                             <Column flexGrow={0} horizontal='center'>
                                 <ListGroup style={{ width: '80%' }} >
                                     {this.state.allCompItem.map((topic, index) =>
                                         <ListGroupItem key={topic} onClick={() => this.handleSelectComp(topic)}>{topic}</ListGroupItem>
                                     )}
                                 </ListGroup>
-
-
-                            </Column>
-
-                            <Column flexGrow={0.5} horizontal='center' >
-
-                                <Droppable droppableId="droppable" >
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}>
-                                            {this.state.items.map((item, index) => (
-                                                <Draggable
-                                                    key={item.id}
-                                                    draggableId={item.id}
-                                                    index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}>
-                                                            {item.content}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-
-                            </Column>
-
-                            <Column flexGrow={0.5} horizontal='center'>
-
-                                <Droppable droppableId="droppable2">
-
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}>
-                                            {this.state.selected.map((item, index) => (
-                                                <Draggable
-                                                    key={item.id}
-                                                    draggableId={item.id}
-                                                    index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}>
-                                                            {item.content}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-
                             </Column>
                         </Row>
+
+
                     </Column>
                 </DragDropContext>
 
