@@ -11,6 +11,7 @@ import EnterGame from './EnterGame';
 import DeleteCompItem from './DeleteCompItem';
 import ShowPart from './ShowParticipant';
 import Score from './ShowScore';
+import QR from './GenQR';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -76,6 +77,8 @@ class CompetitionIndex extends Component {
                 return (<ShowPart />)
             }else if (showContent ==='Score') {
                 return (<Score />)
+            }else if (showContent ==='Try') {
+                return (<QR />)
             }
         }
     };
@@ -116,6 +119,9 @@ class CompetitionIndex extends Component {
         this.setState({ showContent: 'Score' })
     }
 
+    handleTry(){
+        this.setState({ showContent: 'Try' })
+    }
 
     render() {
         return (
@@ -135,17 +141,16 @@ class CompetitionIndex extends Component {
                             <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
                             <MenuItem eventKey={2.2} onClick={() => this.handleDeleteItem()}>Delete Competition Item</MenuItem>
                             <MenuItem eventKey={2.3} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
+                            <MenuItem eventKey={2.4} onClick={() => this.handleShow()}>Add player</MenuItem>
+                            <MenuItem eventKey={2.5} onClick={() => this.handleShowPart()}>Show Competition Item</MenuItem>
                         </NavDropdown>   
-                        <NavItem eventKey={3} >
+                        {/* <NavItem eventKey={3} >
                             評判
-                     </NavItem>
+                     </NavItem> */}
                      <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
                             scheduling
-                     </NavItem>    
-                     <NavItem eventKey={5} onClick={() => this.handleShow()}>
-                        Add player
-                     </NavItem>    
-                     <NavItem eventKey={7} onClick={() => this.handleShowPart()}>
+                     </NavItem>     
+                     <NavItem eventKey={5} onClick={() => this.handleTry()}>
                         try
                     </NavItem>
                         <NavItem eventKey={8} onClick={() => this.handleShowScore()}>

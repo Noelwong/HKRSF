@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
-import { Alert, Button } from 'react-bootstrap';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Column, Row } from 'simple-flexbox';
 
@@ -30,10 +29,10 @@ class ShowScore extends Component {
         let tempCompItem = sessionStorage.getItem("compItem");
         // eslint-disable-next-line
         this.state.allCompItem = JSON.parse(tempCompItem);
-        let tempParticipantID = sessionStorage.getItem("participantSetID");
-        const setPID = JSON.parse(tempParticipantID);
-        let tempParticipantName = sessionStorage.getItem("participantSetName");
-        const setPName = JSON.parse(tempParticipantName);
+        //let tempParticipantID = sessionStorage.getItem("participantSetID");
+        //const setPID = JSON.parse(tempParticipantID);
+        //let tempParticipantName = sessionStorage.getItem("participantSetName");
+        //const setPName = JSON.parse(tempParticipantName);
         // eslint-disable-next-line
         // this.state.selected = setPID.map((k, i) => ({
         //     id: setPID[i],
