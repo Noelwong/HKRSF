@@ -213,7 +213,7 @@ class ShowScore extends Component {
                                 {this.state.ArrayOfParticipantInItem.map((topic, index) =>
                                     <ListGroup key = {"ShowScoreList"+index} style={{ width: '80%' }} >
                                         <ListGroupItem key={topic[index]+index} onClick={()=>this.showRanking(index)} >{this.state.allCompItem[index]} </ListGroupItem>
-                                    <ListGroupItem >
+                                    <ListGroupItem  >
                                         {topic.map((name,i)=>
                                         <Button key = {name+this.state.ArrayOfParticipantInItem[index]+name} onClick={() => this.handleShowScore(name,index)}>{name}</Button>
                                     )
