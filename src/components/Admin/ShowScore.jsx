@@ -148,6 +148,7 @@ class ShowScore extends Component {
     }
 
     showRanking(index){
+        // eslint-disable-next-line 
         let tempMarks = 0;
         let tempMarkSet ={};
         this.Ref.collection('competitionItem').doc(this.state.allCompItem[index]).collection('participantCollection').get().then(snapshot =>{

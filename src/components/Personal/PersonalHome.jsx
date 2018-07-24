@@ -31,14 +31,20 @@ class PersonalHome extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
+                        主頁
+                        <br/>
                             <a>PersonalHome</a>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
                     <NavItem eventKey={1} onClick={() => this.setState({showContent:'UpdateInformation'})}>
+                    更新個人資料
+                    <br/>
                     Update Information
                      </NavItem>
                      <NavItem eventKey={2} onClick={() => this.setState({showContent: 'ShowComp'})}>
+                     所有比賽
+                     <br/>
                      Show Competition
                      </NavItem>
                      </Nav>

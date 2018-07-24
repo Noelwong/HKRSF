@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import {db, firebaseApp} from '../../firebase';
 import { Link } from 'react-router';
 
@@ -100,26 +100,16 @@ class CompetitionIndex extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <Link to={'/App'}>Competition Index</Link>
+                            <Link to={'/App'}>比賽主頁
+                            <br/>
+                            Competition Index</Link>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
-                        <NavItem eventKey={1} onClick={() => this.FormathandleChange()}>
-                            FormatSetting
-                        </NavItem>
-
-                        <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
-                            <MenuItem eventKey={2.2} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
-                        </NavDropdown>
-                        <NavItem eventKey={3} >
-                            評判
-                        </NavItem>
-                        <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
-                            scheduling
-                        </NavItem>
                         <NavItem eventKey={5} onClick={() => this.handleShow()}>
-                            try
+                        參加比賽
+                        <br/>
+                        Join competition
                         </NavItem>
                     </Nav>
                     <Nav pullRight>

@@ -58,16 +58,20 @@ class AdminHome extends Component {
                 <Navbar>
                     <Navbar.Header>
                     <Navbar.Brand>
+                    主頁
+                    <br/>
                             AdminHome
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
                         <NavItem eventKey={1} onClick={() => this.handleChangeFormat()}>
+                        格式設定
+                        <br/>
                         FormatSetting
                      </NavItem>
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>Add Competition</MenuItem>
+                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeAddcomp()}>增加比賽 <br/> Add Competition</MenuItem>
                             <MenuItem eventKey={2.2} onClick={() => this.handleChangeShowComp()}>選擇比賽<br/>Select Competition</MenuItem>
                         </NavDropdown>  
                         <NavItem eventKey={3} onClick={() => this.handleChangeUser()}>

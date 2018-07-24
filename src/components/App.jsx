@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseApp, db } from '../firebase';
-import { QRCode } from 'react-qr-svg';
+// import { QRCode } from 'react-qr-svg';
 
 
 import JudgeHome from './Judge/JudgeHome';
@@ -90,18 +90,11 @@ class App extends Component {
 
         return (
             <div>
-                <h3>Home</h3>
-                <div>Uid : <br/>
-                    <QRCode
-                    bgColor="#FFFFFF"
-                    fgColor="#000000"
-                    level="Q"
-                    style={{ width: 128 }}
-                    value={ this.state.uid }
-                />
+                {/* <h3>Home</h3>
+                <div>
                 </div>
                 <div>User type :{this.state.userType}</div>
-                <br/>
+                <br/> */}
                 {this.showLoading(this.state.userType)}
                 <br/>
                  {this.roleBasePage(this.state.userType)}

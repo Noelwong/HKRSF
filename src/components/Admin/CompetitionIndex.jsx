@@ -79,6 +79,8 @@ class CompetitionIndex extends Component {
             // console.log(ArrayOfParticipantInItem);
             // console.log(this.state.ArrayOfParticipantInItem);
             // return ArrayOfParticipantInItem;
+
+            // eslint-disable-next-line 
             this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
 
             console.log(sessionStorage.ArrayOfParticipantInItem)
@@ -162,31 +164,42 @@ class CompetitionIndex extends Component {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                        <Link to={'/App'}>Competition Index</Link>
+                        <Link to={'/App'}>
+                        比賽主頁
+                        <br/>
+                        Competition Index</Link>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <Nav>
                         <NavItem eventKey={1} onClick={() => this.FormathandleChange()}>
+                        格式設定
+                        <br/>
                         FormatSetting
                      </NavItem>
                        
                         <NavDropdown eventKey={2} title="比賽Competition" id="basic-nav-dropdown">
-                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>Add Competition Item</MenuItem>
-                            <MenuItem eventKey={2.2} onClick={() => this.handleDeleteItem()}>Delete Competition Item</MenuItem>
-                            <MenuItem eventKey={2.3} onClick={() => this.handleChangeAddParticipant()}>Add Participant</MenuItem>
-                            <MenuItem eventKey={2.4} onClick={() => this.handleShow()}>Add player</MenuItem>
-                            <MenuItem eventKey={2.5} onClick={() => this.handleShowPart()}>Show Competition Item</MenuItem>
+                            <MenuItem eventKey={2.1} onClick={() => this.handleChangeItem()}>增加比賽項目 <br/> Add Competition Item</MenuItem>
+                            <MenuItem eventKey={2.2} onClick={() => this.handleDeleteItem()}>刪除比賽項目 <br/> Delete Competition Item</MenuItem>
+                            <MenuItem eventKey={2.3} onClick={() => this.handleChangeAddParticipant()}>增加參賽者(比賽) <br/> Add Participant</MenuItem>
+                            <MenuItem eventKey={2.4} onClick={() => this.handleShow()}>增加參賽者(比賽項目) <br/> Add player</MenuItem>
+                            <MenuItem eventKey={2.5} onClick={() => this.handleShowPart()}>所有比賽項目 <br/> Show Competition Item</MenuItem>
                         </NavDropdown>   
                         {/* <NavItem eventKey={3} >
                             評判
                      </NavItem> */}
                      <NavItem eventKey={4} onClick={() => this.handleChangeScheduling()}>
-                            scheduling
+                            排程
+                            <br/>
+                            Scheduling
                      </NavItem>     
                      <NavItem eventKey={5} onClick={() => this.handleTry()}>
-                         Generate QRcode
+                        參賽者QRcode
+                        <br/>
+                        Generate QRcode
                     </NavItem>
                         <NavItem eventKey={8} onClick={() => this.handleShowScore()}>
+                        成績公佈
+                        <br/>
                             Show Score
                         </NavItem>
 
