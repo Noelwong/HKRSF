@@ -12,6 +12,7 @@ import DeleteCompItem from './DeleteCompItem';
 import ShowPart from './ShowParticipant';
 import Score from './ShowScore';
 import QR from './GenQR';
+import GenRun from './GetRundown';
 
 class CompetitionIndex extends Component {
     constructor(props) {
@@ -114,6 +115,8 @@ class CompetitionIndex extends Component {
                 return (<Score />)
             }else if (showContent ==='Try') {
                 return (<QR />)
+            }else if (showContent ==='GenR'){
+                return (<GenRun/>)
             }
         }
     };
@@ -158,6 +161,11 @@ class CompetitionIndex extends Component {
         this.setState({ showContent: 'Try' })
     }
 
+    handleGenRunDown(){
+        this.setState({ showContent: 'GenR' })
+
+    }
+
     render() {
         return (
                 <div>
@@ -197,6 +205,13 @@ class CompetitionIndex extends Component {
                         <br/>
                         Generate QRcode
                     </NavItem>
+
+                        <NavItem eventKey={9} onClick={() => this.handleGenRunDown()}>
+                            出場序
+                            <br/>
+                            Generate Rundown
+                        </NavItem>
+
                         <NavItem eventKey={8} onClick={() => this.handleShowScore()}>
                         成績公佈
                         <br/>

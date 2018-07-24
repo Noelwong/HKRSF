@@ -15,6 +15,28 @@ const testAll =()=>{
 
 };
 
+// const setBS =(name, index)=> {
+//
+//     let tempCompItem = JSON.parse(sessionStorage.getItem("compItem"));
+//
+//     this.Ref.collection('competitionItem').doc(tempCompItem[index]).collection('participantCollection').where("ParticipantName","==",name).get().then(
+//         snapshot =>{
+//             snapshot.forEach(doc => {
+//                 if (doc.data().TotalMark === undefined) {
+//                  return "info"
+//                 }
+//                 else
+//                 {
+//                     return "warning"
+//                 }
+//             })
+//         })
+//
+//
+//
+//
+// }
+
 
 class ShowScore extends Component {
     constructor(props) {
@@ -40,45 +62,8 @@ class ShowScore extends Component {
         this.handleSelectComp = this.handleSelectComp.bind(this);
         this.handleShowScore = this.handleShowScore.bind(this);
         this.showRanking = this.showRanking.bind(this);
-
     }
 
-
-    //  getAll (){
-    //
-    //     let ArrayOfParticipantInItem =[];
-    //     db.collection('competition').doc(sessionStorage.compID).collection('competitionItem').onSnapshot(coll => {
-    //         coll.forEach(doc=>{
-    //             let tempArrayOfParticipantInItem = [];
-    //             db.collection('competition').doc(sessionStorage.compID).collection('participant').onSnapshot(coll2 =>{
-    //                 coll2.forEach(doc2 =>{
-    //                     const tempUserCompetitionItem =doc2.data().user_CompetitionItem;
-    //                     for (let i = 0; i < tempUserCompetitionItem.length;i++){
-    //                         if(tempUserCompetitionItem[i]===doc.id){
-    //                             tempArrayOfParticipantInItem.push(doc2.data().CName);
-    //                             // console.log(doc2.data().CName);
-    //                             // console.log(doc.id);
-    //                             // console.log(tempUserCompetitionItem[i]);
-    //                             // console.log(ArrayOfParticipantInItem);
-    //                         }
-    //
-    //                     }
-    //                 })
-    //             });
-    //             if(tempArrayOfParticipantInItem[0] === null){
-    //                 ArrayOfParticipantInItem.push("No Participant");
-    //             } else{
-    //                 ArrayOfParticipantInItem.push(tempArrayOfParticipantInItem);
-    //             }
-    //         });
-    //         // console.log(ArrayOfParticipantInItem);
-    //         // console.log(this.state.ArrayOfParticipantInItem);
-    //         // return ArrayOfParticipantInItem;
-    //         this.state.ArrayOfParticipantInItem =ArrayOfParticipantInItem;
-    //         console.log(this.state.ArrayOfParticipantInItem);
-    //     });
-    //
-    // };
 
     getCompLimit(selectedcompItem) {
         console.log(selectedcompItem);
@@ -185,8 +170,9 @@ class ShowScore extends Component {
             console.log(sortTable);
         })
 
-
     }
+
+
 
 
 
@@ -199,7 +185,6 @@ class ShowScore extends Component {
                     <Row horizontal='center'>
 
                         <Column>
-
                             <h3>Click on items to Show ranking, Click on athlete to show the Score</h3>
                         </Column>
 
@@ -215,7 +200,8 @@ class ShowScore extends Component {
                                         <ListGroupItem key={topic[index]+index} onClick={()=>this.showRanking(index)} >{this.state.allCompItem[index]} </ListGroupItem>
                                     <ListGroupItem  >
                                         {topic.map((name,i)=>
-                                        <Button key = {name+this.state.ArrayOfParticipantInItem[index]+name} onClick={() => this.handleShowScore(name,index)}>{name}</Button>
+                                        <Button key = {this.state.ArrayOfParticipantInItem[index]+name} onClick={() => this.handleShowScore(name,index)}
+                                        >{name}</Button>
                                     )
                                         }</ListGroupItem>
                                     </ListGroup>

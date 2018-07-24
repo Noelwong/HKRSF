@@ -68,10 +68,11 @@ class EnterGame extends Component {
            snapshot.forEach(doc =>{
                this.state.items.id= doc.id;
                this.state.items.content =doc.data().CName;
-               console.log(this.state.items);
-           })
-        });
 
+           });
+            console.log(this.state.items);
+
+        });
 
         /*  let tempParticipant = sessionStorage.getItem("participant");
           console.log(tempParticipant)
